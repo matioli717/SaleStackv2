@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DealStack - Login</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#07070A;color:#F0F0EC;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.login-card{background:#0F0F14;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:40px;width:100%;max-width:420px;animation:fadeUp 0.5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:#fff;text-align:center;margin-bottom:4px}
+.subtitle{text-align:center;color:#888899;font-size:13px;margin-bottom:32px}
+.form-group{margin-bottom:20px}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#888899;margin-bottom:6px}
+input{width:100%;padding:12px 14px;background:#07070A;border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#F0F0EC;font-size:14px;outline:none;transition:border-color 0.2s}
+input:focus{border-color:rgba(0,255,180,0.4)}
+.btn{width:100%;padding:12px;background:#00FFB4;color:#000;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:transform 0.15s}
+.btn:hover{transform:translateY(-1px)}
+.error{color:#FF3A6E;font-size:13px;text-align:center;margin-top:12px;display:none}
+.loading{text-align:center;margin-top:12px;color:#888899;font-size:13px;display:none}
+.info{text-align:center;margin-top:16px;color:#555566;font-size:12px}
+.plan-badge{display:inline-block;background:rgba(0,255,180,0.1);color:#00FFB4;padding:3px 10px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-top:8px}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="login-card">
+<div class="logo">DealStack</div>
+<p class="subtitle">Sales Prospecting Platform</p>
+<div id="registerForm" style="display:none">
+<form onsubmit="return handleRegister(event)">
+<div class="form-group"><label for="regUsername">Usuário</label><input type="text" id="regUsername" placeholder="Seu usuário" required autocomplete="username"></div>
+<div class="form-group"><label for="regEmail">Email</label><input type="email" id="regEmail" placeholder="seu@email.com"></div>
+<div class="form-group"><label for="regPassword">Senha</label><input type="password" id="regPassword" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password"></div>
+<div class="form-group">
+<label for="regPlan">Plano</label>
+<select id="regPlan" style="width:100%;padding:12px 14px;background:#07070A;border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#F0F0EC;font-size:14px;outline:none">
+<option value="free">Free - R$ 0</option>
+<option value="starter">Starter - R$ 97/mês</option>
+<option value="pro" selected>Pro - R$ 197/mês</option>
+<option value="agency">Agency - R$ 497/mês</option>
+<option value="founder">Founder - R$ 997/mês</option>
+<option value="founder_lifetime">Founder Vitalício - R$ 2.497</option>
+</select>
+</div>
+<button type="submit" class="btn" id="regBtn">Criar Conta</button>
+<div class="error" id="regError"></div>
+<div class="loading" id="regLoading">Criando conta...</div>
+</form>
+<p class="info" style="margin-top:16px">Já tem conta? <a href="#" onclick="showLogin()" style="color:#00FFB4;text-decoration:none;font-weight:600">Entrar</a></p>
+</div>
+<div id="loginForm">
+<form onsubmit="return handleLogin(event)">
+<div class="form-group"><label for="username">Usuário</label><input type="text" id="username" placeholder="Seu usuário" required autocomplete="username"></div>
+<div class="form-group"><label for="password">Senha</label><input type="password" id="password" placeholder="Sua senha" required autocomplete="current-password"></div>
+<button type="submit" class="btn" id="loginBtn">Entrar</button>
+<div class="error" id="errorMsg"></div>
+<div class="loading" id="loadingMsg">Autenticando...</div>
+</form>
+<p class="info" style="margin-top:16px">Acesso exclusivo para assinantes DealStack</p>
+<p class="info">Ainda não é assinante? <a href="#" onclick="showRegister()" style="color:#00FFB4;text-decoration:none;font-weight:600">Cadastre-se</a></p>
+</div>
+<p class="plan-badge" id="planBadge" style="display:none"></p>
+</div>
+<script>
+function showRegister(){ document.getElementById('loginForm').style.display='none'; document.getElementById('registerForm').style.display='block'; }
+function showLogin(){ document.getElementById('registerForm').style.display='none'; document.getElementById('loginForm').style.display='block'; }
+async function handleLogin(e){
+e.preventDefault(); const btn=document.getElementById('loginBtn'); const error=document.getElementById('errorMsg'); const loading=document.getElementById('loadingMsg');
+error.style.display='none'; loading.style.display='block'; btn.disabled=true;
+try{
+const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:document.getElementById('username').value,password:document.getElementById('password').value})});
+const data=await res.json();
+if(!res.ok){throw new Error(data.error||'Erro ao autenticar')}
+localStorage.setItem('dealstack_token',data.token);
+window.location.href='/dashboard';
+}catch(e){error.textContent=e.message;error.style.display='block'}finally{loading.style.display='none';btn.disabled=false}
+return false;
+}
+async function handleRegister(e){
+e.preventDefault(); const btn=document.getElementById('regBtn'); const error=document.getElementById('regError'); const loading=document.getElementById('regLoading');
+error.style.display='none'; loading.style.display='block'; btn.disabled=true;
+try{
+const params=new URLSearchParams(window.location.search);
+const body={username:document.getElementById('regUsername').value,email:document.getElementById('regEmail').value,password:document.getElementById('regPassword').value,plan:document.getElementById('regPlan').value};
+const invite=params.get('invite');
+if(invite) body.invite_code=invite;
+const res=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+const data=await res.json();
+if(!res.ok){throw new Error(data.error||'Erro ao cadastrar')}
+alert(data.message||'Cadastro realizado!');
+showLogin();
+}catch(e){error.textContent=e.message;error.style.display='block'}finally{loading.style.display='none';btn.disabled=false}
+return false;
+}
+document.addEventListener('DOMContentLoaded',()=>{
+const token=localStorage.getItem('dealstack_token');
+if(token){
+fetch('/api/me',{headers:{'Authorization':'Bearer '+token}}).then(r=>{if(r.ok)window.location.href='/dashboard';else localStorage.removeItem('dealstack_token')}).catch(()=>{});
+}
+const params=new URLSearchParams(window.location.search);
+if(params.get('invite')){showRegister();document.getElementById('regPlan').value='free';document.getElementById('regPlan').disabled=true;}
+});
+</script>
+</body>
+</html>

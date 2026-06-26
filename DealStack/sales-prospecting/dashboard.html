@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.github.dev https://*.githubpreview.dev https://*.app.github.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <title>DealStack Sales Prospecting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #07070A;
+      --bg-secondary: #0F0F14;
+      --bg-card: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(0,255,180,0.25);
+      --accent-primary: #00FFB4;
+      --accent-secondary: #7B5CFA;
+      --accent-danger: #FF3A6E;
+      --accent-gold: #F0C040;
+      --text-primary: #F0F0EC;
+      --text-secondary: #888899;
+      --text-muted: #444455;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% -20%, rgba(255,255,255,0.04), transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+    * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7,7,10,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .tagline {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1 1 auto;
+      justify-content: flex-end;
+    }
+
+    .search {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      min-width: 240px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .search::placeholder {
+      color: var(--text-muted);
+    }
+    .search:focus {
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .btn {
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      transition: transform 0.15s ease, background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #000;
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+    .btn-outline:hover {
+      background: var(--accent-primary);
+      color: #000;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-primary);
+    }
+    .plan-badge-header {
+      display:inline-block;
+      background:rgba(0,255,180,0.1);
+      color:#00FFB4;
+      padding:2px 10px;
+      border-radius:999px;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:0.5px;
+      text-transform:uppercase;
+      margin-left:8px;
+    }
+    .plan-badge-lifetime {
+      background:rgba(240,192,64,0.15)!important;
+      color:#F0C040!important;
+    }
+
+    .filterCount {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* Main */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Metrics */
+    .metrics {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      flex: 1 1 180px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    @supports not (backdrop-filter: blur(6px)) {
+      .metric-card {
+        background: rgba(15,15,20,0.6);
+      }
+    }
+
+    .metric-card:nth-child(1) { animation-delay: 0.05s; }
+    .metric-card:nth-child(2) { animation-delay: 0.1s; }
+    .metric-card:nth-child(3) { animation-delay: 0.15s; }
+    .metric-card:nth-child(4) { animation-delay: 0.2s; }
+    .metric-card:nth-child(5) { animation-delay: 0.25s; }
+
+    .metric-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 18px rgba(0,255,180,0.08);
+    }
+    .metric-card:hover .num {
+      text-shadow: 0 0 16px rgba(255,255,255,0.25);
+    }
+
+    .metric-card .num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 38px;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .metric-card .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .metric-card .num.gold {
+      color: var(--accent-gold);
+    }
+
+    /* Sections */
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    @supports not (backdrop-filter: blur(6px)) {
+      .panel {
+        background: rgba(15,15,20,0.6);
+      }
+    }
+
+    .panel.animate {
+      animation-delay: 0.35s;
+    }
+
+    .section-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding-left: 14px;
+      border-left: 3px solid var(--accent-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-primary);
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    .pill-row {
+      display: inline-flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      background: transparent;
+      border: 1px solid var(--text-muted);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .pill:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-secondary);
+    }
+
+    .pill.active {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #000;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 12px 10px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      transition: background 0.2s ease;
+    }
+
+    tbody tr:hover td {
+      background: rgba(0,255,180,0.03);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: capitalize;
+    }
+
+    .badge-status {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .badge-site {
+      background: rgba(123,92,250,0.14);
+      color: var(--accent-secondary);
+    }
+    .badge-shopify {
+      background: rgba(0,255,180,0.14);
+      color: var(--accent-primary);
+    }
+    .badge-crm {
+      background: rgba(240,192,64,0.14);
+      color: var(--accent-gold);
+    }
+    .badge-lobby {
+      background: rgba(255,255,255,0.08);
+      color: var(--text-secondary);
+    }
+
+    .badge-status[data-status="novo"] { background: rgba(0,255,180,0.14); color: var(--accent-primary); }
+    .badge-status[data-status="contatado"] { background: rgba(123,92,250,0.14); color: var(--accent-secondary); }
+    .badge-status[data-status="negociacao"] { background: rgba(240,192,64,0.14); color: var(--accent-gold); }
+    .badge-status[data-status="fechado"] { background: rgba(0,255,180,0.14); color: var(--accent-primary); }
+    .badge-status[data-status="perdido"] { background: rgba(255,58,110,0.14); color: var(--accent-danger); }
+    .badge-prospect { background: rgba(0,255,180,0.12); color: #00c286; font-size:10px; padding:3px 8px; border-radius:999px; font-weight:700; letter-spacing:.3px; white-space:nowrap; }
+    .badge-lowscore { background: rgba(255,58,110,0.10); color: #ff3a6e; font-size:10px; padding:3px 8px; border-radius:999px; font-weight:700; letter-spacing:.3px; white-space:nowrap; }
+
+    /* Buttons inside actions */
+    .actions-cell {
+      display: inline-flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--accent-primary);
+      background: rgba(0,255,180,0.05);
+    }
+
+    .icon-btn.wa:hover {
+      border-color: rgba(0,255,180,0.35);
+      color: #00c286;
+      background: rgba(0,255,180,0.08);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 620px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      animation: modalIn 0.25s ease both;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-card h3 {
+      font-size: 16px;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .modal-card textarea {
+      width: 100%;
+      min-height: 160px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      resize: vertical;
+      outline: none;
+    }
+
+    .modal-card textarea:focus {
+      border-color: var(--border-hover);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .pill {
+      background: transparent;
+      border: 1px solid var(--text-muted);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pill:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-secondary);
+    }
+
+    .pill.active {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #000;
+    }
+
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display:block; font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:4px; }
+    .form-input { width:100%; padding:10px 12px; background:var(--bg-primary); border:1px solid var(--border); border-radius:8px; color:var(--text-primary); font-size:13px; outline:none; font-family:'DM Sans',sans-serif; }
+    .form-input:focus { border-color:var(--border-hover); }
+    .form-input option { background:var(--bg-secondary); }
+    .form-row { display:flex; gap:12px; }
+    input[type="checkbox"] { accent-color:var(--accent-primary); }
+
+    /* Empty */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 32px 12px;
+      color: var(--text-secondary);
+    }
+
+    .empty-state svg {
+      opacity: 0.6;
+    }
+
+    .empty-state .title {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .empty-state .sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 16px 0 4px;
+    }
+    .pagination .page-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+      min-width: 36px;
+      text-align: center;
+    }
+    .pagination .page-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+    .pagination .page-btn.active {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #000;
+    }
+    .pagination .page-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    .pagination .page-info {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 768px) {
+      .metrics {
+        flex-wrap: wrap;
+      }
+      .metric-card {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 140px;
+      }
+      .metric-card .num {
+        font-size: 28px;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .header-actions {
+        justify-content: stretch;
+        flex-wrap: wrap;
+      }
+      .search {
+        min-width: 100%;
+      }
+      table {
+        font-size: 12px;
+      }
+      thead th, tbody td {
+        padding: 10px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <span class="logo">DealStack</span>
+        <span class="tagline">EXTRATOR DE LEADS</span>
+        <span id="planBadge" class="plan-badge-header"></span>
+      </div>
+      <div class="header-actions">
+        <div id="usageBar" style="display:none;background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;font-size:12px;white-space:nowrap">
+          <span id="leadCount" style="color:#00FFB4;font-weight:700">0</span>
+          <span style="color:#888899">/</span>
+          <span id="leadLimit" style="color:#888899">0</span>
+          <span style="color:#444455;margin:0 4px">leads</span>
+          <span id="usagePct" style="color:#888899"></span>
+        </div>
+        <input id="search" class="search" placeholder="Buscar lead..." autocomplete="off">
+        <button class="btn btn-primary" onclick="openExtractModal()">Extrair Leads</button>
+        <button class="btn btn-outline" onclick="exportCSV()">Exportar CSV</button>
+        <button class="btn" id="manageSubBtn" style="display:none;background:rgba(123,92,250,0.2);color:#7B5CFA;border:1px solid rgba(123,92,250,0.3)" onclick="manageSubscription()">Assinatura</button>
+        <button class="btn" id="inviteBtn" style="display:none;background:rgba(0,255,180,0.1);color:#00FFB4;border:1px solid rgba(0,255,180,0.2)" onclick="inviteDependent()">Convidar</button>
+        <button class="btn btn-ghost" onclick="localStorage.removeItem('dealstack_token');window.location.href='/login'">Sair</button>
+        <span class="filterCount" id="filterCount">0 lead(s) visível(is)</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="metrics animate" style="animation-delay:0s">
+      <div class="metric-card">
+        <div class="num" id="sLeads">0</div>
+        <div class="label">Leads</div>
+      </div>
+      <div class="metric-card">
+        <div class="num" id="sProps">0</div>
+        <div class="label">Propostas</div>
+      </div>
+      <div class="metric-card">
+        <div class="num" id="sSent">0</div>
+        <div class="label">Em Andamento</div>
+      </div>
+      <div class="metric-card">
+        <div class="num" id="sClosed">0</div>
+        <div class="label">Fechadas</div>
+      </div>
+      <div class="metric-card">
+        <div class="num gold" id="sConv">0</div>
+        <div class="label">Conversão</div>
+      </div>
+    </section>
+
+    <section class="panel animate" style="animation-delay:0.3s">
+      <div class="section-header">
+        <h2>Leads</h2>
+      </div>
+      <div class="filters">
+        <div class="filter-group">
+          <span class="filter-label">STATUS</span>
+          <div class="pill-row" id="statusPills">
+            <button class="pill active" data-filter="status" data-value="all">Todos</button>
+            <button class="pill" data-filter="status" data-value="novo">Novo</button>
+            <button class="pill" data-filter="status" data-value="contatado">Contatado</button>
+            <button class="pill" data-filter="status" data-value="negociacao">Em negociação</button>
+            <button class="pill" data-filter="status" data-value="fechado">Fechado</button>
+            <button class="pill" data-filter="status" data-value="perdido">Perdido</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">PRODUTO</span>
+          <div class="pill-row" id="productPills">
+            <button class="pill active" data-filter="product" data-value="all">Todos</button>
+            <button class="pill" data-filter="product" data-value="site">SITE</button>
+            <button class="pill" data-filter="product" data-value="shopify">SHOPIFY</button>
+            <button class="pill" data-filter="product" data-value="crm">CRM/PDV</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">PROSPECÇÃO</span>
+          <div class="pill-row">
+            <button class="pill" data-filter="prospect" data-value="good">✅ Bons prospects</button>
+            <button class="pill active" data-filter="prospect" data-value="all">Mostrar todos</button>
+          </div>
+        </div>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Nome</th>
+              <th>Tipo</th>
+              <th>Localização</th>
+              <th>Telefone</th>
+              <th>Produto</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="leadsPagination"></div>
+      <div id="leadsEmpty" class="empty-state" style="display:none">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="9" y1="9" x2="15" y2="9"></line>
+          <line x1="9" y1="13" x2="15" y2="13"></line>
+          <line x1="9" y1="17" x2="12" y2="17"></line>
+        </svg>
+        <span class="title">Sem leads</span>
+        <span class="sub">Nenhum lead encontrado com os filtros atuais.</span>
+      </div>
+    </section>
+
+    <section class="panel animate" style="animation-delay:0.5s">
+      <div class="section-header">
+        <h2>Propostas</h2>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Produto</th>
+              <th>Data</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="propsBody"></tbody>
+        </table>
+      </div>
+      <div id="propsEmpty" class="empty-state" style="display:none">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        <span class="title">Sem propostas</span>
+        <span class="sub">Gere uma proposta clicando em "Proposta" em algum lead.</span>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="proposalModal">
+    <div class="modal-card">
+      <h3>Proposta para <span id="proposalLeadName"></span> <span id="proposalLeadProduct" class="badge"></span></h3>
+      <textarea id="proposalText"></textarea>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeProposalModal()">Fechar</button>
+        <button class="btn btn-primary" id="copyBtn">Copiar Texto</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="extractModal">
+    <div class="modal-card">
+      <h3>Extrair Leads</h3>
+      <p style="color:var(--text-secondary);font-size:13px;margin:0 0 8px 0">Extrai leads do OpenStreetMap e gera propostas automaticamente.</p>
+      <div class="form-group">
+        <label>Localização</label>
+        <input type="text" id="extractLocation" value="Jacarepaguá, Rio de Janeiro, RJ" class="form-input" placeholder="Cidade, Estado">
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="flex:1">
+          <label>Categoria</label>
+          <select id="extractCategory" class="form-input">
+            <option value="food">Alimentação</option>
+            <option value="hospitality">Hospitalidade</option>
+            <option value="retail">Varejo</option>
+            <option value="health">Saúde</option>
+            <option value="beauty">Beleza</option>
+            <option value="automotive">Automotivo</option>
+            <option value="services">Serviços</option>
+            <option value="education">Educação</option>
+            <option value="entertainment">Entretenimento</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1">
+          <label>Limite</label>
+          <input type="number" id="extractLimit" value="20" min="1" max="200" class="form-input">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Raio (metros)</label>
+        <input type="number" id="extractRadius" value="5000" min="100" max="50000" step="500" class="form-input">
+      </div>
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="extractOnlyPhone" checked> Só leads com telefone
+        </label>
+      </div>
+      <div id="extractProgress" style="display:none">
+        <div style="background:var(--bg-primary);border-radius:8px;height:6px;overflow:hidden;margin:8px 0">
+          <div id="extractBar" style="background:var(--accent-primary);height:100%;width:0%;transition:width 0.3s"></div>
+        </div>
+        <div id="extractLog" style="color:var(--text-secondary);font-size:12px;max-height:120px;overflow-y:auto;background:var(--bg-primary);border-radius:8px;padding:8px;font-family:monospace;white-space:pre-wrap"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeExtractModal()">Fechar</button>
+        <button class="btn btn-primary" id="extractBtn" onclick="runExtraction()">Iniciar Extração</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getToken(){ return localStorage.getItem('dealstack_token'); }
+    function redirectLogin(){ if(!window.location.pathname.startsWith('/login')) window.location.href='/login'; }
+
+    async function api(path, opts={}){
+      const token=getToken();
+      if(!token){ redirectLogin(); throw new Error('No token'); }
+      const headers={'Authorization':'Bearer '+token, ...(opts.headers||{})};
+      const res=await fetch('/api'+path, {...opts, headers});
+      if(res.status===401){ localStorage.removeItem('dealstack_token'); redirectLogin(); throw new Error('Unauthorized'); }
+      return res.json();
+    }
+
+    const state = { leads: [], proposals: [], page: 1, perPage: 25 };
+    const filters = { product: 'all', status: 'all', prospect: 'all' };
+
+    function esc(t){ const d=document.createElement('div'); d.textContent = t || ''; return d.innerHTML; }
+
+    function productKey(biz){
+      const b=(biz||'').toLowerCase();
+      if(/(pousada|hotel|hotel fazenda)/.test(b)) return 'lobby';
+      if(/(shopify)/.test(b)) return 'shopify';
+      if(/(loja|comércio|varejo|supermercado|roupas|calçados|floricultura|restaurante)/.test(b)) return 'crm';
+      return 'site';
+    }
+    function productBadge(biz){
+      const k=productKey(biz);
+      const map={lobby:'badge-lobby', crm:'badge-crm', site:'badge-site', shopify:'badge-shopify'};
+      const label={lobby:'LOBBY', crm:'CRM/PDV', site:'SITE', shopify:'SHOPIFY'};
+      return `<span class="badge ${map[k]}">${label[k]}</span>`;
+    }
+    const BLACKLIST=['shopping','mall','center','plaza','galeria','outlet','park','tower','torres',
+      'magazine luiza','casas bahia','americanas','submarino','renner','riachuelo',
+      'mcdonald','burger king','subway','kfc',"bob's",'habib',
+      'itau','itáu','bradesco','banco','caixa','santander','nubank',
+      'boticário','boticario','natura','avon','farmácia','farmacia','drogasil','drogaria',
+      'posto','shell','ipiranga','br distribuidora',
+      'supermercado','carrefour','extra',"pão de açúcar",'pao de acucar','atacadão','atacadao',
+      'claro','vivo','tim','oi','net',
+      'condomínio','condominio','edifício','edificio','residencial','corporativo',
+      'ibis','accor','carrefour','walmart',"sam's club",'makro','leroy merlin',
+      'c&a','marisa','camicado','tok stok','madeira madeira',
+      'droga raia','panvel','onofre','paguemenos','pacheco',
+      '99','uber','ifood','localiza','unidas',
+      'hospital','pronto socorro','upa','ubs','clínica','clinica',
+      'cemitério','cemiterio','funerária','funeraria','velório','velorio',
+      'cartório','cartorio','registro civil','tabelionato','igreja','templo',
+      'governo','prefeitura','secretaria','ministério','ministerio','assembleia','câmara','camara',
+    ];
+    const HIGH_SEG=/moveis|móveis|marcenaria|sapataria|calçados|calcados|pet shop|petshop|salão|salao|cabeleireiro|restaurante|oficina|mecânico|mecanico|ótica|otica|academia|papelaria|eletrônicos|eletronicos|informática|informatica|barbearia|consultório|consultorio|dentista|veterinário|veterinario|nutricionista|fisioterapia|manicure|podologia|estética|estetica|pilates|crossfit|funilaria|borracharia|chaveiro|costura|marcenaria|serralheria|vidraçaria|piscina|limpeza|lavanderia|buffet|festas|presentes|artesanato|floricultura|hortifruti|mercearia|sacolão|açougue|acougue|padaria|confeitaria|lanchonete|sorveteria|pizzaria|pastelaria|esfiha|crepe|petiscaria|delivery|espetinho|churrascaria|bar|café|cafeteria|doceria|quitanda|empório|emporio|transportadora|jardinagem|decoração|decoracao|estofados|reformas|manutenção|manutencao|pintura|gesso|pisos|banheiro|armários|armarios|closet|home office|estantes|nichos|guarda|roupa|cama|mesa|sofá|sofa|rack|poltrona|luminária|luminaria|espelho|quadros|molduras|ferragens|construção|construcao|material|elétrica|eletrica|hidráulica|hidraulica|telhado|impermeabilização/i;
+
+    function isBlacklisted(name){
+      const n=name.toLowerCase();
+      return BLACKLIST.some(w=>n.includes(w));
+    }
+
+    function leadScore(lead){
+      const name=lead.lead_name||lead.name||'';
+      const biz=lead.business_type||'';
+      const hay=(name+' '+biz).toLowerCase();
+      if(isBlacklisted(name)) return Math.floor(Math.random()*15)+1;
+      const hasPhone=!!(lead.phone||'').replace(/[^\d]/g,'');
+      let score=50;
+      if(HIGH_SEG.test(hay)) score+=30;
+      if(!hasPhone) score-=25;
+      if(name.length<5||name.length>50) score-=5;
+      if(/\d/.test(name)) score-=5;
+      if(/ltda|me|eireli|s\.?a/i.test(name)) score-=3;
+      return Math.max(0, Math.min(100, score));
+    }
+
+    function statusBadge(s, leadName){
+      const key=['novo','contatado','negociacao','fechado','perdido'].includes(s)?s:'novo';
+      const label={novo:'Novo',contatado:'Contatado',negociacao:'Em negociação',fechado:'Fechado',perdido:'Perdido'}[key];
+      return `<span class="badge badge-status" data-status="${key}" data-lead="${esc(leadName)}">${label}</span>`;
+    }
+    function getLeadStatus(lead){
+      const k='dealstack_status_'+(lead.lead_name||lead.name||'').replace(/\s+/g,'_').toLowerCase();
+      try{ return sessionStorage.getItem(k)||'novo'; } catch(e){ return 'novo'; }
+    }
+    function setLeadStatus(lead, value){
+      const k='dealstack_status_'+(lead.lead_name||lead.name||'').replace(/\s+/g,'_').toLowerCase();
+      try{ sessionStorage.setItem(k, value); } catch(e){}
+    }
+    function proposalTemplate(lead){
+      const name=lead.lead_name||lead.name||'Cliente';
+      const biz=lead.business_type||'seu negócio';
+      const loc=lead.location||'uma localização';
+      const pk=productKey(biz);
+      if(pk==='lobby') return `Olá [NOME]! Vi que o [TIPO] fica em [LOCALIZAÇÃO]. Tenho uma solução de gestão hoteleira chamada LOBBY que automatiza check-in, reservas e relatórios. Posso mostrar uma demo rápida?`;
+      if(pk==='crm') return `Olá [NOME]! Trabalho com CRM e PDV para [TIPO]. O sistema organiza clientes, vendas e estoque num só lugar. Posso te mostrar como funciona?`;
+      if(pk==='shopify') return `Olá [NOME]! Vi o [TIPO] em [LOCALIZAÇÃO] e acredito que uma loja Shopify profissional pode trazer mais clientes pra vocês. Tenho um modelo pronto pra mostrar.`;
+      return `Olá [NOME]! Vi o [TIPO] em [LOCALIZAÇÃO] e acredito que um site profissional pode trazer mais clientes pra vocês. Tenho um modelo pronto pra mostrar.`;
+    }
+    function waLink(phone){
+      const digits=String(phone||'').replace(/[^\d]/g,'');
+      const ddd=digits.slice(0,2);
+      const number=digits.slice(2);
+      let out='';
+      if(digits.startsWith('55') && digits.length>=12) out=digits;
+      else if(ddd.length===2 && number.length>=8) out='55'+ddd+number;
+      else out=digits;
+      return 'https://wa.me/'+out;
+    }
+    function openWhatsApp(phone){ window.open(waLink(phone), '_blank', 'noopener'); }
+    function copyText(text){
+      if(navigator.clipboard) return navigator.clipboard.writeText(text).then(()=>true);
+      const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
+      return new Promise((res)=>{ document.execCommand('copy'); document.body.removeChild(ta); res(true); });
+    }
+    function openProposalModal(lead){
+      const text = proposalTemplate(lead)
+        .replace(/\[NOME\]/g, lead.lead_name||lead.name||'Cliente')
+        .replace(/\[TIPO\]/g, lead.business_type||'seu negócio')
+        .replace(/\[LOCALIZAÇÃO\]/g, lead.location||'uma localização');
+      document.getElementById('proposalText').value=text;
+      const leadNameEl = document.getElementById('proposalLeadName');
+      if(leadNameEl) leadNameEl.textContent = lead.lead_name||lead.name||'Lead';
+      const pk = productKey(lead.business_type||'');
+      const leadProdEl = document.getElementById('proposalLeadProduct');
+      if(leadProdEl){ leadProdEl.textContent = pk.toUpperCase(); leadProdEl.className = 'badge ' + ( {lobby:'badge-lobby', crm:'badge-crm', site:'badge-site', shopify:'badge-shopify'}[pk] || 'badge'); }
+      document.getElementById('proposalModal').style.display='flex';
+      document.getElementById('copyBtn').onclick=async()=>{
+        const ok=await copyText(text);
+        if(ok){ const btn=document.getElementById('copyBtn'); const prev=btn.textContent; btn.textContent='✅ Copiado'; setTimeout(()=>btn.textContent=prev,1200); }
+      };
+    }
+    function closeProposalModal(){ document.getElementById('proposalModal').style.display='none'; }
+    function openExtractModal(){ document.getElementById('extractModal').style.display='flex'; document.getElementById('extractProgress').style.display='none'; }
+    function closeExtractModal(){ document.getElementById('extractModal').style.display='none'; }
+    async function runExtraction(){
+      const btn=document.getElementById('extractBtn'); const progress=document.getElementById('extractProgress'); const log=document.getElementById('extractLog'); const bar=document.getElementById('extractBar');
+      btn.disabled=true; btn.textContent='Extraindo...'; progress.style.display='block'; log.textContent=''; bar.style.width='10%';
+      log.textContent+='Iniciando extração...\n';
+      try{
+        const res=await api('/extract', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            location: document.getElementById('extractLocation').value,
+            category: document.getElementById('extractCategory').value,
+            limit: parseInt(document.getElementById('extractLimit').value)||20,
+            radius: parseInt(document.getElementById('extractRadius').value)||5000,
+            only_with_phone: document.getElementById('extractOnlyPhone').checked
+          })
+        });
+        bar.style.width='100%';
+        if(res.error){ log.textContent+='❌ '+res.error+'\n'; return; }
+        log.textContent+=`✅ ${res.leads_count||0} leads extraídos\n✅ ${res.proposals_count||0} propostas geradas\n📁 ${res.output_dir||''}\n`;
+        log.textContent+='\nRecarregando dashboard...\n';
+        setTimeout(async()=>{
+          try{ const r=await api('/leads'); state.leads=r.leads||[]; const s=await api('/stats'); renderStats(s); const p=await api('/proposals'); state.proposals=p.proposals||[]; render(); }catch(e){}
+          closeExtractModal();
+        },1000);
+      }catch(e){ log.textContent+='❌ Erro: '+e.message+'\n'; bar.style.width='0%'; }
+      finally{ btn.disabled=false; btn.textContent='Iniciar Extração'; }
+    }
+    function passiveCount(el, target, suffix=''){
+      const start=performance.now();
+      const dur=900;
+      const from=0;
+      const step=(now)=>{
+        const t=Math.min((now-start)/dur,1);
+        const eased=t===1?1:1-Math.pow(2,-10*t);
+        el.textContent=Math.round(from+(target-from)*eased)+suffix;
+        if(t<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+    function renderStats(stats){
+      const leads=stats.total_leads??state.leads.length;
+      const props=stats.total_proposals??state.proposals.length;
+      const contacted=(state.leads||[]).filter(l=>{const s=getLeadStatus(l); return s==='contatado'||s==='negociacao';}).length;
+      const closed=(state.leads||[]).filter(l=>getLeadStatus(l)==='fechado').length;
+      passiveCount(document.getElementById('sLeads'), leads);
+      passiveCount(document.getElementById('sProps'), props);
+      passiveCount(document.getElementById('sSent'), contacted);
+      passiveCount(document.getElementById('sClosed'), closed);
+      const conv=leads>0?Math.round((closed/leads)*100):0;
+      passiveCount(document.getElementById('sConv'), conv, '%');
+    }
+    function filteredLeads(){
+      const q=document.getElementById('search')?.value?.toLowerCase()||'';
+      const scored=(state.leads||[]).map(lead=>({lead, score:leadScore(lead)}));
+      return scored.filter(({lead})=>{
+        const pk=productKey(lead.business_type);
+        const st=getLeadStatus(lead);
+        if(filters.product!=='all' && pk!==filters.product) return false;
+        if(filters.status!=='all' && st!==filters.status) return false;
+        if(filters.prospect==='good' && leadScore(lead)<20) return false;
+        if(q){
+          const hay=[lead.lead_name, lead.name, lead.business_type, lead.location, lead.phone].join(' ').toLowerCase();
+          if(!hay.includes(q)) return false;
+        }
+        return true;
+      }).sort((a,b)=>b.score-a.score).map(s=>s.lead);
+    }
+    function goToPage(p){
+      state.page = Math.max(1, Math.min(p, Math.max(1, Math.ceil(filteredLeads().length / state.perPage))));
+      render();
+    }
+
+    function renderPagination(total, totalPages){
+      const el=document.getElementById('leadsPagination');
+      const p=state.page;
+      let html='';
+      html+=`<button class="page-btn" onclick="goToPage(${p-1})" ${p<=1?'disabled':''}>‹</button>`;
+      const maxVisible=7;
+      let start=Math.max(1, p-Math.floor(maxVisible/2));
+      let end=Math.min(totalPages, start+maxVisible-1);
+      if(end-start+1<maxVisible) start=Math.max(1, end-maxVisible+1);
+      if(start>1){ html+=`<button class="page-btn" onclick="goToPage(1)">1</button>`; if(start>2) html+=`<span class="page-info">...</span>`; }
+      for(let i=start;i<=end;i++) html+=`<button class="page-btn${i===p?' active':''}" onclick="goToPage(${i})">${i}</button>`;
+      if(end<totalPages){ if(end<totalPages-1) html+=`<span class="page-info">...</span>`; html+=`<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; }
+      html+=`<button class="page-btn" onclick="goToPage(${p+1})" ${p>=totalPages?'disabled':''}>›</button>`;
+      html+=`<span class="page-info">${(p-1)*state.perPage+1}-${Math.min(p*state.perPage, total)} de ${total}</span>`;
+      el.innerHTML=html;
+    }
+
+    function render(){
+      const leadsBody=document.getElementById('leadsBody');
+      const propsBody=document.getElementById('propsBody');
+      const leadsEmpty=document.getElementById('leadsEmpty');
+      const propsEmpty=document.getElementById('propsEmpty');
+      leadsBody.innerHTML='';
+      propsBody.innerHTML='';
+
+      const fLeads=filteredLeads();
+      const totalPages=Math.max(1, Math.ceil(fLeads.length/state.perPage));
+      if(state.page>totalPages) state.page=totalPages;
+      const start=(state.page-1)*state.perPage;
+      const pageLeads=fLeads.slice(start, start+state.perPage);
+      document.getElementById('filterCount').textContent=fLeads.length+' lead(s) visível(is)';
+
+      pageLeads.forEach((lead)=>{
+        const tr=document.createElement('tr');
+        const st=getLeadStatus(lead);
+        const phone=lead.phone||'';
+        const sc=leadScore(lead);
+        const prospectBadge=sc>=60?` <span class="badge-prospect">✅ Bom prospect</span>`:sc<20?` <span class="badge-lowscore">⚠️ ${sc}pts</span>`:'';
+        tr.innerHTML=`
+          <td>${statusBadge(st, (lead.lead_name||lead.name))}</td>
+          <td>${esc(lead.lead_name||lead.name||'-')}${prospectBadge}</td>
+          <td>${esc(lead.business_type||'-')}</td>
+          <td>${esc(lead.location||'-')}</td>
+          <td>${esc(phone)}</td>
+          <td>${productBadge(lead.business_type)}</td>
+          <td class="actions-cell">
+            <button class="icon-btn" data-act="proposal" data-phone="${esc(phone)}" data-biz="${esc(lead.business_type)}" data-name="${esc(lead.lead_name||lead.name||'')}" data-loc="${esc(lead.location||'')}">Proposta</button>
+            <button class="icon-btn" data-act="visual" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" style="color:var(--accent-secondary);border-color:rgba(123,92,250,0.3)">Proposta Visual</button>
+            <button class="icon-btn wa" data-act="whatsapp" data-phone="${esc(phone)}">WA</button>
+          </td>`;
+        leadsBody.appendChild(tr);
+      });
+      leadsEmpty.style.display=fLeads.length?'none':'flex';
+      renderPagination(fLeads.length, totalPages);
+
+      (state.proposals||[]).forEach((p)=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML=`
+          <td>${esc(p.lead_name||'-')}</td>
+          <td>${productBadge(p.product||'-')}</td>
+          <td>${p.date||p.created_at?new Date(p.date||p.created_at).toLocaleString('pt-BR'):'-'}</td>
+          <td>${statusBadge(p.status||'pending', p.lead_name)}</td>`;
+        propsBody.appendChild(tr);
+      });
+      propsEmpty.style.display=state.proposals.length?'none':'flex';
+
+      document.getElementById('leadsBody').querySelectorAll('.badge-status').forEach((el)=>{
+        el.addEventListener('click', async()=>{
+          const leadName=el.getAttribute('data-lead');
+          const lead=state.leads.find(l=>(l.lead_name||l.name)===leadName);
+          if(!lead) return;
+          const cycle=['novo','contatado','negociacao','fechado','perdido'];
+          const cur=getLeadStatus(lead);
+          let next=cycle[(cycle.indexOf(cur)+1)%cycle.length];
+          setLeadStatus(lead, next);
+          render();
+          try{ await api('/leads'); } catch(e){}
+        });
+      });
+
+      document.querySelectorAll('[data-act="proposal"]').forEach((btn)=>{
+        btn.addEventListener('click', ()=>{
+          openProposalModal({ lead_name: btn.dataset.name, business_type: btn.dataset.biz, location: btn.dataset.loc, phone: btn.dataset.phone });
+        });
+      });
+      document.querySelectorAll('[data-act="visual"]').forEach((btn)=>{
+        btn.addEventListener('click', ()=>{
+          const html=generatePropostaVisual({
+            name: btn.dataset.name,
+            biz: btn.dataset.biz,
+            loc: btn.dataset.loc,
+            phone: btn.dataset.phone
+          });
+          const blob=new Blob([html], {type:'text/html;charset=utf-8'});
+          const url=URL.createObjectURL(blob);
+          const a=document.createElement('a'); a.href=url;
+          a.download='proposta-'+(btn.dataset.name||'lead').replace(/[^a-zA-Z0-9]/g,'-').toLowerCase()+'.html';
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          setTimeout(()=>URL.revokeObjectURL(url),5000);
+        });
+      });
+      document.querySelectorAll('[data-act="whatsapp"]').forEach((btn)=>{
+        btn.addEventListener('click', ()=>openWhatsApp(btn.dataset.phone));
+      });
+    }
+    async function load(){
+      if(!getToken()){ redirectLogin(); return; }
+      try{
+        const me=await api('/me');
+        const badge=document.getElementById('planBadge');
+        if(me.plan_info){
+          badge.textContent=me.plan_info.badge||me.plan_info.name;
+          if(me.plan==='founder_lifetime') badge.classList.add('plan-badge-lifetime');
+        } else {
+          badge.textContent=me.plan||'Free';
+        }
+      } catch(e){ console.error(e); }
+      try{
+        const limits=await api('/limits');
+        const curr=limits.leads.current, lim=limits.leads.limit;
+        document.getElementById('leadCount').textContent=curr;
+        document.getElementById('leadLimit').textContent=lim>0?lim:'∞';
+        document.getElementById('usageBar').style.display='inline-flex';
+        if(lim>0){
+          const pct=Math.round((curr/lim)*100);
+          document.getElementById('usagePct').textContent=`(${pct}%)`;
+        }
+        if(limits.plan!=='free'&&limits.plan!=='free'){
+          document.getElementById('manageSubBtn').style.display='inline-block';
+          document.getElementById('inviteBtn').style.display='inline-block';
+        }
+        if(limits.plan==='founder_lifetime'){
+          document.getElementById('manageSubBtn').style.display='none';
+        }
+      } catch(e){ console.error(e); }
+      try{
+        const leads=await api('/leads');
+        state.leads=leads.leads||[];
+      } catch(e){ console.error(e); }
+      try{
+        const stats=await api('/stats');
+        renderStats(stats);
+      } catch(e){ console.error(e); }
+      try{
+        const proposals=await api('/proposals');
+        state.proposals=proposals.proposals||[];
+      } catch(e){ console.error(e); }
+      render();
+    }
+    async function manageSubscription(){
+      try{
+        const res=await api('/create-portal-session', {method:'POST'});
+        if(res.url) window.open(res.url, '_blank');
+        else alert('Nenhuma assinatura ativa.');
+      } catch(e){ alert('Erro ao abrir gerenciamento de assinatura.'); }
+    }
+    async function inviteDependent(){
+      try{
+        const res=await api('/invite', {method:'POST'});
+        if(res.invite_code){
+          const url=window.location.origin+'/login?invite='+res.invite_code;
+          prompt('Compartilhe este link com seu convidado:', url);
+        } else {
+          alert('Limite de usuários atingido. Faça upgrade do plano.');
+        }
+      } catch(e){ alert('Erro ao gerar convite.'); }
+    }
+    function exportCSV(){
+      const rows=[['Status','Nome','Tipo','Localizacao','Telefone','Produto']];
+      (state.leads||[]).forEach((lead)=>{
+        rows.push([getLeadStatus(lead), lead.lead_name||lead.name||'', lead.business_type||'', lead.location||'', (lead.phone||'').replace(/[^\d]/g,''), productKey(lead.business_type)]);
+      });
+      const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+      const blob=new Blob(['\uFEFF'+csv], {type: 'text/csv;charset=utf-8;'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download='leads_dealstack.csv';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+    document.getElementById('search').addEventListener('input', ()=>{ state.page=1; render(); });
+
+    document.querySelectorAll('.pill').forEach((p)=>{
+      p.addEventListener('click', ()=>{
+        document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
+        p.classList.add('active');
+        const type = p.getAttribute('data-filter');
+        const value = p.getAttribute('data-value');
+        filters[type] = value;
+        state.page=1;
+        render();
+      });
+    });
+
+    function hashColor(name, segHue){
+      let h=0;
+      for(let i=0;i<name.length;i++) h=(h*31+name.charCodeAt(i))&0xFFFFFFFF;
+      h=Math.abs(h);
+      const hue=segHue!==void 0?segHue:h%360;
+      const primary=`hsl(${hue},70%,55%)`;
+      const secondary=`hsl(${(hue+45)%360},60%,45%)`;
+      const compliment=`hsl(${(hue+180)%360},65%,50%)`;
+      const analogous=`hsl(${(hue+30)%360},55%,50%)`;
+      const bg=`hsl(${hue},20%,5%)`;
+      const bg2=`hsl(${hue},15%,9%)`;
+      const card=`hsl(${hue},10%,14%)`;
+      const text='#F0F0EC';
+      const dim='#888899';
+      return {hue,primary,secondary,compliment,analogous,bg,bg2,card,text,dim};
+    }
+
+    function segTheme(biz){
+      const bt=biz.toLowerCase();
+      if(/(moveis|móveis|furniture|marcenaria|sofá|sofa)/.test(bt)) return {
+        segHue:28,font:'Playfair Display',fontUrl:'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap',
+        bodyFont:'Inter',radius:'4px',radiusCard:'2px',shadow:'0 4px 20px rgba(0,0,0,.3)',
+        heroOverlay:'linear-gradient(135deg,rgba(0,0,0,.7),transparent 60%)',
+        cardBorder:'1px solid rgba(139,90,43,.15)',
+        cardHover:'0 8px 32px rgba(139,90,43,.12)',
+        icon:'🪑',gradDir:'135deg',accents:'terrosos',
+        tagBg:'rgba(139,90,43,.12)', tagBorder:'1px solid rgba(139,90,43,.2)',
+        section1Title:'Móveis Planejados',section1Sub:'Sob medida para seu espaço',
+        cat1:'Sala de Estar',cat1Img:'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80',
+        cat2:'Quartos',cat2Img:'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=400&q=80',
+        cat3:'Cozinhas',cat3Img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',
+        cat4:'Escritórios',cat4Img:'https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800&q=80',
+        about1:'Há mais de 10 anos transformando espaços em ambientes funcionais e elegantes. Cada peça é planejada sob medida, respeitando o estilo e as necessidades de cada cliente.',
+        about2:'Trabalhamos com materiais de alta durabilidade e design contemporâneo, garantindo móveis que duram gerações.',
+        tagline:'Móveis planejados que transformam seu lar'
+      };
+      if(/(sapataria|calçados|calcados|sapato|shoe)/.test(bt)) return {
+        segHue:45,font:'Poppins',fontUrl:'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500&display=swap',
+        bodyFont:'Inter',radius:'16px',radiusCard:'12px',shadow:'0 8px 32px rgba(0,0,0,.4)',
+        heroOverlay:'linear-gradient(135deg,rgba(0,0,0,.8),transparent 50%)',
+        cardBorder:'1px solid rgba(212,175,55,.12)',
+        cardHover:'0 8px 32px rgba(212,175,55,.1)',
+        icon:'👞',gradDir:'135deg',accents:'preto e dourado',
+        tagBg:'rgba(212,175,55,.1)', tagBorder:'1px solid rgba(212,175,55,.2)',
+        section1Title:'Coleção Exclusiva',section1Sub:'Estilo e conforto para você',
+        cat1:'Casual',cat1Img:'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&q=80',
+        cat2:'Social',cat2Img:'https://images.unsplash.com/photo-1614251056216-f2f4e9c37c66?w=400&q=80',
+        cat3:'Esportivo',cat3Img:'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&q=80',
+        cat4:'Acessórios',cat4Img:'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80',
+        about1:'Referência em calçados na região, oferecemos as melhores marcas com atendimento personalizado. Cada par é escolhido para garantir qualidade e durabilidade.',
+        about2:'Do casual ao formal, temos o calçado ideal para cada momento da sua vida.',
+        tagline:'O passo certo para seu estilo'
+      };
+      if(/(conveniencia|conveniência|mercado|supermercado|mercearia|hortifruti|sacolão)/.test(bt)) return {
+        segHue:120,font:'Nunito',fontUrl:'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap',
+        bodyFont:'Inter',radius:'18px',radiusCard:'14px',shadow:'0 8px 32px rgba(0,0,0,.3)',
+        heroOverlay:'linear-gradient(135deg,rgba(0,40,0,.75),transparent 50%)',
+        cardBorder:'1px solid rgba(34,197,94,.12)',
+        cardHover:'0 8px 32px rgba(34,197,94,.1)',
+        icon:'🛒',gradDir:'135deg',accents:'verde vibrante',
+        tagBg:'rgba(34,197,94,.1)', tagBorder:'1px solid rgba(34,197,94,.2)',
+        section1Title:'Produtos Frescos',section1Sub:'Qualidade que você merece',
+        cat1:'Hortifrúti',cat1Img:'https://images.unsplash.com/photo-1557844352-761f2565b576?w=400&q=80',
+        cat2:'Padaria',cat2Img:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80',
+        cat3:'Bebidas',cat3Img:'https://images.unsplash.com/photo-1561758033-48d5264ae2b4?w=400&q=80',
+        cat4:'Açougue',cat4Img:'https://images.unsplash.com/photo-1603048297172-c92544798e51?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=800&q=80',
+        about1:'Tradição em qualidade e bom atendimento. Trabalhamos com produtos selecionados para garantir o melhor para sua família.',
+        about2:'Da feira ao empório, tudo que você precisa em um só lugar, com preços justos e frescor de ponta a ponta.',
+        tagline:'Tudo fresco, tudo perto de você'
+      };
+      if(/(ferragens|construção|construcao|material|madeireira|telhado)/.test(bt)) return {
+        segHue:20,font:'Bebas Neue',fontUrl:'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap',
+        bodyFont:'Inter',radius:'6px',radiusCard:'4px',shadow:'0 4px 16px rgba(0,0,0,.5)',
+        heroOverlay:'linear-gradient(135deg,rgba(30,15,0,.85),transparent 50%)',
+        cardBorder:'1px solid rgba(234,88,12,.15)',
+        cardHover:'0 8px 32px rgba(234,88,12,.1)',
+        icon:'🔧',gradDir:'135deg',accents:'laranja industrial',
+        tagBg:'rgba(234,88,12,.1)', tagBorder:'1px solid rgba(234,88,12,.2)',
+        section1Title:'Materiais de Qualidade',section1Sub:'Sua obra merece o melhor',
+        cat1:'Ferragens',cat1Img:'https://images.unsplash.com/photo-1586864387636-7e4f694a6f4e?w=400&q=80',
+        cat2:'Hidráulica',cat2Img:'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=400&q=80',
+        cat3:'Elétrica',cat3Img:'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&q=80',
+        cat4:'Acabamento',cat4Img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800&q=80',
+        about1:'Solução completa em materiais de construção e ferragens. Atendemos profissionais e consumidores finais com a mesma dedicação.',
+        about2:'Estoque diversificado, entrega rápida e preços competitivos para sua obra sair do papel.',
+        tagline:'Construa com quem entende'
+      };
+      if(/(pet|petshop|cachorro|gato|veterin|animal)/.test(bt)) return {
+        segHue:195,font:'Fredoka',fontUrl:'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap',
+        bodyFont:'Nunito',radius:'24px',radiusCard:'20px',shadow:'0 8px 32px rgba(0,0,0,.25)',
+        heroOverlay:'linear-gradient(135deg,rgba(0,30,50,.7),transparent 50%)',
+        cardBorder:'1px solid rgba(14,165,233,.12)',
+        cardHover:'0 8px 32px rgba(14,165,233,.1)',
+        icon:'🐾',gradDir:'135deg',accents:'azul suave e verde',
+        tagBg:'rgba(14,165,233,.1)', tagBorder:'1px solid rgba(14,165,233,.2)',
+        section1Title:'Produtos & Serviços',section1Sub:'O melhor para seu melhor amigo',
+        cat1:'Alimentação',cat1Img:'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=400&q=80',
+        cat2:'Brinquedos',cat2Img:'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=400&q=80',
+        cat3:'Higiene',cat3Img:'https://images.unsplash.com/photo-1628009368231-3bb7cfcb8b9f?w=400&q=80',
+        cat4:'Acessórios',cat4Img:'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&q=80',
+        about1:'Amamos animais tanto quanto você. Oferecemos produtos de alta qualidade e serviços especializados para manter seu pet saudável e feliz.',
+        about2:'Banho, tosa, rações premium e acessórios — tudo que seu pet precisa em um só lugar.',
+        tagline:'Amor em forma de cuidado'
+      };
+      if(/(cosmeticos|cosméticos|beleza|salão|salao|maquiagem|perfumaria|estetica|estética)/.test(bt)) return {
+        segHue:330,font:'Playfair Display',fontUrl:'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap',
+        bodyFont:'Inter',radius:'20px',radiusCard:'16px',shadow:'0 8px 40px rgba(0,0,0,.35)',
+        heroOverlay:'linear-gradient(135deg,rgba(40,0,20,.75),transparent 50%)',
+        cardBorder:'1px solid rgba(244,114,182,.12)',
+        cardHover:'0 8px 32px rgba(244,114,182,.1)',
+        icon:'💄',gradDir:'135deg',accents:'rosé e dourado',
+        tagBg:'rgba(244,114,182,.1)', tagBorder:'1px solid rgba(244,114,182,.2)',
+        section1Title:'Beleza & Bem-Estar',section1Sub:'Realce sua beleza natural',
+        cat1:'Maquiagem',cat1Img:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80',
+        cat2:'Cabelos',cat2Img:'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80',
+        cat3:'Unhas',cat3Img:'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80',
+        cat4:'Tratamentos',cat4Img:'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80',
+        about1:'Referência em beleza e bem-estar na região. Nossa equipe é formada por profissionais capacitados e apaixonados pelo que fazem.',
+        about2:'Produtos importados, técnicas modernas e um ambiente pensado para seu conforto e satisfação.',
+        tagline:'Sua beleza, nossa paixão'
+      };
+      if(/(shopping|centro comercial|galeria|mall)/.test(bt)) return {
+        segHue:260,font:'Outfit',fontUrl:'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500&display=swap',
+        bodyFont:'Inter',radius:'12px',radiusCard:'10px',shadow:'0 8px 40px rgba(0,0,0,.4)',
+        heroOverlay:'linear-gradient(135deg,rgba(20,0,40,.8),transparent 50%)',
+        cardBorder:'1px solid rgba(139,92,246,.12)',
+        cardHover:'0 8px 32px rgba(139,92,246,.1)',
+        icon:'🏬',gradDir:'135deg',accents:'roxo corporativo',
+        tagBg:'rgba(139,92,246,.1)', tagBorder:'1px solid rgba(139,92,246,.2)',
+        section1Title:'Lojas & Variedades',section1Sub:'Tudo em um só lugar',
+        cat1:'Moda',cat1Img:'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&q=80',
+        cat2:'Gastronomia',cat2Img:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80',
+        cat3:'Serviços',cat3Img:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80',
+        cat4:'Lazer',cat4Img:'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&q=80',
+        about1:'O shopping que é a cara da cidade. Mais de 100 lojas, praça de alimentação completa e eventos para toda família.',
+        about2:'Venha viver experiências únicas de compras, lazer e gastronomia em um ambiente seguro e acolhedor.',
+        tagline:'O melhor encontro da cidade'
+      };
+      if(/(restaurante|restaurant|comida|gastronomia|jantar)/.test(bt)) return {
+        segHue:360,font:'DM Serif Display',fontUrl:'https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400&family=Inter:wght@300;400;500;600;700&display=swap',
+        bodyFont:'Inter',radius:'14px',radiusCard:'12px',shadow:'0 8px 32px rgba(0,0,0,.35)',
+        heroOverlay:'linear-gradient(135deg,rgba(30,0,0,.75),transparent 50%)',
+        cardBorder:'1px solid rgba(220,38,38,.12)',
+        cardHover:'0 8px 32px rgba(220,38,38,.1)',
+        icon:'🍽️',gradDir:'135deg',accents:'vermelho apetitoso',
+        tagBg:'rgba(220,38,38,.1)', tagBorder:'1px solid rgba(220,38,38,.2)',
+        section1Title:'Nosso Cardápio',section1Sub:'Sabores que encantam',
+        cat1:'Entradas',cat1Img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80',
+        cat2:'Pratos Principais',cat2Img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80',
+        cat3:'Sobremesas',cat3Img:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
+        cat4:'Bebidas',cat4Img:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80',
+        about1:'Gastronomia de qualidade com ingredientes frescos e receitas que unem tradição e inovação. Cada prato é preparado com dedicação.',
+        about2:'Ambiente acolhedor e equipe preparada para proporcionar experiências gastronômicas inesquecíveis.',
+        tagline:'Sabores que conquistam'
+      };
+      if(/(hotel|pousada|hostel|hospedagem|resort)/.test(bt)) return {
+        segHue:210,font:'Cormorant Garamond',fontUrl:'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap',
+        bodyFont:'Inter',radius:'10px',radiusCard:'8px',shadow:'0 8px 40px rgba(0,0,0,.4)',
+        heroOverlay:'linear-gradient(135deg,rgba(0,10,30,.8),transparent 50%)',
+        cardBorder:'1px solid rgba(56,189,248,.1)',
+        cardHover:'0 8px 32px rgba(56,189,248,.08)',
+        icon:'🏨',gradDir:'135deg',accents:'azul marinho premium',
+        tagBg:'rgba(56,189,248,.08)', tagBorder:'1px solid rgba(56,189,248,.15)',
+        section1Title:'Nossas Acomodações',section1Sub:'Conforto que é nota 10',
+        cat1:'Suítes',cat1Img:'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80',
+        cat2:'Lazer',cat2Img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80',
+        cat3:'Eventos',cat3Img:'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&q=80',
+        cat4:'Gastronomia',cat4Img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80',
+        about1:'Há mais de 15 anos proporcionando hospedagens inesquecíveis. Conforto, localização privilegiada e atendimento personalizado.',
+        about2:'Estrutura completa para lazer e negócios, com quartos equipados e áreas de convivência que fazem você se sentir em casa.',
+        tagline:'Seu refúgio perfeito'
+      };
+      if(/(padaria|bakery|confeitaria|bolo|pao)/.test(bt)) return {
+        segHue:35,font:'DM Serif Display',fontUrl:'https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400&family=Nunito:wght@400;600;700;800&display=swap',
+        bodyFont:'Nunito',radius:'22px',radiusCard:'18px',shadow:'0 8px 32px rgba(0,0,0,.25)',
+        heroOverlay:'linear-gradient(135deg,rgba(30,15,0,.7),transparent 50%)',
+        cardBorder:'1px solid rgba(245,158,11,.12)',
+        cardHover:'0 8px 32px rgba(245,158,11,.1)',
+        icon:'🥐',gradDir:'135deg',accents:'dourado aconchegante',
+        tagBg:'rgba(245,158,11,.1)', tagBorder:'1px solid rgba(245,158,11,.2)',
+        section1Title:'Nossos Produtos',section1Sub:'Fresquinho todo dia',
+        cat1:'Pães Artesanais',cat1Img:'https://images.unsplash.com/photo-1549931319-a5457534672e?w=400&q=80',
+        cat2:'Doces & Bolos',cat2Img:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
+        cat3:'Salgados',cat3Img:'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&q=80',
+        cat4:'Café Especial',cat4Img:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&q=80',
+        about1:'Tradição familiar que atravessa gerações. Nossas receitas são preparadas diariamente com ingredientes selecionados.',
+        about2:'O aroma do pão fresco invade as manhãs da cidade. Venha experimentar nossas delícias e sentir o sabor caseiro.',
+        tagline:'Frescor e sabor todo dia'
+      };
+      if(/(academia|fitness|ginastica|musculacao|crossfit|pilates)/.test(bt)) return {
+        segHue:0,font:'Oswald',fontUrl:'https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap',
+        bodyFont:'Inter',radius:'8px',radiusCard:'6px',shadow:'0 4px 16px rgba(0,0,0,.5)',
+        heroOverlay:'linear-gradient(135deg,rgba(0,0,0,.85),transparent 50%)',
+        cardBorder:'1px solid rgba(239,68,68,.15)',
+        cardHover:'0 8px 32px rgba(239,68,68,.1)',
+        icon:'💪',gradDir:'135deg',accents:'vermelho energia',
+        tagBg:'rgba(239,68,68,.1)', tagBorder:'1px solid rgba(239,68,68,.2)',
+        section1Title:'Modalidades',section1Sub:'Treine com quem entende',
+        cat1:'Musculação',cat1Img:'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=400&q=80',
+        cat2:'Aulas Coletivas',cat2Img:'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=400&q=80',
+        cat3:'Funcional',cat3Img:'https://images.unsplash.com/photo-1534258369761-b5aeb6f1105c?w=400&q=80',
+        cat4:'Personal Trainer',cat4Img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80',
+        about1:'Equipamentos modernos, profissionais qualificados e um ambiente motivador para você alcançar seus objetivos fitness.',
+        about2:'Da musculação ao funcional, temos o plano ideal para cada aluno, do iniciante ao avançado.',
+        tagline:'Transforme seu corpo, transforme sua vida'
+      };
+      return {
+        segHue:220,font:'Inter',fontUrl:'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap',
+        bodyFont:'Inter',radius:'14px',radiusCard:'10px',shadow:'0 8px 32px rgba(0,0,0,.3)',
+        heroOverlay:'linear-gradient(135deg,rgba(0,0,0,.7),transparent 50%)',
+        cardBorder:'1px solid rgba(255,255,255,.06)',
+        cardHover:'0 8px 32px rgba(255,255,255,.04)',
+        icon:'📦',gradDir:'135deg',accents:'clean',
+        tagBg:'rgba(255,255,255,.06)', tagBorder:'1px solid rgba(255,255,255,.1)',
+        section1Title:'Nossos Produtos',section1Sub:'Qualidade e variedade',
+        cat1:'Categoria 1',cat1Img:'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+        cat2:'Categoria 2',cat2Img:'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&q=80',
+        cat3:'Categoria 3',cat3Img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
+        cat4:'Categoria 4',cat4Img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80',
+        heroImg:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
+        heroImg2:'https://images.unsplash.com/photo-1553729459-afe8f2e2a910?w=800&q=80',
+        about1:'Referência no segmento, oferecemos produtos e serviços de alta qualidade com atendimento personalizado.',
+        about2:'Nossa equipe está pronta para atender você da melhor forma possível.',
+        tagline:`Excelência em ${b.toLowerCase()}`
+      };
+    }
+
+    function namePersonality(name, city){
+      const n=(name||'').trim();
+      const len=n.length;
+      const tradicional=/ltda|mei|me|sa|eireli|limitada|associação|associacao|centro|instituto|fundacao|fundação/i.test(n);
+      const moderno=/store|box|club|plus|online|digital|tech|app|market|prime|hub|lab/i.test(n);
+      const abreviado=/^[A-ZÃÁÂÀÉÊÍÓÔÚÇ][a-záéíóúãõâêôç]+[\s'][A-ZÃÁÂÀÉÊÍÓÔÚÇ]\.?\s|[\s][A-ZÃÁÂÀÉÊÍÓÔÚÇ][a-záéíóúãõâêôç]{0,2}[\s]|[\s][A-ZÃÁÂÀÉÊÍÓÔÚÇ][A-ZÃÁÂÀÉÊÍÓÔÚÇ][A-ZÃÁÂÀÉÊÍÓÔÚÇ]?\s/.test(n);
+      if(tradicional||len>28) return {
+        tone:'formal',
+        heroP:'Com mais de uma década de tradição, oferecemos excelência em produtos e serviços na região. Qualidade, compromisso e satisfação são nossos valores fundamentais.',
+        aboutExtra:'Nossa história é construída com dedicação e respeito aos nossos clientes. Valores sólidos que nos guiam desde o início.',
+        cta:'Solicite um Orçamento',
+        greeting:'Prezado(a) cliente'
+      };
+      if(moderno||abreviado||len<10) return {
+        tone:'casual',
+        heroP:'O jeito mais inteligente de cuidar do seu negócio. Soluções modernas, atendimento rápido e resultados que aparecem. Bora transformar?',
+        aboutExtra:'Inovação não é só uma palavra — é como a gente trabalha todo dia. Pra fazer diferente, fazer melhor, fazer acontecer.',
+        cta:'Fala Comigo!',
+        greeting:'E aí'
+      };
+      return {
+        tone:'neutro',
+        heroP:`${n} em ${city} com qualidade, variedade e atendimento que faz diferença. Conheça nossos produtos e descubra por que somos referência na região.`,
+        aboutExtra:'Nosso compromisso é oferecer o melhor para cada cliente, com produtos selecionados e uma equipe sempre pronta para atender.',
+        cta:'Quero Saber Mais',
+        greeting:'Olá'
+      };
+    }
+
+    function generatePropostaVisual(lead){
+      const n=lead.name||'Sua Empresa', b=lead.biz||'negócio', l=lead.loc||'sua região', p=lead.phone||'';
+      const wa=p.replace(/[^\d]/g,''), waLink=wa.startsWith('55')?wa:wa.length>=10?'55'+wa:wa||'5521999999999';
+      const city=l.split(',')[0]||l;
+      const seg=segTheme(b);
+      const pal=hashColor(n, seg.segHue);
+      const pers=namePersonality(n, city);
+      return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${n} — ${seg.tagline}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="${seg.fontUrl}" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:${pal.primary};--accent2:${pal.secondary};--compliment:${pal.compliment};--bg:${pal.bg};--bg2:${pal.bg2};--card:${pal.card};--text:${pal.text};--dim:${pal.dim};--radius:${seg.radius};--radiusCard:${seg.radiusCard}}
+html{scroll-behavior:smooth}
+body{font-family:'${seg.bodyFont}',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.section{padding:100px 0}
+.tag{display:inline-flex;background:${seg.tagBg};border:${seg.tagBorder};padding:5px 14px;border-radius:999px;font-size:.7rem;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:1.5px;font-family:'${seg.font}',serif}
+.section-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:12px;letter-spacing:-.01em;font-family:'${seg.font}',serif}
+.gradient{background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.05);padding:14px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:0 24px}
+.nav-logo{font-weight:900;font-size:1.2rem;font-family:'${seg.font}',serif;background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 70% 50%,rgba(0,0,0,.4),transparent),radial-gradient(ellipse 400px 400px at 30% 30%,rgba(0,0,0,.2),transparent),${seg.heroOverlay};pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;position:relative;z-index:1}
+.hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:16px;letter-spacing:-.02em;font-family:'${seg.font}',serif}
+.hero p{color:var(--dim);font-size:1.1rem;max-width:500px;margin-bottom:28px;line-height:1.7}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:${seg.radius};font-weight:700;font-size:.9rem;border:none;cursor:pointer;transition:all .3s ease;text-decoration:none}
+.btn-primary{background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text)}
+.btn-outline:hover{border-color:var(--accent)}
+.hero-img{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:${seg.shadow}}
+.hero-img img{width:100%;height:500px;object-fit:cover;display:block}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent 50%)}
+.hero-img-badge{position:absolute;bottom:20px;left:20px;z-index:2;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 16px;border-radius:${seg.radius};font-size:.8rem;display:flex;align-items:center;gap:8px}
+.hero-accent-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2))}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.product-card{background:var(--bg2);border:${seg.cardBorder};border-radius:var(--radiusCard);overflow:hidden;transition:all .4s ease;cursor:pointer}
+.product-card:hover{transform:translateY(-6px);box-shadow:${seg.cardHover}}
+.product-card img{width:100%;height:200px;object-fit:cover;display:block}
+.product-body{padding:18px}
+.product-body h4{font-size:1rem;font-weight:700;margin-bottom:4px}
+.product-body p{color:var(--dim);font-size:.8rem}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about-grid img{width:100%;border-radius:var(--radius);height:400px;object-fit:cover}
+.about-text p{color:var(--dim);font-size:.95rem;line-height:1.8;margin-bottom:16px}
+.contact{background:var(--bg2);text-align:center;padding:80px 0;position:relative}
+.contact::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2))}
+.contact h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:8px;font-family:'${seg.font}',serif}
+.contact p{color:var(--dim);margin-bottom:24px}
+.contact-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:16px 32px;border-radius:${seg.radius};font-weight:700;font-size:1rem;text-decoration:none;transition:all .3s}
+.contact-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.3)}
+.contact-info{margin-top:20px;color:var(--dim);font-size:.9rem}
+footer{text-align:center;padding:24px 0;color:var(--dim);font-size:.8rem;border-top:1px solid rgba(255,255,255,.04)}
+.whatsapp-float{position:fixed;bottom:24px;right:24px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.3);transition:transform .3s;text-decoration:none}
+.whatsapp-float:hover{transform:scale(1.1)}
+.whatsapp-float svg{width:28px;height:28px;fill:#fff}
+@media(max-width:860px){
+.hero-grid{grid-template-columns:1fr;gap:30px}
+.hero-img img{height:300px}
+.about-grid{grid-template-columns:1fr}
+.products-grid{grid-template-columns:repeat(2,1fr)}
+.nav-links a:not(.btn){display:none}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+<div class="nav-inner"><div class="nav-logo">${n}</div>
+<div class="nav-links">
+<a href="#produtos">Produtos</a><a href="#sobre">Sobre</a>
+<a href="#contato" class="btn btn-primary" style="padding:10px 20px;font-size:.8rem">${pers.cta}</a>
+</div></div>
+</nav>
+<section class="hero">
+<div class="container">
+<div class="hero-grid">
+<div>
+<div class="tag">${seg.icon} ${b}</div>
+<h1>${n}<br><span class="gradient">${seg.tagline}</span></h1>
+<p>${pers.heroP}</p>
+<div class="hero-btns">
+<a href="#produtos" class="btn btn-primary">Ver Produtos</a>
+<a href="https://wa.me/${waLink}" target="_blank" rel="noopener" class="btn btn-outline">${pers.cta}</a>
+</div>
+</div>
+<div class="hero-img">
+<img src="${seg.heroImg}" alt="${n}" loading="lazy">
+<div class="hero-img-badge">📍 ${city}</div>
+</div>
+</div>
+</div>
+<div class="hero-accent-bar"></div>
+</section>
+<section class="section" id="produtos">
+<div class="container">
+<div class="tag">✨ ${seg.section1Title}</div>
+<h2 class="section-title">Conheça nossas <span class="gradient">categorias</span></h2>
+<p style="color:var(--dim);margin-bottom:28px;max-width:500px">${seg.section1Sub}. Temos opções para todos os gostos e necessidades.</p>
+<div class="products-grid">
+<div class="product-card"><img src="${seg.cat1Img}" alt="${seg.cat1}" loading="lazy"><div class="product-body"><h4>${seg.cat1}</h4><p>Variedade e qualidade em ${seg.cat1.toLowerCase()}. Confira nossas opções.</p></div></div>
+<div class="product-card"><img src="${seg.cat2Img}" alt="${seg.cat2}" loading="lazy"><div class="product-body"><h4>${seg.cat2}</h4><p>O melhor em ${seg.cat2.toLowerCase()} para você e sua família.</p></div></div>
+<div class="product-card"><img src="${seg.cat3Img}" alt="${seg.cat3}" loading="lazy"><div class="product-body"><h4>${seg.cat3}</h4><p>Seleção especial de ${seg.cat3.toLowerCase()} com preços imperdíveis.</p></div></div>
+<div class="product-card"><img src="${seg.cat4Img}" alt="${seg.cat4}" loading="lazy"><div class="product-body"><h4>${seg.cat4}</h4><p>Complete sua experiência com nossos ${seg.cat4.toLowerCase()}.</p></div></div>
+</div>
+</div>
+</section>
+<section class="section" id="sobre">
+<div class="container">
+<div class="tag">📖 Quem Somos</div>
+<h2 class="section-title">Conheça a <span class="gradient">${n}</span></h2>
+<div class="about-grid">
+<div><div class="about-text"><p>${seg.about1}</p><p>${seg.about2}</p><p>${pers.aboutExtra}</p><p style="margin-top:12px">📍 <strong>${city}</strong></p></div></div>
+<div><img src="${seg.heroImg2}" alt="Sobre ${n}" loading="lazy"></div>
+</div>
+</div>
+</section>
+<section class="contact" id="contato">
+<div class="container">
+<div class="tag">💬 Entre em Contato</div>
+<h2>Vamos conversar?</h2>
+<p>Tire dúvidas, peça orçamentos ou agende seu horário.</p>
+<a class="contact-btn" href="https://wa.me/${waLink}" target="_blank" rel="noopener">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.882.51 3.64 1.395 5.137L2 22l4.925-1.316C8.354 21.503 10.12 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/><\/svg>
+${pers.cta}
+</a>
+<div class="contact-info">${n} · ${b} · ${city} · WhatsApp: ${p}</div>
+</div>
+</section>
+<footer><div class="container"><p>© 2026 ${n} — Todos os direitos reservados</p></div></footer>
+<a class="whatsapp-float" href="https://wa.me/${waLink}" target="_blank" rel="noopener" aria-label="WhatsApp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.882.51 3.64 1.395 5.137L2 22l4.925-1.316C8.354 21.503 10.12 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/><\/svg>
+</a>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+gsap.from('.hero h1',{duration:1,y:40,opacity:0,ease:'power3.out'});
+gsap.from('.hero p',{duration:1,y:30,opacity:0,ease:'power3.out',delay:.2});
+gsap.from('.hero-btns > *',{duration:.8,y:20,opacity:0,ease:'power3.out',delay:.4,stagger:.15});
+gsap.from('.hero-img',{duration:1.2,x:60,opacity:0,ease:'power3.out',delay:.2});
+gsap.from('.tag',{duration:.6,y:20,opacity:0,ease:'power2.out',scrollTrigger:{trigger:'.tag',start:'top 90%'}});
+document.querySelectorAll('.product-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.6,y:40,opacity:0,ease:'power2.out',delay:i*.1})});
+gsap.from('.about-text',{duration:.8,x:-40,opacity:0,ease:'power2.out',scrollTrigger:{trigger:'.about-text',start:'top 80%'}});
+gsap.from('.about-grid img',{duration:.8,x:40,opacity:0,ease:'power2.out',scrollTrigger:{trigger:'.about-grid img',start:'top 80%'}});
+gsap.from('.contact',{duration:1,y:40,opacity:0,ease:'power3.out',scrollTrigger:{trigger:'.contact',start:'top 85%'}});
+<\/script>
+</body>
+</html>`;
+    }
+    load();
+  </script>
+</body>
+</html>
