@@ -19,7 +19,8 @@ urllib3>=2.1.0
 certifi>=2023.11.0
 
 # Security
-cryptography>=41.0.0  # Para criptografia em repouso
+cryptography>=41.0.0
+bcrypt>=4.1.0  # Password hashing (necessário para hash de senhas)
 
 # Development/Testing
 pytest>=7.4.0

@@ -15,6 +15,7 @@ from datetime import datetime
 # Diretórios das skills (scripts movidos para scripts/prospecting/)
 SCRIPTS_DIR = Path(__file__).parent
 MAPS_EXTRACT_SCRIPT = SCRIPTS_DIR / "extract.py"
+SHOPIFY_EXTRACT_SCRIPT = Path(__file__).parent.parent.parent / "shopify-ops" / "shopify_ops.py"
 RUN_SCRIPT = SCRIPTS_DIR / "generate_proposals_direct.py"
 
 # API do Dashboard

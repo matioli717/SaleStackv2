@@ -8,6 +8,8 @@ import json
 import argparse
 import subprocess
 import urllib.request
+import urllib.error
+import os
 from pathlib import Path
 from datetime import datetime
 
@@ -20,7 +22,7 @@ EXTRACT_SCRIPT = MAPS_SKILL / "scripts" / "extract.py"
 RUN_SCRIPT = SALES_SKILL / "scripts" / "run.py"
 
 # API do Dashboard (para sincronizar resultados)
-DASHBOARD_API = "http://localhost:8765/api"
+DASHBOARD_API = os.environ.get("DASHBOARD_URL", "http://localhost:8765") + "/api"
 
 
 def run_cmd(cmd, cwd=None, timeout=300):
@@ -30,17 +32,24 @@ def run_cmd(cmd, cwd=None, timeout=300):
 
 
 def post_to_dashboard(endpoint: str, data: dict) -> bool:
-    """POST para API do dashboard."""
+    """POST para API do dashboard com autenticação."""
     try:
         url = f"{DASHBOARD_API}{endpoint}"
+        api_key = os.environ.get("DASHBOARD_API_KEY", "")
+        headers = {'Content-Type': 'application/json'}
+        if api_key:
+            headers['X-API-Key'] = api_key
         req = urllib.request.Request(
             url,
             data=json.dumps(data).encode('utf-8'),
-            headers={'Content-Type': 'application/json'},
+            headers=headers,
             method='POST'
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             return resp.status == 200
+    except urllib.error.HTTPError as e:
+        print(f"   ⚠️ Dashboard rejeitou (status {e.code}): verifique DASHBOARD_API_KEY")
+        return False
     except Exception as e:
         print(f"   ⚠️ Falha ao sincronizar com dashboard: {e}")
         return False

@@ -904,7 +904,7 @@
 
   <script>
     function getToken(){ return localStorage.getItem('dealstack_token'); }
-    function redirectLogin(){ if(!window.location.pathname.startsWith('/login')) window.location.href='/login'; }
+    function redirectLogin(){ window.location.href='/login'; }
 
     async function api(path, opts={}){
       const token=getToken();

@@ -1,11 +1,45 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
+*.egg-info/
+dist/
+build/
+
+# Environment / Secrets
 .env
 .env.local
-*.log
+.env.*.local
+*.pem
+*.key
+*.cert
+
+# IDE
 .DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Data / Output
 pipeline_output/
 *.sqlite
 *.db
+*.csv
+*.json
+!prospects.csv
+
+# Logs
+*.log
+
+# Backup files
+*.bak
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.pytest_cache/
+*.coverage
+coverage/

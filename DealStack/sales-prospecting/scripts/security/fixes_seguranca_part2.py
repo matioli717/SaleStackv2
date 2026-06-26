@@ -60,7 +60,7 @@ class SecurityMiddleware:
         except Exception:
             pass
         if not keys:
-            dev_key = "sk_dev_sales_prospecting_2024"
+            dev_key = "sk_dev_" + secrets.token_urlsafe(32)
             keys[hashlib.sha256(dev_key.encode()).hexdigest()] = {"name": "development", "scopes": ["read", "write"]}
             print(f"⚠️  DEV API KEY (configure API_KEYS no .env): {dev_key}")
         return keys

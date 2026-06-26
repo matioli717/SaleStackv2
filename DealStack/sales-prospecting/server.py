@@ -17,6 +17,17 @@ try:
 except ImportError:
     JWT_AVAILABLE = False
 
+try:
+    import bcrypt
+    BCRYPT_AVAILABLE = True
+except ImportError:
+    BCRYPT_AVAILABLE = False
+
+PASSWORD_MIN_LENGTH = 8
+PASSWORD_MIN_DIGITS = 1
+PASSWORD_MIN_UPPER = 1
+PASSWORD_MIN_LOWER = 1
+
 JWT_SECRET = os.environ.get("JWT_SECRET", "")
 if not JWT_SECRET:
     JWT_SECRET = hashlib.sha256(secrets.token_hex(32).encode()).hexdigest()
@@ -32,12 +43,13 @@ PROPOSALS_FILE = None
 class Settings:
     def __init__(self):
         self.API_KEYS: str = os.environ.get("API_KEYS", "")
-        self.ALLOWED_ORIGINS: str = os.environ.get("ALLOWED_ORIGINS", "*")
+        self.ALLOWED_ORIGINS: str = os.environ.get("ALLOWED_ORIGINS", "")
         self.RATE_LIMIT_PER_MIN: int = int(os.environ.get("RATE_LIMIT_PER_MIN", "60"))
         self.MAX_CONTENT_LENGTH: int = int(os.environ.get("MAX_CONTENT_LENGTH", "1048576"))
         self.SHARED_DATA_DIR: str = os.environ.get("SHARED_DATA_DIR", "~/.hermes/shared_data")
         self.ADMIN_USERNAME: str = os.environ.get("ADMIN_USERNAME", "admin")
         self.ADMIN_PASSWORD: str = os.environ.get("ADMIN_PASSWORD", "")
+        self.JWT_SECRET: str = os.environ.get("JWT_SECRET", "")
         self.STRIPE_SECRET_KEY: str = os.environ.get("STRIPE_SECRET_KEY", "")
         self.STRIPE_PUBLISHABLE_KEY: str = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
         self.STRIPE_WEBHOOK_SECRET: str = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
@@ -226,15 +238,36 @@ def check_plan_limit(tenant_id: str, resource: str, value: int = 1) -> bool:
         return value <= plan["regions_limit"]
     return True
 
+def validate_password_strength(password: str) -> Optional[str]:
+    if len(password) < PASSWORD_MIN_LENGTH:
+        return f"Senha deve ter no mínimo {PASSWORD_MIN_LENGTH} caracteres"
+    if sum(c.isdigit() for c in password) < PASSWORD_MIN_DIGITS:
+        return f"Senha deve ter no mínimo {PASSWORD_MIN_DIGITS} dígito(s)"
+    if sum(c.isupper() for c in password) < PASSWORD_MIN_UPPER:
+        return f"Senha deve ter no mínimo {PASSWORD_MIN_UPPER} letra(s) maiúscula(s)"
+    if sum(c.islower() for c in password) < PASSWORD_MIN_LOWER:
+        return f"Senha deve ter no mínimo {PASSWORD_MIN_LOWER} letra(s) minúscula(s)"
+    return None
+
+def hash_password(password: str) -> str:
+    if BCRYPT_AVAILABLE:
+        return bcrypt.hashpw(password.encode(), bcrypt.gensalt(12)).decode()
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def verify_password(password: str, password_hash: str) -> bool:
+    if BCRYPT_AVAILABLE and password_hash.startswith("$2b$"):
+        return bcrypt.checkpw(password.encode(), password_hash.encode())
+    return hmac.compare_digest(hashlib.sha256(password.encode()).hexdigest(), password_hash)
+
 def init_users():
     if USERS_FILE.exists():
         return
     admin_pw = settings.ADMIN_PASSWORD
     if not admin_pw:
-        admin_pw = secrets.token_urlsafe(12)
+        admin_pw = secrets.token_urlsafe(16)
         print(f"[INIT] SENHA ADMIN GERADA: {admin_pw}")
         print(f"[INIT] Guarde esta senha! Faça login com usuario '{settings.ADMIN_USERNAME}'")
-    pw_hash = hashlib.sha256(admin_pw.encode()).hexdigest()
+    pw_hash = hash_password(admin_pw)
     users = [
         {
             "id": "user_admin_001",
@@ -258,12 +291,23 @@ init_users()
 init_data_files()
 sync_stripe_products()
 
-if settings.ADMIN_PASSWORD or settings.JWT_SECRET:
+if settings.ADMIN_PASSWORD or JWT_SECRET:
     if Path(dotenv_path).exists():
         print("[SECURITY] WARNING: .env file found with credentials. For production:")
         print("[SECURITY]   1. Rotate JWT_SECRET, ADMIN_PASSWORD, and API_KEYS immediately")
         print("[SECURITY]   2. Use environment variables instead of .env on production")
         print("[SECURITY]   3. Set .env file permissions to 600: chmod 600 .env")
+
+if not settings.API_KEYS:
+    print("[SECURITY] WARNING: API_KEYS not configured. API key authentication disabled.")
+    print("[SECURITY]   Configure API_KEYS in .env or environment variables.")
+
+if JWT_SECRET and (len(JWT_SECRET) < 32 or JWT_SECRET == "ds_jwt_secret_change_in_production_2024"):
+    print("[SECURITY] WARNING: JWT_SECRET is weak or default. Generate a strong secret:")
+    print("[SECURITY]   python3 -c \"import secrets; print(secrets.token_hex(32))\"")
+
+if settings.ADMIN_PASSWORD and len(settings.ADMIN_PASSWORD) < 12:
+    print("[SECURITY] WARNING: ADMIN_PASSWORD is too short (< 12 chars). Use a stronger password.")
 
 def load_users() -> List[Dict]:
     with file_lock:
@@ -352,40 +396,42 @@ class SecurityMiddleware:
         return keys
 
     def check_origin(self, origin: str) -> bool:
-        if not origin or "*" in self.allowed_origins:
-            return True
+        if not origin:
+            return False
         for allowed in self.allowed_origins:
-            if allowed == "*":
+            if allowed == origin:
                 return True
-            if allowed.startswith("*."):
-                if origin.endswith(allowed[1:]):
-                    return True
-            if origin == allowed:
+            if allowed.startswith("*.") and origin.endswith(allowed[1:]):
+                return True
+            if allowed == "*":
                 return True
         return False
 
     def get_cors_headers(self, origin: str) -> Dict[str, str]:
         if self.check_origin(origin):
             headers = {
-                "Access-Control-Allow-Origin": origin if origin else "*",
+                "Access-Control-Allow-Origin": origin,
                 "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization, X-API-Key",
                 "Access-Control-Max-Age": "86400",
+                "Access-Control-Allow-Credentials": "true",
             }
-            if "*" not in self.allowed_origins:
-                headers["Access-Control-Allow-Credentials"] = "true"
             return headers
         return {}
 
     def get_security_headers(self) -> Dict[str, str]:
         return {
-            "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://*.github.dev https://*.githubpreview.dev https://*.app.github.dev https://*.onrender.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+            "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://*.github.dev https://*.githubpreview.dev https://*.app.github.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; report-uri /api/csp-report",
             "X-Frame-Options": "DENY",
             "X-Content-Type-Options": "nosniff",
             "Referrer-Policy": "strict-origin-when-cross-origin",
             "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
             "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
             "X-Permitted-Cross-Domain-Policies": "none",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cross-Origin-Resource-Policy": "same-origin",
+            "X-DNS-Prefetch-Control": "off",
         }
 
     def check_rate_limit(self, client_ip: str) -> bool:
@@ -527,6 +573,8 @@ class SalesHandler(SimpleHTTPRequestHandler):
             self.serve_users()
         elif path == "/api/dependents":
             self.serve_dependents()
+        elif path == "/api/csp-report":
+            self.serve_csp_report()
         elif path == "/api/plans":
             self.serve_plans()
         elif path == "/api/limits":
@@ -563,6 +611,8 @@ class SalesHandler(SimpleHTTPRequestHandler):
             self.handle_admin(path)
         elif path == "/api/create-checkout-session":
             self.handle_create_checkout()
+        elif path == "/api/csp-report":
+            self.handle_csp_report()
         elif path == "/api/create-portal-session":
             self.handle_create_portal()
         else:
@@ -930,8 +980,9 @@ loadStats();
     @require_auth(scopes=["read"])
     def serve_shared_leads(self):
         tenant_id = self.auth_user.get("tenant_id") or self.auth_user["sub"]
-        leads = [l for l in load_shared_data("leads") if l.get("tenant_id") == tenant_id]
-        self.send_json(200, {"leads": leads, "count": len(leads)})
+        leads = load_shared_data("leads")
+        filtered = [l for l in leads if not l.get("tenant_id") or l.get("tenant_id") == tenant_id]
+        self.send_json(200, {"leads": filtered, "count": len(filtered)})
 
     @require_auth(scopes=["read"])
     def serve_shared_proposals(self):
@@ -941,7 +992,7 @@ loadStats();
     @require_auth(scopes=["read"])
     def serve_stats(self):
         tenant_id = self.auth_user.get("tenant_id") or self.auth_user["sub"]
-        leads = [l for l in load_shared_data("leads") if l.get("tenant_id") == tenant_id]
+        leads = [l for l in load_shared_data("leads") if not l.get("tenant_id") or l.get("tenant_id") == tenant_id]
         proposals = load_shared_data("proposals")
         categories = {}
         for l in leads:
@@ -988,6 +1039,13 @@ loadStats();
         dependents = [u for u in load_users() if u.get("parent_id") and get_tenant_id(u) == tenant_id and u["id"] != self.auth_user["sub"]]
         safe = [{k: v for k, v in u.items() if k != "password_hash"} for u in dependents]
         self.send_json(200, {"dependents": safe, "count": len(safe)})
+
+    def serve_csp_report(self):
+        self.send_response(204)
+        origin = self.headers.get("Origin", "")
+        for k, v in security.get_cors_headers(origin).items():
+            self.send_header(k, v)
+        self.end_headers()
 
     @require_auth()
     def serve_plans(self):
@@ -1141,8 +1199,7 @@ loadStats();
                 security.record_login_failure(client_ip)
                 self.send_json(401, {"error": "Usuário ou senha inválidos"})
                 return
-            pw_hash = hashlib.sha256(password.encode()).hexdigest()
-            if not hmac.compare_digest(pw_hash, user.get("password_hash", "")):
+            if not verify_password(password, user.get("password_hash", "")):
                 security.record_login_failure(client_ip)
                 self.send_json(401, {"error": "Usuário ou senha inválidos"})
                 return
@@ -1201,8 +1258,9 @@ loadStats();
             if len(username) < 3:
                 self.send_json(400, {"error": "Usuário deve ter no mínimo 3 caracteres"})
                 return
-            if len(password) < 6:
-                self.send_json(400, {"error": "Senha deve ter no mínimo 6 caracteres"})
+            pw_error = validate_password_strength(password)
+            if pw_error:
+                self.send_json(400, {"error": pw_error})
                 return
             if plan_key not in PLANS:
                 self.send_json(400, {"error": "Plano inválido"})
@@ -1238,7 +1296,7 @@ loadStats();
             new_user = {
                 "id": f"user_{secrets.token_hex(8)}",
                 "username": username,
-                "password_hash": hashlib.sha256(password.encode()).hexdigest(),
+                "password_hash": hash_password(password),
                 "email": email,
                 "name": username,
                 "plan": plan_key,
@@ -1297,6 +1355,19 @@ loadStats();
             self.send_json(200, {"invite_link": invite_link, "invite_code": parent["username"]})
         except Exception as e:
             self.send_json(500, {"error": "Erro interno"})
+
+    def handle_csp_report(self):
+        try:
+            body = self._read_json_body(skip_auth=True)
+            if body and isinstance(body, dict):
+                print(f"[CSP-REPORT] {json.dumps(body, ensure_ascii=False)[:500]}")
+        except Exception:
+            pass
+        self.send_response(204)
+        origin = self.headers.get("Origin", "")
+        for k, v in security.get_cors_headers(origin).items():
+            self.send_header(k, v)
+        self.end_headers()
 
     @require_auth()
     def handle_create_checkout(self):
@@ -1406,6 +1477,10 @@ loadStats();
 
     @require_auth()
     def handle_extract(self):
+        client_ip = self.client_address[0]
+        if not security.check_rate_limit(client_ip):
+            self.send_json(429, {"error": "Rate limit exceeded"})
+            return
         try:
             try:
                 data = self._read_json_body()
@@ -1482,6 +1557,10 @@ loadStats();
             self.send_json(500, {"error": f"Erro na extracao: {str(e)[:200]}"})
 
     def handle_stripe_webhook(self):
+        client_ip = self.client_address[0]
+        if not security.check_rate_limit(client_ip):
+            self.send_json(200, {"received": True})
+            return
         try:
             content_length = int(self.headers.get("Content-Length", 0))
             if content_length <= 0:
@@ -1495,7 +1574,7 @@ loadStats();
                 sig_header = self.headers.get("Stripe-Signature", "")
                 try:
                     stripe.Webhook.construct_event(raw_body, sig_header, settings.STRIPE_WEBHOOK_SECRET)
-                except stripe.error.SignatureVerificationError:
+                except Exception:
                     self.send_json(400, {"error": "Invalid signature"})
                     return
             body = json.loads(raw_body)
@@ -1567,10 +1646,23 @@ loadStats();
 
     def log_message(self, format, *args):
         msg = format % args
-        if any(x in msg for x in ["401", "403", "404", "413", "429", "500", "..", "etc/passwd"]):
-            print(f"[SECURITY] {self.client_address[0]} - {msg}")
+        parts = msg.split()
+        sanitized_parts = []
+        skip_next = False
+        for part in parts:
+            if skip_next:
+                skip_next = False
+                continue
+            if part in ("Bearer", "X-API-Key"):
+                sanitized_parts.append(part)
+                skip_next = True
+            else:
+                sanitized_parts.append(part)
+        sanitized = " ".join(sanitized_parts)
+        if any(x in sanitized for x in ["401", "403", "404", "413", "429", "500", "..", "etc/passwd"]):
+            print(f"[SECURITY] {self.client_address[0]} - {sanitized}")
         else:
-            print(f"[ACCESS] {self.client_address[0]} - {msg}")
+            print(f"[ACCESS] {self.client_address[0]} - {sanitized}")
 
 def main():
     port = int(os.getenv("PORT", "8765"))

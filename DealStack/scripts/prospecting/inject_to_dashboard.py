@@ -11,7 +11,7 @@ from pathlib import Path
 
 import os
 
-DASHBOARD_URL = os.environ.get("DASHBOARD_URL", "https://dealstack-m9re.onrender.com")
+DASHBOARD_URL = os.environ.get("DASHBOARD_URL", "http://localhost:8765")
 def _get_api_key():
     key = os.environ.get("DASHBOARD_API_KEY") or os.environ.get("API_KEYS", "")
     if key and key.startswith("["):
@@ -23,7 +23,7 @@ API_KEY = _get_api_key()
 if not API_KEY:
     print("❌ API key não configurada (DASHBOARD_API_KEY ou API_KEYS).", file=sys.stderr)
     sys.exit(1)
-EXTRACT_SCRIPT = Path("/workspaces/OpnCld/scripts/prospecting/extract.py")
+EXTRACT_SCRIPT = Path(__file__).resolve().parent / "extract.py"
 
 
 def run_extract(location: str, category: str = "retail", radius: int = 5000, limit: int = 50) -> list:

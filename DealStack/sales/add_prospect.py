@@ -1,6 +1,5 @@
 # ============================================================
 # FIX H03 - add_prospect.py: CSV Injection Fix
-# Substitua: /workspaces/OpnCld/sales/add_prospect.py
 # ============================================================
 
 #!/usr/bin/env python3
