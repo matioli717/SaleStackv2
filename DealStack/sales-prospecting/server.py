@@ -321,7 +321,7 @@ class SecurityMiddleware:
         now = time.time()
         window_ago = now - self.login_window
         with self.login_lock:
-            attempts = [ts for ts in self.login_attempts[client_ip] if ts > window_ago]
+            attempts = [ts for ts in self.login_attempts.get(client_ip, []) if ts > window_ago]
             self.login_attempts[client_ip] = attempts
             if len(attempts) >= self.max_login_attempts:
                 return False, int(self.login_window - (now - attempts[0]))
@@ -332,7 +332,7 @@ class SecurityMiddleware:
         with self.login_lock:
             now = time.time()
             window_ago = now - self.login_window
-            self.login_attempts[client_ip] = [ts for ts in self.login_attempts[client_ip] if ts > window_ago]
+            self.login_attempts[client_ip] = [ts for ts in self.login_attempts.get(client_ip, []) if ts > window_ago]
             self.login_attempts[client_ip].append(now)
 
     def reset_login_attempts(self, client_ip: str):
