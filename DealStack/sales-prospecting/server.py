@@ -258,6 +258,13 @@ init_users()
 init_data_files()
 sync_stripe_products()
 
+if settings.ADMIN_PASSWORD or settings.JWT_SECRET:
+    if Path(dotenv_path).exists():
+        print("[SECURITY] WARNING: .env file found with credentials. For production:")
+        print("[SECURITY]   1. Rotate JWT_SECRET, ADMIN_PASSWORD, and API_KEYS immediately")
+        print("[SECURITY]   2. Use environment variables instead of .env on production")
+        print("[SECURITY]   3. Set .env file permissions to 600: chmod 600 .env")
+
 def load_users() -> List[Dict]:
     with file_lock:
         if USERS_FILE.exists():
@@ -305,6 +312,32 @@ class SecurityMiddleware:
         self.blocked_ips = set()
         self._block_lock = __import__('threading').Lock()
         self.public_routes = {"/api/login", "/api/register", "/api/webhook/stripe", "/login"}
+        self.login_attempts = defaultdict(list)
+        self.login_lock = __import__('threading').Lock()
+        self.max_login_attempts = 5
+        self.login_window = 300
+
+    def check_login_rate_limit(self, client_ip: str) -> tuple:
+        now = time.time()
+        window_ago = now - self.login_window
+        with self.login_lock:
+            attempts = [ts for ts in self.login_attempts[client_ip] if ts > window_ago]
+            self.login_attempts[client_ip] = attempts
+            if len(attempts) >= self.max_login_attempts:
+                return False, int(self.login_window - (now - attempts[0]))
+            self.login_attempts[client_ip].append(now)
+            return True, 0
+
+    def record_login_failure(self, client_ip: str):
+        with self.login_lock:
+            now = time.time()
+            window_ago = now - self.login_window
+            self.login_attempts[client_ip] = [ts for ts in self.login_attempts[client_ip] if ts > window_ago]
+            self.login_attempts[client_ip].append(now)
+
+    def reset_login_attempts(self, client_ip: str):
+        with self.login_lock:
+            self.login_attempts.pop(client_ip, None)
 
     def _load_api_keys(self) -> Dict[str, Dict]:
         keys = {}
@@ -316,9 +349,6 @@ class SecurityMiddleware:
                     keys[key_hash] = {"name": item.get("name", "unknown"), "scopes": item.get("scopes", ["read"])}
         except Exception:
             pass
-        if not keys:
-            dev_key = "sk_dev_sales_prospecting_2024"
-            keys[hashlib.sha256(dev_key.encode()).hexdigest()] = {"name": "development", "scopes": ["read", "write"]}
         return keys
 
     def check_origin(self, origin: str) -> bool:
@@ -336,13 +366,15 @@ class SecurityMiddleware:
 
     def get_cors_headers(self, origin: str) -> Dict[str, str]:
         if self.check_origin(origin):
-            return {
-                "Access-Control-Allow-Origin": origin,
+            headers = {
+                "Access-Control-Allow-Origin": origin if origin else "*",
                 "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization, X-API-Key",
-                "Access-Control-Allow-Credentials": "true",
                 "Access-Control-Max-Age": "86400",
             }
+            if "*" not in self.allowed_origins:
+                headers["Access-Control-Allow-Credentials"] = "true"
+            return headers
         return {}
 
     def get_security_headers(self) -> Dict[str, str]:
@@ -1088,6 +1120,11 @@ loadStats();
             self.send_json(500, {"error": "Erro interno"})
 
     def handle_login(self):
+        client_ip = self.client_address[0]
+        allowed, retry_after = security.check_login_rate_limit(client_ip)
+        if not allowed:
+            self.send_json(429, {"error": f"Muitas tentativas. Tente novamente em {retry_after}s."})
+            return
         try:
             body = self._read_json_body(skip_auth=True)
         except ValueError as e:
@@ -1101,10 +1138,12 @@ loadStats();
                 return
             user = find_user(username)
             if not user:
+                security.record_login_failure(client_ip)
                 self.send_json(401, {"error": "Usuário ou senha inválidos"})
                 return
             pw_hash = hashlib.sha256(password.encode()).hexdigest()
             if not hmac.compare_digest(pw_hash, user.get("password_hash", "")):
+                security.record_login_failure(client_ip)
                 self.send_json(401, {"error": "Usuário ou senha inválidos"})
                 return
             if not user.get("is_active", False):
@@ -1118,6 +1157,7 @@ loadStats();
                 self.send_json(403, {"error": "Plano do titular suspenso. Regularize o pagamento."})
                 return
             plan = get_plan(user.get("plan", "free"))
+            security.reset_login_attempts(client_ip)
             token = create_jwt(user)
             self.send_json(200, {
                 "token": token,
@@ -1139,6 +1179,11 @@ loadStats();
             self.send_json(500, {"error": "Erro interno"})
 
     def handle_register(self):
+        client_ip = self.client_address[0]
+        allowed, retry_after = security.check_login_rate_limit(client_ip)
+        if not allowed:
+            self.send_json(429, {"error": f"Muitas tentativas. Tente novamente em {retry_after}s."})
+            return
         try:
             body = self._read_json_body(skip_auth=True)
         except ValueError as e:
@@ -1438,11 +1483,22 @@ loadStats();
 
     def handle_stripe_webhook(self):
         try:
-            try:
-                body = self._read_json_body(skip_auth=True)
-            except ValueError:
+            content_length = int(self.headers.get("Content-Length", 0))
+            if content_length <= 0:
                 self.send_json(200, {"received": True})
                 return
+            raw_body = self.rfile.read(content_length)
+            if not raw_body:
+                self.send_json(200, {"received": True})
+                return
+            if STRIPE_AVAILABLE and settings.STRIPE_WEBHOOK_SECRET:
+                sig_header = self.headers.get("Stripe-Signature", "")
+                try:
+                    stripe.Webhook.construct_event(raw_body, sig_header, settings.STRIPE_WEBHOOK_SECRET)
+                except stripe.error.SignatureVerificationError:
+                    self.send_json(400, {"error": "Invalid signature"})
+                    return
+            body = json.loads(raw_body)
             event_type = body.get("type", "")
             data = body.get("data", {}).get("object", {})
             username = data.get("client_reference_id", "")

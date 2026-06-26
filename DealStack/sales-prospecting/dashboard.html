@@ -918,7 +918,7 @@
     const state = { leads: [], proposals: [], page: 1, perPage: 25 };
     const filters = { product: 'all', status: 'all', prospect: 'all' };
 
-    function esc(t){ const d=document.createElement('div'); d.textContent = t || ''; return d.innerHTML; }
+    function esc(t){ const d=document.createElement('div'); d.textContent = t || ''; return d.innerHTML.replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
     function productKey(biz){
       const b=(biz||'').toLowerCase();
