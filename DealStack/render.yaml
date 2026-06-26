@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: dealstack-sales
+    runtime: python
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: sales-prospecting
+    buildCommand: pip install -r sales-prospecting/requirements.txt
+    startCommand: python server.py
+    healthCheckPath: /dashboard
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: LOG_LEVEL
+        value: INFO
+      - key: API_KEYS
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://dealstack-m9re.onrender.com
+      - key: RATE_LIMIT_PER_MIN
+        value: "60"

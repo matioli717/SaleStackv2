@@ -1,0 +1,690 @@
+[
+  {
+    "lead_name": "Barbearia do Kadim",
+    "business_type": "Salão de beleza",
+    "location": "121, Rua Jericó",
+    "address": "121, Rua Jericó",
+    "coordinates": [
+      -43.3680836,
+      -22.9487295
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/496464068",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "121",
+      "addr:street": "Rua Jericó",
+      "name": "Barbearia do Kadim",
+      "shop": "hairdresser",
+      "source": "Wikimapa",
+      "wikimapa:author": "juliane"
+    }
+  },
+  {
+    "lead_name": "Barbearia K & MK",
+    "business_type": "Salão de beleza",
+    "location": "192, Rua Jericó",
+    "address": "192, Rua Jericó",
+    "coordinates": [
+      -43.3671738,
+      -22.9497412
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/496491925",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "192",
+      "addr:street": "Rua Jericó",
+      "name": "Barbearia K & MK",
+      "shop": "hairdresser",
+      "source": "Wikimapa",
+      "wikimapa:author": "juliane"
+    }
+  },
+  {
+    "lead_name": "Espaço Cor da Pele",
+    "business_type": "Salão de beleza",
+    "location": "Rua Noé",
+    "address": "Rua Noé",
+    "coordinates": [
+      -43.3648563,
+      -22.9498123
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/496500048",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:street": "Rua Noé",
+      "name": "Espaço Cor da Pele",
+      "opening_hours": "Sa-Su",
+      "shop": "hairdresser",
+      "source": "Wikimapa",
+      "wikimapa:author": "juliane"
+    }
+  },
+  {
+    "lead_name": "Salão de Beleza Unissex (Studio 88)",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3790599,
+      -22.9304479
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/1551633186",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Salão de Beleza Unissex (Studio 88)",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Salão de Beleza Emerson e Grazi Coiffeur",
+    "business_type": "Salão de beleza",
+    "location": "187, Rua Relvado, Rio de Janeiro, 22720-380",
+    "address": "187, Rua Relvado, Rio de Janeiro, 22720-380",
+    "coordinates": [
+      -43.3874489,
+      -22.918643
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/2955387136",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housename": "Loja A; Loja B",
+      "addr:housenumber": "187",
+      "addr:postcode": "22720-380",
+      "addr:street": "Rua Relvado",
+      "name": "Salão de Beleza Emerson e Grazi Coiffeur",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Beauty Center by Marize",
+    "business_type": "Salão de beleza",
+    "location": "950, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "phone": "+55 21 2440-4349; +55 21 3594-1638",
+    "address": "950, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "coordinates": [
+      -43.387263,
+      -22.9170332
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/2955387253",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housename": "Loja B",
+      "addr:housenumber": "950",
+      "addr:postcode": "22720-410",
+      "addr:street": "Avenida dos Mananciais",
+      "name": "Beauty Center by Marize",
+      "opening_hours": "Tu-Sa 09:00-19:00",
+      "phone": "+55 21 2440-4349; +55 21 3594-1638",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Mais Depil",
+    "business_type": "Beleza",
+    "location": "835, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "phone": "+55 21 3456-3988; +55 21 99845-2600",
+    "website": "http://www.maisdepil.com.br/",
+    "address": "835, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "coordinates": [
+      -43.3860366,
+      -22.9172431
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/2968360619",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housename": "Loja B",
+      "addr:housenumber": "835",
+      "addr:postcode": "22720-400",
+      "addr:street": "Avenida dos Mananciais",
+      "name": "Mais Depil",
+      "opening_hours": "Tu-Sa 09:00-18:00",
+      "phone": "+55 21 3456-3988; +55 21 99845-2600",
+      "shop": "beauty",
+      "website": "http://www.maisdepil.com.br/"
+    }
+  },
+  {
+    "lead_name": "Espaço Ellas",
+    "business_type": "Beleza",
+    "location": "1665, Estrada do Rio Grande, Rio de Janeiro, 22720-010",
+    "phone": "+55 21 2475-4525; +55 21 2456-1858",
+    "website": "http://espacoellas.wix.com/espacoellas",
+    "address": "1665, Estrada do Rio Grande, Rio de Janeiro, 22720-010",
+    "coordinates": [
+      -43.3867927,
+      -22.9194491
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/2971562628",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housename": "Loja A",
+      "addr:housenumber": "1665",
+      "addr:postcode": "22720-010",
+      "addr:street": "Estrada do Rio Grande",
+      "contact:email": "davy.alberto@yahoo.com.br",
+      "contact:phone": "+55 21 2475-4525; +55 21 2456-1858",
+      "contact:website": "http://espacoellas.wix.com/espacoellas",
+      "name": "Espaço Ellas",
+      "opening_hours": "Tu-Sa 10:00-20:00",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Espaço Pé & Mão",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3594996,
+      -22.9889196
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/3447126895",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Espaço Pé & Mão",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Espaço Contemporâneo",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "phone": "+55 21 3311-5438",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3595037,
+      -22.9890777
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/3447126899",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Espaço Contemporâneo",
+      "phone": "+55 21 3311-5438",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Studio Beauty Karine Lima",
+    "business_type": "Beleza",
+    "location": "3, Rua Nova, Rio das Pedras, Rio de Janeiro, 22753-211",
+    "phone": "(21) 97881-0968",
+    "address": "3, Rua Nova, Rio das Pedras, Rio de Janeiro, 22753-211",
+    "coordinates": [
+      -43.3335775,
+      -22.9715734
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/4100929109",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:housenumber": "3",
+      "addr:postcode": "22753-211",
+      "addr:street": "Rua Nova",
+      "addr:suburb": "Rio das Pedras",
+      "amenity": "restaurant",
+      "beauty": "skin_care;cosmetics;hair",
+      "name": "Studio Beauty Karine Lima",
+      "opening_hours": "24/7",
+      "operator": "Karine Lima",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "phone": "(21) 97881-0968",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Espaço Eliete e Anderson",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4132817,
+      -22.9693883
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/4741914640",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Espaço Eliete e Anderson",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Stilos Salon",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4133816,
+      -22.9702731
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/4741914663",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:unit": "124",
+      "level": "0",
+      "name": "Stilos Salon",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Salão Beleza.com",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.413334,
+      -22.9701632
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/4741914665",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "level": "1",
+      "name": "Salão Beleza.com",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Esmalte Chic",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4132965,
+      -22.9699434
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/4741914669",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "level": "1",
+      "name": "Esmalte Chic",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Senhor Pello",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4133018,
+      -22.9696816
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/4741914674",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "beauty": "hair_removal",
+      "level": "1",
+      "name": "Senhor Pello",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Beleza Real Studio",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4133971,
+      -22.969668
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/4741914675",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "level": "1",
+      "name": "Beleza Real Studio",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Vaidosa Make e Esmalteria",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.413393,
+      -22.9696199
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/4741914676",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:unit": "301",
+      "beauty": "nails",
+      "level": "2",
+      "name": "Vaidosa Make e Esmalteria",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Barbearia & etc",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4132924,
+      -22.9702632
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/4741914687",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:unit": "330",
+      "level": "2",
+      "name": "Barbearia & etc",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Sobrancelhas",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4135931,
+      -22.9742911
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/5695527836",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Sobrancelhas",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Depyl Action",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3850998,
+      -22.9716732
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/5903616854",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Depyl Action",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Fazolino",
+    "business_type": "Beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4133858,
+      -22.9703305
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/6109836514",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:unit": "126",
+      "name": "Fazolino",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Equip",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4133151,
+      -22.9704734
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/6125820562",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:unit": "333",
+      "level": "2",
+      "name": "Equip",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "La bela",
+    "business_type": "Beleza",
+    "location": "Rua Joanopolis, Curicica, Rio de Janeiro",
+    "address": "Rua Joanopolis, Curicica, Rio de Janeiro",
+    "coordinates": [
+      -43.3821649,
+      -22.9442566
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/6837944390",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:street": "Rua Joanopolis",
+      "addr:suburb": "Curicica",
+      "name": "La bela",
+      "shop": "beauty"
+    }
+  },
+  {
+    "lead_name": "Barbearua di Gordinho",
+    "business_type": "Salão de beleza",
+    "location": "Rua Arália, Curicica, Rio de Janeiro",
+    "address": "Rua Arália, Curicica, Rio de Janeiro",
+    "coordinates": [
+      -43.3793144,
+      -22.9406543
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/6837944420",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:street": "Rua Arália",
+      "addr:suburb": "Curicica",
+      "name": "Barbearua di Gordinho",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Espaço Pérola's",
+    "business_type": "Beleza",
+    "location": "329, Estrada do Pau-Ferro, Pechincha, Rio de Janeiro, 22743050",
+    "phone": "+5521974662093",
+    "website": "https://espacoperolasrj.negocio.site/",
+    "address": "329, Estrada do Pau-Ferro, Pechincha, Rio de Janeiro, 22743050",
+    "coordinates": [
+      -43.346778,
+      -22.9261814
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/8657441612",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:housenumber": "329",
+      "addr:postcode": "22743050",
+      "addr:street": "Estrada do Pau-Ferro",
+      "addr:suburb": "Pechincha",
+      "beauty": "nails;hair;cosmetics;pedicure;aesthetic",
+      "name": "Espaço Pérola's",
+      "opening_hours": "Mo-Sa 09:00-18:00",
+      "payment:cash": "yes",
+      "payment:debit_cards": "yes",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "phone": "+5521974662093",
+      "shop": "beauty",
+      "website": "https://espacoperolasrj.negocio.site/"
+    }
+  },
+  {
+    "lead_name": "Espaço Musa",
+    "business_type": "Beleza",
+    "location": "160, Estrada do Pau-Ferro, Pechincha, Rio de Janeiro, 22743051",
+    "phone": "21978878286",
+    "website": "https://espacomusarj.negocio.site/?m=true",
+    "address": "160, Estrada do Pau-Ferro, Pechincha, Rio de Janeiro, 22743051",
+    "coordinates": [
+      -43.3504519,
+      -22.9276852
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/9586642851",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:housenumber": "160",
+      "addr:postcode": "22743051",
+      "addr:street": "Estrada do Pau-Ferro",
+      "addr:suburb": "Pechincha",
+      "beauty": "spa;hair;skin_care;pedicure;eyebrow;manicure;cabelereiro",
+      "name": "Espaço Musa",
+      "payment:PIX": "yes",
+      "payment:cash": "yes",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "phone": "21978878286",
+      "shop": "beauty",
+      "website": "https://espacomusarj.negocio.site/?m=true"
+    }
+  },
+  {
+    "lead_name": "Barbearia Mr Max",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4136791,
+      -22.9724338
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/12072465057",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Barbearia Mr Max",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Barbearia do Ed",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4139481,
+      -22.9675394
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/12072474284",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Barbearia do Ed",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Soninha Coiffeur",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4138435,
+      -22.9689463
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/12072474285",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Soninha Coiffeur",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Barbearia Velhos do Rio",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4132895,
+      -22.9702202
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/12072474289",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Barbearia Velhos do Rio",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "Barbearia da Telma",
+    "business_type": "Salão de beleza",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.4150684,
+      -22.9695629
+    ],
+    "osm_type": "hairdresser",
+    "osm_id": "node/12072505671",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Barbearia da Telma",
+      "shop": "hairdresser"
+    }
+  },
+  {
+    "lead_name": "NATURELLES ESTÉTICA E SAÚDE INTEGRATIVA",
+    "business_type": "Beleza",
+    "location": "01, Avenida Embaixador Abelardo Bueno, Barra da Tijuca, Rio de Janeiro, 22775-040",
+    "phone": "+5521999143883",
+    "address": "01, Avenida Embaixador Abelardo Bueno, Barra da Tijuca, Rio de Janeiro, 22775-040",
+    "coordinates": [
+      -43.3649757,
+      -22.9749676
+    ],
+    "osm_type": "beauty",
+    "osm_id": "node/12726985197",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:housenumber": "01",
+      "addr:postcode": "22775-040",
+      "addr:street": "Avenida Embaixador Abelardo Bueno",
+      "addr:suburb": "Barra da Tijuca",
+      "beauty": "nails",
+      "contact:email": "naturelles.rj@gmail.com",
+      "contact:phone": "+5521999143883",
+      "name": "NATURELLES ESTÉTICA E SAÚDE INTEGRATIVA",
+      "shop": "beauty"
+    }
+  }
+]

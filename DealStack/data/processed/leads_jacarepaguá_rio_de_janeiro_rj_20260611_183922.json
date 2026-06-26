@@ -1,0 +1,259 @@
+[
+  {
+    "lead_name": "Panificação Flor da Taquara Ltda",
+    "business_type": "Supermercado",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "+55 21 2427-2581",
+    "address": "800, Estrada do Guerenguê",
+    "coordinates": [
+      -43.3793014,
+      -22.9302652
+    ],
+    "osm_type": "supermarket",
+    "osm_id": "node/1546278410",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housename": "Padaria",
+      "addr:housenumber": "800",
+      "addr:street": "Estrada do Guerenguê",
+      "name": "Panificação Flor da Taquara Ltda",
+      "phone": "+55 21 2427-2581",
+      "shop": "supermarket"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "Big Jaurú Móveis",
+    "business_type": "Móveis",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "+55 21 2440-4584",
+    "address": "70, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "coordinates": [
+      -43.378788,
+      -22.9163531
+    ],
+    "osm_type": "furniture",
+    "osm_id": "node/2955384323",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "70",
+      "addr:postcode": "22720-410",
+      "addr:street": "Avenida dos Mananciais",
+      "name": "Big Jaurú Móveis",
+      "phone": "+55 21 2440-4584",
+      "shop": "furniture"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "Estofamento Mananciais",
+    "business_type": "Móveis",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "+55 21 3432-1824; +55 21 3185-7289",
+    "address": "401, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "coordinates": [
+      -43.381901,
+      -22.9169015
+    ],
+    "osm_type": "furniture",
+    "osm_id": "node/2955384331",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "401",
+      "addr:postcode": "22720-400",
+      "addr:street": "Avenida dos Mananciais",
+      "name": "Estofamento Mananciais",
+      "phone": "+55 21 3432-1824; +55 21 3185-7289",
+      "shop": "furniture"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "Kát & Mari Modas",
+    "business_type": "Loja de roupas",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "+55 21 3256-0096",
+    "address": "147, Rua Relvado, Rio de Janeiro, 22720-380",
+    "coordinates": [
+      -43.3870727,
+      -22.9185889
+    ],
+    "osm_type": "clothes",
+    "osm_id": "node/2955387099",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "147",
+      "addr:postcode": "22720-380",
+      "addr:street": "Rua Relvado",
+      "name": "Kát & Mari Modas",
+      "phone": "+55 21 3256-0096",
+      "shop": "clothes"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "Ambientte Conceito",
+    "business_type": "Móveis",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "+55 21 21 3023-2444; +55 21 3281-1404",
+    "website": "http://www.ambientte.com.br/",
+    "address": "2781, Estrada do Tindiba, Rio de Janeiro, 22725-421",
+    "coordinates": [
+      -43.3762517,
+      -22.918559
+    ],
+    "osm_type": "furniture",
+    "osm_id": "node/2970318078",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "2781",
+      "addr:postcode": "22725-421",
+      "addr:street": "Estrada do Tindiba",
+      "name": "Ambientte Conceito",
+      "phone": "+55 21 21 3023-2444; +55 21 3281-1404",
+      "shop": "furniture",
+      "website": "http://www.ambientte.com.br/"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "Clara Acessórios",
+    "business_type": "Loja de roupas",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "+55 21 2440-9040",
+    "address": "887, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "coordinates": [
+      -43.3865145,
+      -22.9172845
+    ],
+    "osm_type": "clothes",
+    "osm_id": "node/2970318080",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "887",
+      "addr:postcode": "22720-400",
+      "addr:street": "Avenida dos Mananciais",
+      "name": "Clara Acessórios",
+      "phone": "+55 21 2440-9040",
+      "shop": "clothes"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "Pisa Bella Calçados",
+    "business_type": "Sapataria",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "+55 21 2456-6852",
+    "address": "950, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "coordinates": [
+      -43.3872213,
+      -22.9170289
+    ],
+    "osm_type": "shoes",
+    "osm_id": "node/2970318096",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housename": "Loja A",
+      "addr:housenumber": "950",
+      "addr:postcode": "22720-410",
+      "addr:street": "Avenida dos Mananciais",
+      "name": "Pisa Bella Calçados",
+      "phone": "+55 21 2456-6852",
+      "shop": "shoes"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "Alecrim Flores e Decorações",
+    "business_type": "Floricultura",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "+55 21 2440-1893;+55 21 98556-6420;+55 21 98556-6421",
+    "website": "http://alecrimfloresedecoracoes.com.br/",
+    "address": "1895, Estrada do Rio Grande, Rio de Janeiro, 22720-010",
+    "coordinates": [
+      -43.3876327,
+      -22.9196455
+    ],
+    "osm_type": "florist",
+    "osm_id": "node/2971562626",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housename": "Loja B",
+      "addr:housenumber": "1895",
+      "addr:postcode": "22720-010",
+      "addr:street": "Estrada do Rio Grande",
+      "email": "alecrimfloresedecoracoes@gmail.com",
+      "name": "Alecrim Flores e Decorações",
+      "opening_hours": "Mo-Fr 08:00-18:00;Sa 08:00-16:00",
+      "phone": "+55 21 2440-1893;+55 21 98556-6420;+55 21 98556-6421",
+      "shop": "florist",
+      "website": "http://alecrimfloresedecoracoes.com.br/"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "TECNOMEDI FREGUESIA",
+    "business_type": "Conveniência",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "2134127627",
+    "address": "200 bl 1 loja B, Estrada dos Três Rios",
+    "coordinates": [
+      -43.3420511,
+      -22.9394819
+    ],
+    "osm_type": "convenience",
+    "osm_id": "node/4987422723",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "200 bl 1 loja B",
+      "addr:street": "Estrada dos Três Rios",
+      "name": "TECNOMEDI FREGUESIA",
+      "name:pt": "TECNOMEDI FREGUESIA",
+      "opening_hours": "Mo-Fr 08:30-18:30; Sa 08:30-13:00",
+      "phone": "2134127627",
+      "shop": "convenience"
+    },
+    "category": "retail"
+  },
+  {
+    "lead_name": "R Lima Modas",
+    "business_type": "Loja de roupas",
+    "location": "Jacarepaguá, Rio de Janeiro, RJ",
+    "phone": "21987499323",
+    "website": "https://www.facebook.com/RLimaModasTricotECrocheSobMedida",
+    "address": "477, Estrada Comandante Luiz Souto, 22733040",
+    "coordinates": [
+      -43.3634348,
+      -22.9103585
+    ],
+    "osm_type": "clothes",
+    "osm_id": "node/5707637421",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "477",
+      "addr:postcode": "22733040",
+      "addr:street": "Estrada Comandante Luiz Souto",
+      "email": "rlimamodas@hotmail.com",
+      "name": "R Lima Modas",
+      "opening_hours": "Mo-Su 09:00-18:00",
+      "phone": "21987499323",
+      "shop": "clothes",
+      "website": "https://www.facebook.com/RLimaModasTricotECrocheSobMedida"
+    },
+    "category": "retail"
+  }
+]

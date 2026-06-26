@@ -1,0 +1,21 @@
+﻿lead_name,business_type,address,phone,website,email,coordinates_lon,coordinates_lat,osm_type,osm_id,source
+Prezunic,Supermercado,"Próximo a -22.9532, -43.3716",,,,-43.3671335,-22.9428892,supermarket,node/495166209,openstreetmap
+Multieconomia,Supermercado,Estrada dos Bandeirantes,,,,-43.3718671,-22.9475668,supermarket,node/495209025,openstreetmap
+Padaria Felipão,Padaria,"Próximo a -22.9532, -43.3716",,,,-43.3655027,-22.9524607,bakery,node/495249903,openstreetmap
+L.M Material de Construções,Ferragens,"20, Travessa 133-A",,,,-43.3648847,-22.9526109,hardware,node/495259826,openstreetmap
+Hortifrut Brasileiro,Supermercado,"113, Rua Israel",,,,-43.3623758,-22.9488559,supermarket,node/496523864,openstreetmap
+Kúffura,Padaria,"Próximo a -22.9532, -43.3716",,,,-43.340772,-22.9387686,bakery,node/1280717637,openstreetmap
+Rio Dois Shopping,Conveniência,"Próximo a -22.9532, -43.3716",,,,-43.3854229,-22.9715924,convenience,node/1301340282,openstreetmap
+Panificação Flor da Taquara Ltda,Supermercado,"800, Estrada do Guerenguê",+55 21 2427-2581,,,-43.3793014,-22.9302652,supermarket,node/1546278410,openstreetmap
+ampm,Conveniência,"Próximo a -22.9532, -43.3716",,,,-43.3634377,-22.9722267,convenience,node/2458141780,openstreetmap
+Padaria Nova Belém,Padaria,"Próximo a -22.9532, -43.3716",,,,-43.3433372,-22.9403171,bakery,node/2614080201,openstreetmap
+Feirinha de Roupas,Loja de roupas,"Próximo a -22.9532, -43.3716",,,,-43.3519225,-22.9358566,clothes,node/2869130376,openstreetmap
+Chatuba,Ferragens,"Próximo a -22.9532, -43.3716",,,,-43.3729988,-22.9352913,hardware,node/2904135601,openstreetmap
+R5,Ferragens,"Próximo a -22.9532, -43.3716",,,,-43.3824483,-22.9580628,hardware,node/2904135803,openstreetmap
+Padaria Quero Pão da Taquara,Padaria,"Próximo a -22.9532, -43.3716",,,,-43.3741971,-22.9174125,bakery,node/2936449228,openstreetmap
+Big Jaurú Móveis,Móveis,"70, Avenida dos Mananciais, Rio de Janeiro, 22720-410",+55 21 2440-4584,,,-43.378788,-22.9163531,furniture,node/2955384323,openstreetmap
+Estofamento Mananciais,Móveis,"401, Avenida dos Mananciais, Rio de Janeiro, 22720-400",+55 21 3432-1824; +55 21 3185-7289,,,-43.381901,-22.9169015,furniture,node/2955384331,openstreetmap
+Kát & Mari Modas,Loja de roupas,"147, Rua Relvado, Rio de Janeiro, 22720-380",+55 21 3256-0096,,,-43.3870727,-22.9185889,clothes,node/2955387099,openstreetmap
+Ambientte Conceito,Móveis,"2781, Estrada do Tindiba, Rio de Janeiro, 22725-421",+55 21 21 3023-2444; +55 21 3281-1404,http://www.ambientte.com.br/,,-43.3762517,-22.918559,furniture,node/2970318078,openstreetmap
+Clara Acessórios,Loja de roupas,"887, Avenida dos Mananciais, Rio de Janeiro, 22720-400",+55 21 2440-9040,,,-43.3865145,-22.9172845,clothes,node/2970318080,openstreetmap
+Pisa Bella Calçados,Sapataria,"950, Avenida dos Mananciais, Rio de Janeiro, 22720-410",+55 21 2456-6852,,,-43.3872213,-22.9170289,shoes,node/2970318096,openstreetmap

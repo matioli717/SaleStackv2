@@ -1,0 +1,417 @@
+[
+  {
+    "lead_name": "Pousada Manacá",
+    "business_type": "Hotel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.07518,
+      -16.4852182
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/2745631316",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Pousada Manacá",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Aquarela Hotel",
+    "business_type": "Hotel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0616016,
+      -16.459465
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/3126947129",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "ele": "2.2",
+      "ele:msl": "2,2",
+      "ele:source": "GPS",
+      "highway": "bus_stop",
+      "internet_access": "wlan",
+      "internet_access:fee": "yes",
+      "name": "Aquarela Hotel",
+      "source": "GPS",
+      "tourism": "hotel",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "lead_name": "Canto d'Alvorada",
+    "business_type": "Hotel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0645569,
+      -16.4764763
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/4016354197",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Canto d'Alvorada",
+      "source:name": "survey",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Hotel Vale Verde",
+    "business_type": "Hotel",
+    "location": "679, Avenida dos Navegantes",
+    "phone": "+55 73 3288 2255",
+    "website": "https://www.hotelvaleverde.tur.br/",
+    "address": "679, Avenida dos Navegantes",
+    "coordinates": [
+      -39.0675458,
+      -16.4434408
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/4222875389",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "679",
+      "addr:street": "Avenida dos Navegantes",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Hotel Vale Verde",
+      "phone": "+55 73 3288 2255",
+      "smoking": "outside",
+      "tourism": "hotel",
+      "website": "https://www.hotelvaleverde.tur.br/",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "lead_name": "Chauã Hotel",
+    "business_type": "Hotel",
+    "location": "Avenida dos Navegantes",
+    "address": "Avenida dos Navegantes",
+    "coordinates": [
+      -39.0680118,
+      -16.4429886
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/4227395502",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:street": "Avenida dos Navegantes",
+      "name": "Chauã Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Oceano Porto Hotel",
+    "business_type": "Hotel",
+    "location": "73, Avenida dos Navegantes, Porto Seguro",
+    "phone": "+55 73 3288 2014",
+    "address": "73, Avenida dos Navegantes, Porto Seguro",
+    "coordinates": [
+      -39.0679474,
+      -16.4432665
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/4227395516",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Porto Seguro",
+      "addr:housenumber": "73",
+      "addr:street": "Avenida dos Navegantes",
+      "name": "Oceano Porto Hotel",
+      "phone": "+55 73 3288 2014",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Pousada Costa do Sol",
+    "business_type": "Hotel",
+    "location": "690, Avenida dos Navegantes, Porto Seguro",
+    "phone": "+55 73 3288 2476",
+    "address": "690, Avenida dos Navegantes, Porto Seguro",
+    "coordinates": [
+      -39.0676148,
+      -16.4431867
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/4227395521",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Porto Seguro",
+      "addr:housenumber": "690",
+      "addr:street": "Avenida dos Navegantes",
+      "name": "Pousada Costa do Sol",
+      "phone": "+55 73 3288 2476",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Arraial Eco Resort",
+    "business_type": "Hotel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0602842,
+      -16.4579592
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/4249434890",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "internet_access": "wlan",
+      "name": "Arraial Eco Resort",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Camping Mundaí",
+    "business_type": "Camping",
+    "location": "4273, Avenida Beira Mar, 45810-000",
+    "website": "https://hotelmundai.com.br/",
+    "address": "4273, Avenida Beira Mar, 45810-000",
+    "coordinates": [
+      -39.0494336,
+      -16.4095659
+    ],
+    "osm_type": "camp_site",
+    "osm_id": "node/4406663499",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "4273",
+      "addr:postcode": "45810-000",
+      "addr:street": "Avenida Beira Mar",
+      "name": "Camping Mundaí",
+      "name:pt": "Camping Mundaí",
+      "tourism": "camp_site",
+      "website": "https://hotelmundai.com.br/"
+    }
+  },
+  {
+    "lead_name": "Pousada Bem-Ti-Vis",
+    "business_type": "Hotel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0631542,
+      -16.4484002
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/4408491206",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Pousada Bem-Ti-Vis",
+      "name:en": "Pousada Bem-Ti-Vis",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Pousada solar do pantanal",
+    "business_type": "Hotel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0652813,
+      -16.4461347
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/4784599140",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Pousada solar do pantanal",
+      "name:pt": "Pousada solar do pantanal",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Porto Seguro praia resort",
+    "business_type": "Hotel",
+    "location": "1500, Avenida Beira Mar",
+    "address": "1500, Avenida Beira Mar",
+    "coordinates": [
+      -39.0548478,
+      -16.4195889
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/5087066923",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "1500",
+      "addr:street": "Avenida Beira Mar",
+      "name": "Porto Seguro praia resort",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Hotel Navegantes",
+    "business_type": "Hotel",
+    "location": "212, Avenida do Descobrimento, Centro, Porto Seguro, 45810-000",
+    "address": "212, Avenida do Descobrimento, Centro, Porto Seguro, 45810-000",
+    "coordinates": [
+      -39.0616408,
+      -16.4465673
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/5345566977",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Porto Seguro",
+      "addr:housenumber": "212",
+      "addr:postcode": "45810-000",
+      "addr:street": "Avenida do Descobrimento",
+      "addr:suburb": "Centro",
+      "name": "Hotel Navegantes",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Solar das Orquídeas",
+    "business_type": "Pousada",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0703667,
+      -16.4863604
+    ],
+    "osm_type": "guest_house",
+    "osm_id": "node/5347466945",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Solar das Orquídeas",
+      "tourism": "guest_house"
+    }
+  },
+  {
+    "lead_name": "Hotel Lagoa Azul",
+    "business_type": "Hotel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0640799,
+      -16.442052
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/6827235285",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Hotel Lagoa Azul",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Small Porto Hotel",
+    "business_type": "Hotel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0644494,
+      -16.4420104
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/6827235289",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "name": "Small Porto Hotel",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Hotel Bosque do Porto",
+    "business_type": "Hotel",
+    "location": "Avenida Beira Mar, Taperapuan, Porto Seguro, 45810-000",
+    "phone": "+55 73 3679 1555",
+    "website": "http://www.bosquedoporto.com.br/",
+    "address": "Avenida Beira Mar, Taperapuan, Porto Seguro, 45810-000",
+    "coordinates": [
+      -39.0449982,
+      -16.4036846
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/6851627628",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Porto Seguro",
+      "addr:postcode": "45810-000",
+      "addr:street": "Avenida Beira Mar",
+      "addr:suburb": "Taperapuan",
+      "contact:facebook": "https://www.facebook.com/BosqueDoPorto",
+      "contact:instagram": "https://www.instagram.com/bosquedoporto/",
+      "email": "contato@bosquedoporto.com.br",
+      "name": "Hotel Bosque do Porto",
+      "phone": "+55 73 3679 1555",
+      "tourism": "hotel",
+      "website": "http://www.bosquedoporto.com.br/"
+    }
+  },
+  {
+    "lead_name": "Hotel Garça Branca",
+    "business_type": "Hotel",
+    "location": "Avenida Beira Mar, 45810-000",
+    "address": "Avenida Beira Mar, 45810-000",
+    "coordinates": [
+      -39.0456504,
+      -16.4042261
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/6851627629",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:postcode": "45810-000",
+      "addr:street": "Avenida Beira Mar",
+      "contact:facebook": "https://pt-br.facebook.com/GarcaBlancaPraiaHotel/",
+      "contact:instagram": "https://www.instagram.com/garcabrancapraia/",
+      "contact:mobile": "+55 73 99963 8348",
+      "contact:whatsapp": "https://api.whatsapp.com/send/?phone=5573999638348&text=Ol%C3%A1%21+Estou+interessado+em+fazer+uma+reserva%21&app_absent=0",
+      "name": "Hotel Garça Branca",
+      "tourism": "hotel"
+    }
+  },
+  {
+    "lead_name": "Hotel Porto das Naus",
+    "business_type": "Hotel",
+    "location": "4000, Avenida Beira Mar, Taperapuan, Porto Seguro",
+    "phone": "+55 73 32688000",
+    "website": "https://portodasnaus.com.br/",
+    "address": "4000, Avenida Beira Mar, Taperapuan, Porto Seguro",
+    "coordinates": [
+      -39.0479435,
+      -16.4074954
+    ],
+    "osm_type": "hotel",
+    "osm_id": "node/6851627641",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Porto Seguro",
+      "addr:housenumber": "4000",
+      "addr:street": "Avenida Beira Mar",
+      "addr:suburb": "Taperapuan",
+      "contact:facebook": "https://www.facebook.com/portodasnaus",
+      "contact:instagram": "https://www.instagram.com/portodasnaus/",
+      "email": "reservas@portodasnaus.com.br",
+      "name": "Hotel Porto das Naus",
+      "phone": "+55 73 32688000",
+      "tourism": "hotel",
+      "website": "https://portodasnaus.com.br/"
+    }
+  },
+  {
+    "lead_name": "Hostel Caminho do Sol",
+    "business_type": "Hostel",
+    "location": "Próximo a -16.4435, -39.0643",
+    "address": "Próximo a -16.4435, -39.0643",
+    "coordinates": [
+      -39.0668857,
+      -16.4753142
+    ],
+    "osm_type": "hostel",
+    "osm_id": "node/8111867718",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "internet_access": "wlan",
+      "name": "Hostel Caminho do Sol",
+      "tourism": "hostel"
+    }
+  }
+]

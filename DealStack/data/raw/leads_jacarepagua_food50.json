@@ -1,0 +1,1039 @@
+[
+  {
+    "lead_name": "Planet Lanches",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3682922,
+      -22.947347
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/495185764",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "Planet Lanches",
+      "source": "Wikimapa",
+      "wikimapa:author": "juliane"
+    }
+  },
+  {
+    "lead_name": "Mania de Comer",
+    "business_type": "Fast Food",
+    "location": "Travessa 133-A",
+    "address": "Travessa 133-A",
+    "coordinates": [
+      -43.3646015,
+      -22.9524528
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/495269480",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:street": "Travessa 133-A",
+      "amenity": "fast_food",
+      "name": "Mania de Comer",
+      "opening_hours": "16:00-23:00"
+    }
+  },
+  {
+    "lead_name": "Vem Comer Lanches",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3577779,
+      -22.9533933
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/495320874",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "Vem Comer Lanches",
+      "source": "Wikimapa",
+      "wikimapa:author": "juliane"
+    }
+  },
+  {
+    "lead_name": "Açaí da Ponte",
+    "business_type": "Fast Food",
+    "location": "203, Avenida Cidade de Deus",
+    "address": "203, Avenida Cidade de Deus",
+    "coordinates": [
+      -43.3663155,
+      -22.9494329
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/496493532",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "203",
+      "addr:street": "Avenida Cidade de Deus",
+      "amenity": "fast_food",
+      "name": "Açaí da Ponte",
+      "opening_hours": "Mo-Su 12:00-23:59",
+      "source": "Wikimapa",
+      "wikimapa:author": "juliane"
+    }
+  },
+  {
+    "lead_name": "Pastel Mania",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3648649,
+      -22.9490535
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/496500537",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "Pastel Mania",
+      "source": "Wikimapa",
+      "wikimapa:author": "juliane"
+    }
+  },
+  {
+    "lead_name": "McLanche",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3638264,
+      -22.9496542
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/496504876",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "McLanche",
+      "source": "Wikimapa",
+      "wikimapa:author": "juliane"
+    }
+  },
+  {
+    "lead_name": "Associação de Moradores e Espaço Cultural Cidade de Deus",
+    "business_type": "public_building",
+    "location": "90, Avenida José de Arimatéia",
+    "address": "90, Avenida José de Arimatéia",
+    "coordinates": [
+      -43.363586,
+      -22.949259
+    ],
+    "osm_type": "public_building",
+    "osm_id": "node/496507832",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housenumber": "90",
+      "addr:street": "Avenida José de Arimatéia",
+      "amenity": "public_building",
+      "name": "Associação de Moradores e Espaço Cultural Cidade de Deus",
+      "opening_hours": "Mo-Th 10:00-16:00"
+    }
+  },
+  {
+    "lead_name": "La Plancha",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3667757,
+      -22.9947917
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/1766675453",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "cuisine": "seafood",
+      "name": "La Plancha"
+    }
+  },
+  {
+    "lead_name": "Capital Steakhouse",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3644508,
+      -22.997286
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/1766676594",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "cuisine": "steak_house",
+      "name": "Capital Steakhouse"
+    }
+  },
+  {
+    "lead_name": "Subway",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3617854,
+      -22.9704321
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/2458141766",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "brand": "Subway",
+      "brand:wikidata": "Q244457",
+      "brand:wikipedia": "en:Subway (restaurant)",
+      "cuisine": "sandwich",
+      "name": "Subway",
+      "source": "survey",
+      "takeaway": "yes"
+    }
+  },
+  {
+    "lead_name": "Lu Lanches",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3612,
+      -22.941472
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/2623996289",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "cuisine": "burger",
+      "name": "Lu Lanches"
+    }
+  },
+  {
+    "lead_name": "Dos Sertões Freguesia",
+    "business_type": "Restaurante",
+    "location": "7636, Estrada de Jacarepaguá, Freguesia, Rio de Janeiro",
+    "address": "7636, Estrada de Jacarepaguá, Freguesia, Rio de Janeiro",
+    "coordinates": [
+      -43.3408789,
+      -22.9423893
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2624017230",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:housenumber": "7636",
+      "addr:street": "Estrada de Jacarepaguá",
+      "addr:suburb": "Freguesia",
+      "amenity": "restaurant",
+      "cuisine": "brazilian;nordestina",
+      "name": "Dos Sertões Freguesia",
+      "opening_hours": "Mo-Su 11:00-23:00"
+    }
+  },
+  {
+    "lead_name": "Planalto do Chopp",
+    "business_type": "Restaurante",
+    "location": "713, Avenida Geremário Dantas",
+    "address": "713, Avenida Geremário Dantas",
+    "coordinates": [
+      -43.3538023,
+      -22.9289981
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2671620102",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:housename": "Planalto do Chopp",
+      "addr:housenumber": "713",
+      "addr:street": "Avenida Geremário Dantas",
+      "amenity": "restaurant",
+      "cuisine": "pizza",
+      "name": "Planalto do Chopp"
+    }
+  },
+  {
+    "lead_name": "Azimut",
+    "business_type": "Restaurante",
+    "location": "2691, Estrada do Rio Grande, Rio de Janeiro, 22720-010",
+    "phone": "+55 21 2440-1900; +55 21 3596-9200",
+    "address": "2691, Estrada do Rio Grande, Rio de Janeiro, 22720-010",
+    "coordinates": [
+      -43.3944997,
+      -22.9191279
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2954320338",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "2691",
+      "addr:postcode": "22720-010",
+      "addr:street": "Estrada do Rio Grande",
+      "amenity": "restaurant",
+      "name": "Azimut",
+      "phone": "+55 21 2440-1900; +55 21 3596-9200"
+    }
+  },
+  {
+    "lead_name": "D-Vino",
+    "business_type": "Restaurante",
+    "location": "54, Rua Salinópolis, Rio de Janeiro, 22720-000",
+    "phone": "+5521 3251-8433;+5521 3251-8433",
+    "address": "54, Rua Salinópolis, Rio de Janeiro, 22720-000",
+    "coordinates": [
+      -43.3862686,
+      -22.91858
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2954320342",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "54",
+      "addr:postcode": "22720-000",
+      "addr:street": "Rua Salinópolis",
+      "amenity": "restaurant",
+      "email": "restaurantedvino@gmail.com",
+      "name": "D-Vino",
+      "phone": "+5521 3251-8433;+5521 3251-8433",
+      "start_date": "2011-10-19"
+    }
+  },
+  {
+    "lead_name": "Esbórnia Chopp Bar",
+    "business_type": "Bar",
+    "location": "148, Rua Salinópolis, Rio de Janeiro, 22720-000",
+    "phone": "+55 21 3486-4902",
+    "website": "https://facebook.com/esborniabar",
+    "address": "148, Rua Salinópolis, Rio de Janeiro, 22720-000",
+    "coordinates": [
+      -43.3864826,
+      -22.9177201
+    ],
+    "osm_type": "bar",
+    "osm_id": "node/2954320345",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housename": "Loja C",
+      "addr:housenumber": "148",
+      "addr:postcode": "22720-000",
+      "addr:street": "Rua Salinópolis",
+      "amenity": "bar",
+      "email": "esborniabar@gmail.com",
+      "name": "Esbórnia Chopp Bar",
+      "opening_hours": "Tu-Su 16:00-24:00",
+      "phone": "+55 21 3486-4902",
+      "website": "https://facebook.com/esborniabar"
+    }
+  },
+  {
+    "lead_name": "Esquina do Suco",
+    "business_type": "Fast Food",
+    "location": "835, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "address": "835, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "coordinates": [
+      -43.386082,
+      -22.9172474
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/2954320346",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "835",
+      "addr:postcode": "22720-400",
+      "addr:street": "Avenida dos Mananciais",
+      "amenity": "fast_food",
+      "name": "Esquina do Suco"
+    }
+  },
+  {
+    "lead_name": "Papo Sadio",
+    "business_type": "Bar",
+    "location": "177, Rua Relvado, Rio de Janeiro, 22720-380",
+    "phone": "21 2456-7024",
+    "address": "177, Rua Relvado, Rio de Janeiro, 22720-380",
+    "coordinates": [
+      -43.3873469,
+      -22.9186283
+    ],
+    "osm_type": "bar",
+    "osm_id": "node/2954320358",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "177",
+      "addr:postcode": "22720-380",
+      "addr:street": "Rua Relvado",
+      "amenity": "bar",
+      "name": "Papo Sadio",
+      "phone": "21 2456-7024"
+    }
+  },
+  {
+    "lead_name": "Pizzaria Mananciais",
+    "business_type": "Restaurante",
+    "location": "1096, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "address": "1096, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "coordinates": [
+      -43.38857,
+      -22.9171711
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2954320359",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "1096",
+      "addr:postcode": "22720-410",
+      "addr:street": "Avenida dos Mananciais",
+      "amenity": "restaurant",
+      "cuisine": "pizza",
+      "name": "Pizzaria Mananciais"
+    }
+  },
+  {
+    "lead_name": "Praça do Suco",
+    "business_type": "Fast Food",
+    "location": "77, Rua Relvado, Rio de Janeiro, 22720-380",
+    "phone": "+5521 2456-2374",
+    "address": "77, Rua Relvado, Rio de Janeiro, 22720-380",
+    "coordinates": [
+      -43.3859128,
+      -22.9184081
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/2954320360",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "77",
+      "addr:postcode": "22720-380",
+      "addr:street": "Rua Relvado",
+      "amenity": "fast_food",
+      "name": "Praça do Suco",
+      "phone": "+5521 2456-2374"
+    }
+  },
+  {
+    "lead_name": "Rei do Mate",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "phone": "+55 21 2440-0563",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3780025,
+      -22.9158125
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/2954320361",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "Rei do Mate",
+      "phone": "+55 21 2440-0563"
+    }
+  },
+  {
+    "lead_name": "Sushilândia",
+    "business_type": "Restaurante",
+    "location": "2691, Estrada do Rio Grande, Rio de Janeiro, 22720-010",
+    "phone": "+55 21 2440-1900; +55 21 3596-9200",
+    "address": "2691, Estrada do Rio Grande, Rio de Janeiro, 22720-010",
+    "coordinates": [
+      -43.3944016,
+      -22.9191501
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2954320362",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "2691",
+      "addr:postcode": "22720-010",
+      "addr:street": "Estrada do Rio Grande",
+      "amenity": "restaurant",
+      "cuisine": "japanese",
+      "name": "Sushilândia",
+      "phone": "+55 21 2440-1900; +55 21 3596-9200"
+    }
+  },
+  {
+    "lead_name": "Point do Frango",
+    "business_type": "Bar",
+    "location": "887, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "address": "887, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "coordinates": [
+      -43.3866048,
+      -22.9172932
+    ],
+    "osm_type": "bar",
+    "osm_id": "node/2954322444",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "887",
+      "addr:postcode": "22720-400",
+      "addr:street": "Avenida dos Mananciais",
+      "amenity": "bar",
+      "name": "Point do Frango"
+    }
+  },
+  {
+    "lead_name": "Burburinho Snooker Bar",
+    "business_type": "Bar",
+    "location": "872, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "phone": "+55 21 3546-1452",
+    "address": "872, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "coordinates": [
+      -43.3865058,
+      -22.9169876
+    ],
+    "osm_type": "bar",
+    "osm_id": "node/2955384324",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "872",
+      "addr:postcode": "22720-410",
+      "addr:street": "Avenida dos Mananciais",
+      "amenity": "bar",
+      "name": "Burburinho Snooker Bar",
+      "phone": "+55 21 3546-1452"
+    }
+  },
+  {
+    "lead_name": "Casa do Vinho",
+    "business_type": "Bar",
+    "location": "11, Rua Relvado, Rio de Janeiro, 22720-380",
+    "phone": "+55 21 2456-7054",
+    "address": "11, Rua Relvado, Rio de Janeiro, 22720-380",
+    "coordinates": [
+      -43.3857106,
+      -22.9183724
+    ],
+    "osm_type": "bar",
+    "osm_id": "node/2955384327",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "11",
+      "addr:postcode": "22720-380",
+      "addr:street": "Rua Relvado",
+      "amenity": "bar",
+      "name": "Casa do Vinho",
+      "phone": "+55 21 2456-7054"
+    }
+  },
+  {
+    "lead_name": "Chamego Zen",
+    "business_type": "Restaurante",
+    "location": "100, Rua Januário Barbosa, Rio de Janeiro, 22720-389",
+    "address": "100, Rua Januário Barbosa, Rio de Janeiro, 22720-389",
+    "coordinates": [
+      -43.387935,
+      -22.918112
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2955384328",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "100",
+      "addr:postcode": "22720-389",
+      "addr:street": "Rua Januário Barbosa",
+      "amenity": "restaurant",
+      "name": "Chamego Zen"
+    }
+  },
+  {
+    "lead_name": "Restaurante Sabor da Praça",
+    "business_type": "Restaurante",
+    "location": "63, Rua Relvado, Rio de Janeiro, 22720-380",
+    "phone": "+55 21 2440-1549; +55 21 2440-4559",
+    "address": "63, Rua Relvado, Rio de Janeiro, 22720-380",
+    "coordinates": [
+      -43.3856223,
+      -22.9183567
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2955387215",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "63",
+      "addr:postcode": "22720-380",
+      "addr:street": "Rua Relvado",
+      "amenity": "restaurant",
+      "name": "Restaurante Sabor da Praça",
+      "phone": "+55 21 2440-1549; +55 21 2440-4559"
+    }
+  },
+  {
+    "lead_name": "Pastelaria Garoto Mananciais",
+    "business_type": "Fast Food",
+    "location": "852, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "phone": "+55 21 7841-3144",
+    "address": "852, Avenida dos Mananciais, Rio de Janeiro, 22720-410",
+    "coordinates": [
+      -43.3863324,
+      -22.9169734
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/2955387267",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "852",
+      "addr:postcode": "22720-410",
+      "addr:street": "Avenida dos Mananciais",
+      "amenity": "fast_food",
+      "name": "Pastelaria Garoto Mananciais",
+      "phone": "+55 21 7841-3144"
+    }
+  },
+  {
+    "lead_name": "Skina dos Mananciais",
+    "business_type": "Restaurante",
+    "location": "527, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "address": "527, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "coordinates": [
+      -43.3818235,
+      -22.9170163
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2955387272",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "527",
+      "addr:postcode": "22720-400",
+      "addr:street": "Avenida dos Mananciais",
+      "amenity": "restaurant",
+      "name": "Skina dos Mananciais"
+    }
+  },
+  {
+    "lead_name": "Sushi da Praça",
+    "business_type": "Restaurante",
+    "location": "67, Rua Relvado, Rio de Janeiro, 22720-380",
+    "phone": "+55 21 3264-2374; +55 21 3298-2374",
+    "address": "67, Rua Relvado, Rio de Janeiro, 22720-380",
+    "coordinates": [
+      -43.3858122,
+      -22.9183903
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2955387274",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "67",
+      "addr:postcode": "22720-380",
+      "addr:street": "Rua Relvado",
+      "amenity": "restaurant",
+      "cuisine": "japanese",
+      "internet_access": "yes",
+      "name": "Sushi da Praça",
+      "opening_hours": "18:00-01:00",
+      "phone": "+55 21 3264-2374; +55 21 3298-2374"
+    }
+  },
+  {
+    "lead_name": "Taberna do Chopp",
+    "business_type": "Bar",
+    "location": "148, Rua Salinópolis, Rio de Janeiro, 22720-000",
+    "phone": "+5521 2440-6615",
+    "address": "148, Rua Salinópolis, Rio de Janeiro, 22720-000",
+    "coordinates": [
+      -43.3864783,
+      -22.9177353
+    ],
+    "osm_type": "bar",
+    "osm_id": "node/2955387276",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housename": "Loja B",
+      "addr:housenumber": "148",
+      "addr:postcode": "22720-000",
+      "addr:street": "Rua Salinópolis",
+      "amenity": "bar",
+      "name": "Taberna do Chopp",
+      "phone": "+5521 2440-6615"
+    }
+  },
+  {
+    "lead_name": "Mimi Quiosque",
+    "business_type": "Fast Food",
+    "location": "835, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "address": "835, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "coordinates": [
+      -43.3860484,
+      -22.9173187
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/2963852566",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "835",
+      "addr:postcode": "22720-400",
+      "addr:street": "Avenida dos Mananciais",
+      "amenity": "fast_food",
+      "name": "Mimi Quiosque"
+    }
+  },
+  {
+    "lead_name": "Mei Mei Lanches",
+    "business_type": "Fast Food",
+    "location": "Estrada do Cafundá",
+    "address": "Estrada do Cafundá",
+    "coordinates": [
+      -43.3744552,
+      -22.9142694
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/2966929736",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:street": "Estrada do Cafundá",
+      "amenity": "fast_food",
+      "name": "Mei Mei Lanches"
+    }
+  },
+  {
+    "lead_name": "Restaurante e Pizzaria Amo",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3870583,
+      -22.9153555
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2968360624",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "name": "Restaurante e Pizzaria Amo"
+    }
+  },
+  {
+    "lead_name": "Rota do Sabor",
+    "business_type": "Restaurante",
+    "location": "186, Estrada do Rio Grande, Rio de Janeiro, 22720-011",
+    "phone": "+55 21 2445-1068",
+    "address": "186, Estrada do Rio Grande, Rio de Janeiro, 22720-011",
+    "coordinates": [
+      -43.3763232,
+      -22.9223562
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2968360625",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "186",
+      "addr:postcode": "22720-011",
+      "addr:street": "Estrada do Rio Grande",
+      "amenity": "restaurant",
+      "name": "Rota do Sabor",
+      "phone": "+55 21 2445-1068"
+    }
+  },
+  {
+    "lead_name": "Vila Italiana Express",
+    "business_type": "Restaurante",
+    "location": "835, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "address": "835, Avenida dos Mananciais, Rio de Janeiro, 22720-400",
+    "coordinates": [
+      -43.3859988,
+      -22.9172395
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2968360627",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:city": "Rio de Janeiro",
+      "addr:country": "BR",
+      "addr:housenumber": "835",
+      "addr:postcode": "22720-400",
+      "addr:street": "Avenida dos Mananciais",
+      "amenity": "restaurant",
+      "cuisine": "pizza",
+      "name": "Vila Italiana Express"
+    }
+  },
+  {
+    "lead_name": "China In Box",
+    "business_type": "Restaurante",
+    "location": "Estrada do Tindiba",
+    "phone": "+55 21 3414-1970",
+    "website": "https://www.chinainbox.com.br/",
+    "address": "Estrada do Tindiba",
+    "coordinates": [
+      -43.3658628,
+      -22.9284012
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/2984447134",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "addr:street": "Estrada do Tindiba",
+      "amenity": "restaurant",
+      "name": "China In Box",
+      "phone": "+55 21 3414-1970",
+      "website": "https://www.chinainbox.com.br/"
+    }
+  },
+  {
+    "lead_name": "Pappa Jack",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3593126,
+      -22.9887137
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/3447126284",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "Pappa Jack"
+    }
+  },
+  {
+    "lead_name": "Gabbiano",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3595728,
+      -22.9887072
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/3447126285",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "name": "Gabbiano"
+    }
+  },
+  {
+    "lead_name": "San Benito",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3594467,
+      -22.9887137
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/3447126286",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "name": "San Benito"
+    }
+  },
+  {
+    "lead_name": "Loko Per Kilo",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3594938,
+      -22.9887118
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/3447126288",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "name": "Loko Per Kilo"
+    }
+  },
+  {
+    "lead_name": "Borgonha",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3593571,
+      -22.9887143
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/3447126290",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "name": "Borgonha"
+    }
+  },
+  {
+    "lead_name": "Dona Chica",
+    "business_type": "Café",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3592404,
+      -22.9887577
+    ],
+    "osm_type": "cafe",
+    "osm_id": "node/3447126291",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "cafe",
+      "name": "Dona Chica"
+    }
+  },
+  {
+    "lead_name": "Sushi Tropical",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.359216,
+      -22.9888372
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/3447126292",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "cuisine": "japanese",
+      "name": "Sushi Tropical"
+    }
+  },
+  {
+    "lead_name": "Mix Juice & Co.",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3595026,
+      -22.9890038
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/3447126897",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "Mix Juice & Co."
+    }
+  },
+  {
+    "lead_name": "Gastrô",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3595026,
+      -22.989044
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/3447126898",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "cuisine": "pizza",
+      "name": "Gastrô"
+    }
+  },
+  {
+    "lead_name": "Ristoretto",
+    "business_type": "Café",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3593441,
+      -22.9892452
+    ],
+    "osm_type": "cafe",
+    "osm_id": "node/3447126901",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "cafe",
+      "name": "Ristoretto"
+    }
+  },
+  {
+    "lead_name": "Ocarioca",
+    "business_type": "Restaurante",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3593898,
+      -22.9892396
+    ],
+    "osm_type": "restaurant",
+    "osm_id": "node/3447126902",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "restaurant",
+      "name": "Ocarioca"
+    }
+  },
+  {
+    "lead_name": "MegaMatte",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.3599567,
+      -22.9896074
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/3447154426",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "MegaMatte"
+    }
+  },
+  {
+    "lead_name": "Garden Salad",
+    "business_type": "Fast Food",
+    "location": "Próximo a -22.9532, -43.3716",
+    "address": "Próximo a -22.9532, -43.3716",
+    "coordinates": [
+      -43.359895,
+      -22.988274
+    ],
+    "osm_type": "fast_food",
+    "osm_id": "node/3447154427",
+    "source": "openstreetmap",
+    "raw_tags": {
+      "amenity": "fast_food",
+      "name": "Garden Salad"
+    }
+  }
+]

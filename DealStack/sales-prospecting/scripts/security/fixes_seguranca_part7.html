@@ -1,0 +1,528 @@
+# ============================================================
+# FIX dashboard.html - CORREÇÕES FRONTEND
+# Substitua: /workspaces/OpnCld/sales-prospecting/dashboard.html
+# E: ~/.hermes/skills/sales/sales-prospecting/dashboard.html
+# ============================================================
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.github.dev https://*.githubpreview.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+  <title>Sales Prospecting Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    h1 { font-size: 28px; font-weight: 700; color: #f8fafc; }
+    .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: #3b82f6; color: white; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-secondary { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; }
+    .btn-secondary:hover { background: #334155; }
+    .btn-success { background: #22c55e; color: white; }
+    .btn-danger { background: #ef4444; color: white; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
+    .card-title { font-size: 12px; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .card-value { font-size: 32px; font-weight: 700; color: #f8fafc; }
+    .card-value.green { color: #22c55e; }
+    .card-value.blue { color: #3b82f6; }
+    .card-value.orange { color: #f97316; }
+    .card-value.red { color: #ef4444; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+    .tab { padding: 10px 20px; background: transparent; border: none; color: #94a3b8; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 8px 8px 0 0; }
+    .tab.active { color: #f8fafc; background: #1e293b; border: 1px solid #334155; border-bottom: none; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 12px; overflow: hidden; }
+    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #334155; }
+    th { background: #0f172a; font-weight: 600; color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: #334155; }
+    .badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+    .badge-site { background: #1e3a5f; color: #3b82f6; }
+    .badge-lobby { background: #1e3a5f; color: #22c55e; }
+    .badge-crm { background: #1e3a5f; color: #f97316; }
+    .badge-pending { background: #3f3f46; color: #a1a1aa; }
+    .badge-sent { background: #1e3a5f; color: #3b82f6; }
+    .badge-replied { background: #166534; color: #22c55e; }
+    .badge-closed { background: #7f1d1d; color: #ef4444; }
+    .score-hot { background: #7f1d1d; color: #ef4444; }
+    .score-warm { background: #78350f; color: #f97316; }
+    .score-cold { background: #3f3f46; color: #a1a1aa; }
+    .lead-form { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; max-width: 600px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 600; color: #cbd5e1; }
+    input, select, textarea { padding: 10px 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 14px; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #3b82f6; }
+    textarea { min-height: 120px; resize: vertical; }
+    .proposal-output { background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-top: 20px; max-height: 500px; overflow-y: auto; white-space: pre-wrap; font-family: monospace; font-size: 13px; line-height: 1.6; display: none; }
+    .proposal-output.show { display: block; }
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #334155; border-top-color: #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hidden { display: none !important; }
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 100; }
+    .modal-content { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 24px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .close-btn { background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer; }
+    .action-btns { display: flex; gap: 8px; }
+    .action-btn { padding: 6px 12px; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; }
+    .action-btn.view { background: #3b82f6; color: white; }
+    .action-btn.edit { background: #f97316; color: white; }
+    .action-btn.delete { background: #ef4444; color: white; }
+    .copy-btn { background: #22c55e; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; margin-top: 12px; }
+    .copy-btn:hover { background: #16a34a; }
+    .stats-mini { display: flex; gap: 24px; margin-top: 16px; font-size: 13px; color: #94a3b8; }
+    .stat-item { display: flex; align-items: center; gap: 6px; }
+    .stat-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #64748b; }
+    .empty-state svg { width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.5; }
+    .filter-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; padding: 16px; background: #1e293b; border: 1px solid #334155; border-radius: 12px; }
+    .filter-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .filter-group label { font-size: 13px; color: #cbd5e1; margin-right: 8px; }
+    .filter-select { padding: 8px 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 13px; min-width: 180px; }
+    .filter-select:focus { outline: none; border-color: #3b82f6; }
+    .pipeline-column { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; min-height: 400px; }
+    .pipeline-header { font-weight: 600; padding: 8px 12px; margin: -16px -16px 16px; border-radius: 12px 12px 0 0; border-bottom: 2px solid; }
+    .pipeline-cards { min-height: 300px; }
+    .pipeline-card { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 12px; margin-bottom: 8px; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+    .pipeline-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎯 Sales Prospecting Dashboard</h1>
+      <div>
+        <button class="btn btn-secondary" id="refreshBtn">🔄 Atualizar</button>
+        <button class="btn btn-primary" id="addLeadBtn">+ Novo Lead</button>
+      </div>
+    </header>
+
+    <div class="cards">
+      <div class="card"><div class="card-title">Total Leads</div><div class="card-value" id="statTotal">0</div></div>
+      <div class="card"><div class="card-title">Propostas Geradas</div><div class="card-value blue" id="statProposals">0</div></div>
+      <div class="card"><div class="card-title">Enviadas (WhatsApp)</div><div class="card-value orange" id="statSent">0</div></div>
+      <div class="card"><div class="card-title">Convertidas</div><div class="card-value green" id="statConverted">0</div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="leads">📋 Leads</button>
+      <button class="tab" data-tab="proposals">📝 Propostas</button>
+      <button class="tab" data-tab="pipeline">📊 Pipeline</button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label>Ordenar:</label>
+        <select id="sortSelect" class="filter-select">
+          <option value="score-desc">🔥 Maior Score (Hot First)</option>
+          <option value="score-asc">❄️ Menor Score</option>
+          <option value="name-asc">📝 Nome A-Z</option>
+          <option value="date-desc">📅 Mais Recentes</option>
+        </select>
+      </div>
+      <div class="filter-group" style="margin-left: auto;">
+        <label>Produto:</label>
+        <select id="filterProduct" class="filter-select">
+          <option value="">Todos</option>
+          <option value="SaaS LOBBY">🏨 SaaS LOBBY</option>
+          <option value="SaaS CRM/PDV">🏪 SaaS CRM/PDV</option>
+          <option value="Site Profissional">🌐 Site Profissional</option>
+        </select>
+        <label>Score:</label>
+        <select id="filterScore" class="filter-select">
+          <option value="">Todos</option>
+          <option value="hot">🔥 Hot (80-100)</option>
+          <option value="warm">🌡️ Warm (50-79)</option>
+          <option value="cold">❄️ Cold (0-49)</option>
+        </select>
+        <label>Status:</label>
+        <select id="filterStatus" class="filter-select">
+          <option value="">Todos</option>
+          <option value="pending">📥 Novo</option>
+          <option value="sent">📤 Enviado</option>
+          <option value="replied">💬 Respondeu</option>
+          <option value="closed">✅ Fechado</option>
+        </select>
+        <button class="btn btn-secondary" id="clearFilters">Limpar</button>
+      </div>
+    </div>
+
+    <!-- Leads Tab -->
+    <div class="tab-content active" id="tab-leads">
+      <div style="overflow-x: auto;">
+        <table id="leadsTable">
+          <thead><tr><th>Nome</th><th>Negócio</th><th>Localização</th><th>Telefone</th><th>Produto</th><th>Score</th><th>Status</th><th>Ações</th></tr></thead>
+          <tbody id="leadsBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-state hidden" id="emptyLeads"><p>Nenhum lead. Clique <strong>+ Novo Lead</strong>.</p></div>
+    </div>
+
+    <!-- Proposals Tab -->
+    <div class="tab-content" id="tab-proposals">
+      <div style="overflow-x: auto;">
+        <table id="proposalsTable">
+          <thead><tr><th>Lead</th><th>Produto</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+          <tbody id="proposalsBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-state hidden" id="emptyProposals"><p>Nenhuma proposta.</p></div>
+    </div>
+
+    <!-- Pipeline Tab -->
+    <div class="tab-content" id="tab-pipeline">
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+        <div class="pipeline-column" data-status="pending"><div class="pipeline-header" style="border-color: #52525b;">📥 Novos</div><div class="pipeline-cards" id="pipe-pending"></div></div>
+        <div class="pipeline-column" data-status="sent"><div class="pipeline-header" style="border-color: #3b82f6;">📤 Enviados</div><div class="pipeline-cards" id="pipe-sent"></div></div>
+        <div class="pipeline-column" data-status="replied"><div class="pipeline-header" style="border-color: #22c55e;">💬 Responderam</div><div class="pipeline-cards" id="pipe-replied"></div></div>
+        <div class="pipeline-column" data-status="closed"><div class="pipeline-header" style="border-color: #ef4444;">✅ Fechados</div><div class="pipeline-cards" id="pipe-closed"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div class="modal hidden" id="leadModal">
+    <div class="modal-content">
+      <div class="modal-header"><h2 id="modalTitle">Novo Lead</h2><button class="close-btn" onclick="closeModal()">×</button></div>
+      <form class="lead-form" id="leadForm">
+        <input type="hidden" id="leadId">
+        <div class="form-row">
+          <div class="form-group"><label>Nome *</label><input type="text" id="leadName" required placeholder="João Silva" maxlength="200" pattern="[^<>]{1,200}"></div>
+          <div class="form-group"><label>Tipo de Negócio *</label><select id="leadBizType" required><option value="">Selecione...</option><option value="Pousada">Pousada / Hotel</option><option value="Loja de roupas">Loja de roupas</option><option value="Restaurante">Restaurante / Bar</option><option value="Clínica">Clínica / Consultório</option><option value="Hotel fazenda">Hotel fazenda</option><option value="Outro">Outro</option></select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Localização *</label><input type="text" id="leadLocation" required placeholder="Porto Seguro, BA" maxlength="200" pattern="[^<>]{1,200}"></div>
+          <div class="form-group"><label>WhatsApp *</label><input type="tel" id="leadPhone" required placeholder="73999999999" maxlength="20" pattern="[\d\s\+\-\(\)]{8,20}"></div>
+        </div>
+        <div class="action-btns"><button type="submit" class="btn btn-primary">Salvar Lead</button><button type="button" class="btn btn-success" id="genProposalBtn" style="display:none;">Gerar Proposta</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="proposalModal">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header"><h2>📝 Proposta Gerada</h2><button class="close-btn" onclick="closeProposalModal()">×</button></div>
+      <div id="proposalContent" class="proposal-output show"></div>
+      <button class="copy-btn" onclick="copyProposal()">📋 Copiar Proposta</button>
+      <div class="stats-mini" id="proposalMeta"></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== CONFIG =====
+    const API_BASE = '/api';
+    const POLL_INTERVAL = 30000;
+
+    // ===== STATE =====
+    let leads = [];
+    let proposals = [];
+    let editingLeadId = null;
+    let currentFilters = { sort: 'score-desc', product: '', score: '', status: '' };
+
+    // ===== UTILS =====
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => document.querySelectorAll(sel);
+    const formatDate = (d) => {
+      try { return new Date(d).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+      catch { return 'Data inválida'; }
+    };
+
+    const inferProduct = (biz) => {
+      const b = (biz || '').toLowerCase();
+      if (b.includes('pousada') || b.includes('hotel')) return { key: 'lobby', name: 'SaaS LOBBY', badge: 'badge-lobby' };
+      if (b.includes('loja') || b.includes('comércio') || b.includes('varejo') || b.includes('supermercado') || b.includes('móveis') || b.includes('roupas') || b.includes('acessórios') || b.includes('calçados') || b.includes('sapataria') || b.includes('floricultura') || b.includes('conveniência')) return { key: 'crm', name: 'SaaS CRM/PDV', badge: 'badge-crm' };
+      return { key: 'site', name: 'Site Profissional', badge: 'badge-site' };
+    };
+
+    // ===== LEAD SCORING =====
+    function calculateLeadScore(lead) {
+      let score = 0;
+      const biz = (lead.bizType || lead.business_type || '').toLowerCase();
+      const hasPhone = !!(lead.phone && lead.phone.trim());
+      const hasWebsite = !!(lead.website && lead.website.trim());
+      const hasEmail = !!(lead.email && lead.email.trim());
+      const hasOpeningHours = !!(lead.opening_hours || lead.raw_tags?.opening_hours);
+      const category = lead.category || '';
+      const product = inferProduct(biz);
+
+      if (product.key === 'lobby' && (biz.includes('pousada') || biz.includes('hotel'))) score += 30;
+      else if (product.key === 'crm' && (biz.includes('loja') || biz.includes('varejo') || biz.includes('supermercado') || biz.includes('móveis') || biz.includes('roupas'))) score += 30;
+      else if (product.key === 'site') score += 20;
+      else score += 15;
+
+      if (hasPhone) score += 15;
+      if (hasEmail) score += 10;
+      if (!hasWebsite) score += 20;
+      else if (hasWebsite && !hasPhone) score += 10;
+      if (hasOpeningHours) score += 10;
+      if (category === 'hospitality') score += 5;
+      if (category === 'retail') score += 5;
+      const loc = (lead.location || '').toLowerCase();
+      if (loc.includes('jacarepaguá') || loc.includes('barra') || loc.includes('recreio')) score += 10;
+
+      return Math.min(100, Math.max(0, score));
+    }
+
+    function getScoreLabel(score) {
+      if (score >= 80) return { label: '🔥 Hot', class: 'score-hot' };
+      if (score >= 50) return { label: '🌡️ Warm', class: 'score-warm' };
+      return { label: '❄️ Cold', class: 'score-cold' };
+    }
+
+    // ===== SANITIZAÇÃO (XSS Prevention) =====
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function safeSetText(element, text) {
+      element.textContent = text;
+    }
+
+    function safeSetHTML(element, html) {
+      element.innerHTML = html; // Only use with trusted/sanitized content
+    }
+
+    // ===== API =====
+    async function apiGet(path) {
+      const res = await fetch(`${API_BASE}${path}`, { headers: getAuthHeaders() });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    async function apiPost(path, data) {
+      const res = await fetch(`${API_BASE}${path}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    function getAuthHeaders() {
+      // Em produção, pegar token do sessionStorage ou cookie seguro
+      const token = sessionStorage.getItem('api_token');
+      return token ? { 'Authorization': `Bearer ${token}` } : {};
+    }
+
+    // ===== DATA SYNC =====
+    async function loadFromAPI() {
+      try {
+        const [leadsRes, proposalsRes, statsRes] = await Promise.all([
+          apiGet('/leads'), apiGet('/proposals'), apiGet('/stats')
+        ]);
+        leads = leadsRes.leads || [];
+        proposals = proposalsRes.proposals || [];
+        updateStats(statsRes);
+      } catch (e) {
+        console.error('Erro ao carregar da API:', e);
+        if (leads.length === 0) {
+          leads = JSON.parse(sessionStorage.getItem('sales_leads') || '[]');
+          proposals = JSON.parse(sessionStorage.getItem('sales_proposals') || '[]');
+        }
+      }
+    }
+
+    function updateStats(stats) {
+      safeSetText($('#statTotal'), stats.total_leads || leads.length);
+      safeSetText($('#statProposals'), stats.total_proposals || proposals.length);
+      safeSetText($('#statSent'), proposals.filter(p => p.status !== 'pending').length);
+      safeSetText($('#statConverted'), proposals.filter(p => p.status === 'closed').length);
+    }
+
+    function saveLocal() {
+      sessionStorage.setItem('sales_leads', JSON.stringify(leads));
+      sessionStorage.setItem('sales_proposals', JSON.stringify(proposals));
+    }
+
+    // ===== RENDER =====
+    function renderAll() { renderLeads(); renderProposals(); renderPipeline(); }
+
+    function renderLeads() {
+      let filtered = [...leads];
+      if (currentFilters.product) filtered = filtered.filter(l => inferProduct(l.bizType || l.business_type).name === currentFilters.product);
+      if (currentFilters.score) filtered = filtered.filter(l => { const s = calculateLeadScore(l); if (currentFilters.score === 'hot') return s >= 80; if (currentFilters.score === 'warm') return s >= 50 && s < 80; return s < 50; });
+      if (currentFilters.status) filtered = filtered.filter(l => { const p = proposals.find(x => x.id === l.id); return (p ? p.status : 'pending') === currentFilters.status; });
+
+      filtered.sort((a, b) => {
+        const sa = calculateLeadScore(a), sb = calculateLeadScore(b);
+        const da = new Date(a.created_at || a.date || 0).getTime(), db = new Date(b.created_at || b.date || 0).getTime();
+        const na = (a.name || a.lead_name || '').toLowerCase(), nb = (b.name || b.lead_name || '').toLowerCase();
+        switch (currentFilters.sort) {
+          case 'score-desc': return sb - sa;
+          case 'score-asc': return sa - sb;
+          case 'name-asc': return na.localeCompare(nb);
+          case 'date-desc': return db - da;
+          default: return sb - sa;
+        }
+      });
+
+      const tbody = $('#leadsBody');
+      tbody.innerHTML = filtered.map(lead => {
+        const product = inferProduct(lead.bizType || lead.business_type);
+        const prop = proposals.find(p => p.id === lead.id);
+        const status = prop ? prop.status : 'pending';
+        const statusBadge = { pending: 'badge-pending', sent: 'badge-sent', replied: 'badge-replied', closed: 'badge-closed' }[status];
+        const score = calculateLeadScore(lead);
+        const scoreInfo = getScoreLabel(score);
+
+        return `<tr>
+          <td><div style="display:flex;align-items:center;gap:8px"><strong>${escapeHtml(lead.name || lead.lead_name)}</strong><span class="badge ${scoreInfo.class}" style="font-size:10px;padding:2px 8px">${score} ${scoreInfo.label}</span></div></td>
+          <td>${escapeHtml(lead.bizType || lead.business_type)}</td>
+          <td>${escapeHtml(lead.location)}</td>
+          <td>${escapeHtml(lead.phone)}</td>
+          <td><span class="badge ${product.badge}">${product.name}</span></td>
+          <td><span class="badge ${statusBadge}">${status}</span></td>
+          <td><div class="action-btns">
+            ${prop ? `<button class="action-btn view" onclick="viewProposal('${escapeHtml(prop.id)}')">Ver</button>` : ''}
+            <button class="action-btn edit" onclick="editLead('${escapeHtml(lead.id)}')">Editar</button>
+            <button class="action-btn delete" onclick="deleteLead('${escapeHtml(lead.id)}')">Excluir</button>
+            ${!prop ? `<button class="action-btn" style="background:#22c55e;color:white" onclick="generateProposal('${escapeHtml(lead.id)}')">Gerar</button>` : ''}
+          </div></td>
+        </tr>`;
+      }).join('');
+      $('#emptyLeads').classList.toggle('hidden', filtered.length > 0);
+    }
+
+    function renderProposals() {
+      const tbody = $('#proposalsBody');
+      tbody.innerHTML = proposals.map(p => {
+        const lead = leads.find(l => l.id === p.id);
+        const statusBadge = { pending: 'badge-pending', sent: 'badge-sent', replied: 'badge-replied', closed: 'badge-closed' }[p.status];
+        return `<tr>
+          <td>${escapeHtml(lead?.name || lead?.lead_name || p.lead_name || 'Removido')}</td>
+          <td>${escapeHtml(p.product)}</td>
+          <td>${formatDate(p.date || p.created_at)}</td>
+          <td><span class="badge ${statusBadge}">${p.status}</span></td>
+          <td><div class="action-btns"><button class="action-btn view" onclick="viewProposal('${escapeHtml(p.id)}')">Ver</button><button class="action-btn edit" onclick="updateProposalStatus('${escapeHtml(p.id)}')">Status</button></div></td>
+        </tr>`;
+      }).join('');
+      $('#emptyProposals').classList.toggle('hidden', proposals.length > 0);
+    }
+
+    function renderPipeline() {
+      ['pending','sent','replied','closed'].forEach(s => {
+        const container = $(`#pipe-${s}`);
+        const items = proposals.filter(p => p.status === s).map(p => {
+          const lead = leads.find(l => l.id === p.id);
+          return `<div class="pipeline-card" onclick="viewProposal('${escapeHtml(p.id)}')"><strong>${escapeHtml(lead?.name || lead?.lead_name || p.lead_name || 'Removido')}</strong><br><small style="color:#94a3b8">${escapeHtml(p.product)} · ${formatDate(p.date || p.created_at)}</small></div>`;
+        }).join('');
+        container.innerHTML = items || '<div style="color:#64748b;font-size:12px;padding:8px">Vazio</div>';
+      });
+    }
+
+    // ===== MODALS =====
+    function openModal(lead = null) {
+      editingLeadId = lead?.id || null;
+      safeSetText($('#modalTitle'), lead ? 'Editar Lead' : 'Novo Lead');
+      $('#leadId').value = lead?.id || '';
+      $('#leadName').value = lead?.name || lead?.lead_name || '';
+      $('#leadBizType').value = lead?.bizType || lead?.business_type || '';
+      $('#leadLocation').value = lead?.location || '';
+      $('#leadPhone').value = lead?.phone || '';
+      $('#genProposalBtn').style.display = lead ? 'inline-block' : 'none';
+      $('#leadModal').classList.remove('hidden');
+    }
+
+    function closeModal() { $('#leadModal').classList.add('hidden'); editingLeadId = null; }
+    function closeProposalModal() { $('#proposalModal').classList.add('hidden'); }
+
+    // ===== ACTIONS =====
+    function editLead(id) { const lead = leads.find(l => l.id === id); if (lead) openModal(lead); }
+
+    function deleteLead(id) { if (confirm('Excluir?')) { leads = leads.filter(l => l.id !== id); saveLocal(); renderAll(); } }
+
+    async function generateProposal(id) {
+      closeModal();
+      const lead = leads.find(l => l.id === id);
+      if (!lead) return;
+      await runHermesProposal(lead);
+    }
+
+    async function runHermesProposal(lead) {
+      const btn = $('#genProposalBtn');
+      btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Gerando...';
+      try {
+        const res = await apiPost('/generate', { lead_name: lead.name || lead.lead_name, business_type: lead.bizType || lead.business_type, location: lead.location, phone: lead.phone });
+        const product = inferProduct(lead.bizType || lead.business_type);
+        const proposal = { id: crypto.randomUUID(), leadId: lead.id, product: product.name, content: res.proposal, status: 'pending', date: new Date().toISOString() };
+        proposals.push(proposal);
+        saveLocal();
+        await apiPost('/proposals', { proposals });
+        renderAll();
+        showProposal(proposal);
+      } catch (e) { alert('Erro: ' + e.message); }
+      finally { btn.disabled = false; btn.innerHTML = 'Gerar Proposta'; }
+    }
+
+    function viewProposal(id) {
+      const p = proposals.find(x => x.id === id);
+      if (!p) return;
+      showProposal(p);
+    }
+
+    function showProposal(p) {
+      const lead = leads.find(l => l.id === p.leadId);
+      safeSetText($('#proposalContent'), p.content);
+      $('#proposalMeta').innerHTML = `<span class="stat-item"><span class="stat-dot" style="background:${p.status==='closed'?'#ef4444':p.status==='replied'?'#22c55e':p.status==='sent'?'#3b82f6':'#71717a'}"></span>${p.status}</span><span class="stat-item">${p.product}</span><span class="stat-item">Lead: ${escapeHtml(lead?.name || lead?.lead_name || 'N/A')}</span><span class="stat-item">${formatDate(p.date)}</span>`;
+      $('#proposalModal').classList.remove('hidden');
+    }
+
+    function copyProposal() {
+      const text = $('#proposalContent').textContent;
+      navigator.clipboard.writeText(text);
+      const btn = $('button.copy-btn'); const orig = btn.textContent;
+      btn.textContent = '✅ Copiado!'; setTimeout(() => btn.textContent = orig, 2000);
+    }
+
+    function updateProposalStatus(id) {
+      const p = proposals.find(x => x.id === id);
+      if (!p) return;
+      const statuses = ['pending', 'sent', 'replied', 'closed'];
+      const next = statuses[(statuses.indexOf(p.status) + 1) % statuses.length];
+      p.status = next; saveLocal(); apiPost('/proposals', { proposals }); renderAll();
+    }
+
+    // ===== EVENTS =====
+    $('#addLeadBtn').onclick = () => openModal();
+    $('#leadForm').onsubmit = (e) => { e.preventDefault();
+      const id = $('#leadId').value || crypto.randomUUID();
+      const lead = { id, name: $('#leadName').value, bizType: $('#leadBizType').value, location: $('#leadLocation').value, phone: $('#leadPhone').value };
+      if (editingLeadId) leads = leads.map(l => l.id === editingLeadId ? lead : l); else leads.push(lead);
+      saveLocal(); apiPost('/leads', { leads }); closeModal(); renderAll(); };
+
+    $('#refreshBtn').onclick = async () => { await loadFromAPI(); renderAll(); };
+    $('#genProposalBtn').onclick = () => generateProposal(editingLeadId);
+
+    $('#sortSelect').onchange = e => { currentFilters.sort = e.target.value; renderAll(); };
+    $('#filterProduct').onchange = e => { currentFilters.product = e.target.value; renderAll(); };
+    $('#filterScore').onchange = e => { currentFilters.score = e.target.value; renderAll(); };
+    $('#filterStatus').onchange = e => { currentFilters.status = e.target.value; renderAll(); };
+    $('#clearFilters').onclick = () => { currentFilters = { sort: 'score-desc', product: '', score: '', status: '' }; $('#sortSelect').value='score-desc'; $('#filterProduct').value=''; $('#filterScore').value=''; $('#filterStatus').value=''; renderAll(); };
+
+    $$('.tab').forEach(t => t.onclick = () => { $$('.tab').forEach(x=>x.classList.remove('active')); $$('.tab-content').forEach(x=>x.classList.remove('active')); t.classList.add('active'); $('#tab-'+t.dataset.tab).classList.add('active'); });
+    $$('.modal').forEach(m => m.onclick = e => { if (e.target === m) m.classList.add('hidden'); });
+
+    // ===== INIT =====
+    async function init() { await loadFromAPI(); renderAll(); setInterval(async () => { try { await loadFromAPI(); renderAll(); } catch(e) {} }, POLL_INTERVAL); }
+    init();
+
+    // Expose for debug
+    window.salesDB = { get leads() { return leads; }, get proposals() { return proposals; } };
+  </script>
+</body>
+</html>

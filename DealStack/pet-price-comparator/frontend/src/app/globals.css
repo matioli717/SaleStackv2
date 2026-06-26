@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+  }
+
+  * {
+    @apply border-surface-200;
+  }
+
+  body {
+    @apply bg-surface-50 text-surface-900 antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-card border border-surface-200 transition-shadow hover:shadow-card-hover;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2.5 bg-primary-600 text-white font-medium rounded-lg
+           hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-2.5 bg-surface-100 text-surface-700 font-medium rounded-lg
+           hover:bg-surface-200 focus:outline-none focus:ring-2 focus:ring-surface-500 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
+  }
+
+  .input {
+    @apply w-full px-4 py-2.5 bg-white border border-surface-300 rounded-lg
+           placeholder:text-surface-400
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent
+           disabled:bg-surface-100 disabled:cursor-not-allowed;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-primary-50 text-primary-700;
+  }
+
+  .badge-warning {
+    @apply badge bg-yellow-50 text-yellow-700;
+  }
+
+  .badge-error {
+    @apply badge bg-red-50 text-red-700;
+  }
+
+  .price {
+    @apply font-bold tabular-nums;
+  }
+
+  .price-large {
+    @apply price text-2xl lg:text-3xl;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-in {
+    animation: animateIn 0.3s ease-out;
+  }
+
+  @keyframes animateIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

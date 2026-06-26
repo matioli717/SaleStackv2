@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SaleStack — Tecnologia que transforma pequenos negócios</title>
+  <meta name="description" content="Sites, Shopify e CRM/PDV para pequenos negócios. Design premium, alta conversão e resultado real." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050505;
+      --bg2: #0a0a0a;
+      --text: #e6eaf0;
+      --muted: #9aa3b2;
+      --accent: #00e5ff;
+      --accent2: #7c3aed;
+      --brand: #ff0055;
+      --gold: #ffd400;
+      --border: rgba(255,255,255,0.08);
+      --surface: rgba(255,255,255,0.03);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Utility */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 100px 0; position: relative; }
+    .section + .section { border-top: 1px solid var(--border); }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .eyebrow::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+    .headline {
+      font-size: clamp(34px, 5vw, 64px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-top: 18px;
+    }
+    .headline em {
+      font-style: normal;
+      color: var(--brand);
+    }
+    .subhead {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 720px;
+      margin-top: 16px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+      color: #000;
+      background: var(--gold);
+      font-family: inherit;
+      transition: transform .08s ease, filter .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn.primary { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(255,212,0,0.18); }
+    .btn.ghost { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--border); }
+    .btn.ghost:hover { background: rgba(255,255,255,0.10); }
+    .btn.whatsapp { background: #25D366; color: #001a0b; }
+
+    /* Hero base */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(120px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .hero-orb-1 { width: 640px; height: 640px; background: var(--brand); top: -220px; left: -180px; }
+    .hero-orb-2 { width: 720px; height: 720px; background: var(--accent); bottom: -240px; right: -200px; }
+    .hero-orb-3 { width: 520px; height: 520px; background: var(--accent2); top: 40%; left: 50%; transform: translate(-50%, -50%); opacity: 0.22; }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.25;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 920px) { .hero-content { grid-template-columns: 1fr; } }
+    .hero-actions { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+    .hero-visual {
+      position: relative;
+      height: 460px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      overflow: hidden;
+      perspective: 900px;
+    }
+    .hero-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(600px 600px at 20% 20%, rgba(0,229,255,0.12), transparent 40%),
+        radial-gradient(600px 600px at 80% 80%, rgba(255,0,85,0.10), transparent 40%);
+    }
+
+    /* Mock dashboard */
+    .mock-dashboard {
+      position: absolute;
+      inset: 24px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(10,10,10,0.75);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      padding: 18px;
+      animation: float 8s ease-in-out infinite;
+      transition: box-shadow .3s ease, border-color .3s ease;
+      transform-style: preserve-3d;
+    }
+    .hero-visual:hover .mock-dashboard {
+      border-color: rgba(255,255,255,0.22);
+      box-shadow:
+        0 28px 90px rgba(0,0,0,0.55),
+        0 0 30px rgba(0,229,255,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    @media (max-width: 920px) {
+      @keyframes float {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+    }
+    .mock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .mock-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.12);
+      color: #4ade80;
+      border: 1px solid rgba(34,197,94,0.25);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .mock-status::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 10px #4ade80;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: .55; }
+      100% { opacity: 1; }
+    }
+    .mock-badge {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.4px;
+    }
+    .mock-badge strong {
+      display: block;
+      color: var(--gold);
+      letter-spacing: 0.6px;
+      font-weight: 900;
+    }
+
+    .mock-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 520px) { .mock-metrics { grid-template-columns: 1fr; } }
+    .mock-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+      transition: transform .25s ease, border-color .25s ease;
+    }
+    .hero-visual:hover .mock-card {
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+    .mock-card .label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .mock-card .value {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      margin-top: 6px;
+    }
+    .mock-card .up {
+      font-size: 11px;
+      font-weight: 800;
+      color: #4ade80;
+    }
+
+    .mock-charts {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 10px;
+    }
+    @media (max-width: 520px) { .mock-charts { grid-template-columns: 1fr; } }
+    .mock-chart {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+    }
+    .mock-chart .chart-title {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .bar-row { display: flex; gap: 8px; align-items: flex-end; height: 90px; }
+    .bar {
+      flex: 1;
+      border-radius: 8px;
+      background: linear-gradient(180deg, var(--accent), rgba(0,229,255,0.2));
+      animation: barGrow 1.4s ease-out both;
+      transform-origin: bottom;
+    }
+    .bar:nth-child(1) { height: 55%; animation-delay: .05s; }
+    .bar:nth-child(2) { height: 72%; animation-delay: .10s; }
+    .bar:nth-child(3) { height: 60%; animation-delay: .15s; }
+    .bar:nth-child(4) { height: 80%; animation-delay: .20s; }
+    .bar:nth-child(5) { height: 68%; animation-delay: .25s; }
+    @keyframes barGrow {
+      from { transform: scaleY(0); opacity: 0; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+    .line-chart {
+      position: relative;
+      height: 90px;
+    }
+    .line-path {
+      stroke: var(--gold);
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 320;
+      stroke-dashoffset: 320;
+      animation: draw 2s ease forwards;
+    }
+    .line-area {
+      fill: rgba(255,212,0,0.12);
+      stroke: none;
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .p {
+      position: absolute;
+      width: 2px; height: 2px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0;
+      animation: particle 4s infinite;
+    }
+    .p:nth-child(1) { left: 15%; top: 25%; animation-delay: .0s; }
+    .p:nth-child(2) { left: 45%; top: 60%; animation-delay: .5s; }
+    .p:nth-child(3) { left: 75%; top: 35%; animation-delay: 1s; }
+    .p:nth-child(4) { left: 25%; top: 75%; animation-delay: 1.5s; }
+    .p:nth-child(5) { left: 85%; top: 65%; animation-delay: 2s; }
+    @keyframes particle {
+      0% { transform: translateY(0); opacity: 0; }
+      20% { opacity: .7; }
+      100% { transform: translateY(-40px); opacity: 0; }
+    }
+
+    .mock-btn {
+      margin-top: 14px;
+      width: 100%;
+      border-radius: 12px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .mock-btn:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.07); }
+
+    .trust {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+    .trust avatars { display: flex; }
+    .trust avatars::before {
+      content: '★★★★★';
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    /* Problem */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 36px;
+    }
+    @media (max-width: 760px) { .problem-grid { grid-template-columns: 1fr; } }
+    .problem-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      background: var(--surface);
+    }
+    .problem-card h3 { font-size: 18px; font-weight: 800; }
+    .problem-card p { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+    /* Solution */
+    .solution-highlight {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 40px;
+    }
+    @media (max-width: 900px) { .solution-highlight { grid-template-columns: 1fr; } }
+    .checklist { margin-top: 18px; display: grid; gap: 10px; }
+    .checklist-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .check-icon { color: var(--accent); font-weight: 900; }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 36px;
+    }
+    @media (max-width: 980px) { .services-grid { grid-template-columns: 1fr; } }
+    .service-card {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      display: grid;
+      gap: 14px;
+    }
+    .service-card:hover { border-color: rgba(255,255,255,0.18); }
+    .service-card h3 { font-size: 22px; font-weight: 900; }
+    .service-card p { color: var(--muted); font-size: 14px; }
+    .service-price { font-size: 22px; font-weight: 900; color: var(--brand); }
+    .service-features { display: grid; gap: 8px; color: var(--muted); font-size: 13px; }
+    .service-features li { list-style: none; display: flex; gap: 8px; align-items: center; }
+    .service-features li::before { content: '✓'; color: var(--accent); font-weight: 900; }
+
+    /* Differentials */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 36px;
+    }
+    @media (max-width: 900px) { .diff-grid { grid-template-columns: 1fr; } }
+    .diff-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      background: var(--surface);
+    }
+    .diff-card h4 { font-size: 16px; font-weight: 800; margin-top: 10px; }
+    .diff-card p { color: var(--muted); font-size: 13px; margin-top: 6px; }
+
+    /* Stats */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 36px;
+    }
+    @media (max-width: 800px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      background: var(--surface);
+    }
+    .stat .value { font-size: 34px; font-weight: 900; color: #fff; }
+    .stat .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 6px; }
+
+    /* Testimonials */
+    .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+    @media (max-width: 900px) { .testimonials { grid-template-columns: 1fr; } }
+    .testimonial {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      background: var(--surface);
+    }
+    .testimonial .quote { font-size: 15px; color: var(--text); }
+    .testimonial .author { margin-top: 14px; font-weight: 700; }
+    .testimonial .role { color: var(--muted); font-size: 12px; }
+
+    /* FAQ */
+    .faq { display: grid; gap: 12px; margin-top: 36px; max-width: 900px; }
+    .faq-item { border: 1px solid var(--border); border-radius: 16px; background: var(--surface); overflow: hidden; }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      color: var(--text);
+      padding: 18px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: none;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .25s ease, padding .25s ease;
+      color: var(--muted);
+      font-size: 14px;
+      padding: 0 18px;
+    }
+    .faq-item.open .faq-answer { max-height: 220px; padding: 0 18px 18px; }
+    .faq-item.open .chevron { transform: rotate(180deg); }
+    .chevron { transition: transform .2s ease; color: var(--accent); }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+    @media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: var(--surface);
+      text-align: center;
+    }
+    .contact-card .value { font-weight: 900; color: #fff; margin-top: 8px; word-break: break-all; }
+    .contact-card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; }
+
+    /* Final CTA */
+    .final-cta {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 60px 24px;
+      text-align: center;
+      overflow: hidden;
+      background:
+        radial-gradient(600px 600px at 10% 10%, rgba(0,229,255,0.10), transparent 50%),
+        radial-gradient(600px 600px at 90% 90%, rgba(255,0,85,0.10), transparent 50%);
+    }
+    .final-cta h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 900; }
+    .final-cta p { color: var(--muted); margin-top: 10px; }
+    .final-actions { margin-top: 24px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .urgency { margin-top: 14px; color: var(--gold); font-size: 13px; font-weight: 700; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 36px 0; color: var(--muted); font-size: 13px; }
+
+    /* Reveal animations */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Tilt cursor hint */
+    .tilt-cursor {
+      position: absolute;
+      width: 34px; height: 34px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      box-shadow: 0 0 18px rgba(0,229,255,0.25);
+      transition: left .15s ease, top .15s ease;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <header class="section" style="padding: 24px 0;">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-weight:900;letter-spacing:-0.02em;font-size:20px;">SaleStack</div>
+      <a class="btn ghost" href="#services" style="padding:10px 14px;font-size:13px;">Ver planos</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="container hero-content">
+      <div>
+        <div class="eyebrow">Tecnologia para pequenos negócios</div>
+        <h1 class="headline">
+          Seu negócio não precisa de mais visita.<br />
+          Precisa de <em>clientes que compram.</em>
+        </h1>
+        <p class="subhead">
+          Sites, loja Shopify e CRM/PDV desenhados para atrair, vender e organizar a operação — sem complicação.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#proposta">Quero vender mais</a>
+          <a class="btn ghost" href="#services">Ver soluções</a>
+        </div>
+        <div class="trust">
+          <span style="color:var(--muted);font-weight:700;">★★★★★</span>
+          <span>Avaliado por donos de hotel, loja e padaria.</span>
+        </div>
+      </div>
+      <div class="hero-visual" id="heroVisual">
+        <div class="mock-dashboard" id="mockDashboard">
+          <div class="particles">
+            <span class="p"></span>
+            <span class="p"></span>
+            <span class="p"></span>
+            <span class="p"></span>
+            <span class="p"></span>
+          </div>
+          <div class="mock-header">
+            <div style="font-weight:900;letter-spacing:-0.02em;font-size:14px;">SaleStack</div>
+            <div class="mock-status">Online</div>
+          </div>
+          <div class="mock-metrics">
+            <div class="mock-card">
+              <div class="label"><span>Leads</span><span class="up">▲ +147</span></div>
+              <div class="value">+147</div>
+            </div>
+            <div class="mock-card">
+              <div class="label"><span>Vendas</span><span class="up">▲ +32</span></div>
+              <div class="value">+32</div>
+            </div>
+            <div class="mock-card">
+              <div class="label"><span>Conv.</span><span class="up">▲ +38%</span></div>
+              <div class="value">+38%</div>
+            </div>
+          </div>
+          <div class="mock-charts">
+            <div class="mock-chart">
+              <div class="chart-title"><span>Desempenho</span><span>Live</span></div>
+              <div class="bar-row">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+            </div>
+            <div class="mock-chart">
+              <div class="chart-title"><span>Tendência</span><span>✔</span></div>
+              <div class="line-chart">
+                <svg viewBox="0 0 320 90" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stop-color="rgba(255,212,0,0.35)" />
+                      <stop offset="100%" stop-color="rgba(255,212,0,0)" />
+                    </linearGradient>
+                  </defs>
+                  <path class="line-area" d="M0 70 L60 55 L120 60 L180 35 L240 25 L320 5 L320 90 L0 90 Z" />
+                  <path class="line-path" d="M0 70 L60 55 L120 60 L180 35 L240 25 L320 5" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="border:1px solid var(--border);border-radius:14px;padding:10px;background:rgba(255,255,255,0.03);">
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;">Site</div>
+              <div style="font-weight:900;color:#fff;font-size:13px;margin-top:6px;">Em edição</div>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:14px;padding:10px;background:rgba(255,255,255,0.03);">
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;">Tempo</div>
+              <div style="font-weight:900;color:#fff;font-size:13px;margin-top:6px;">Hoje, 14:32</div>
+            </div>
+          </div>
+          <button class="mock-btn" onclick="document.getElementById('proposta').scrollIntoView({behavior:'smooth'})">Solicitar orçamento</button>
+        </div>
+        <div class="tilt-cursor" id="tiltCursor"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="section" id="problema">
+    <div class="container">
+      <div class="eyebrow reveal">O que trava seu crescimento</div>
+      <h2 class="headline reveal">Você não precisa de mais ferramentas.<br />Precisa de um sistema que funcione.</h2>
+      <p class="subhead reveal">Essas dores são mais comuns do que você imagina — e matam vendas todo mês.</p>
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <h3>Site que não gera cliente</h3>
+          <p>Visitante entra, olha e vai embora. Sem WhatsApp, sem proposta, sem conversão. Seu site é um cartão de visitas digital — ou um gasto.</p>
+        </div>
+        <div class="problem-card reveal">
+          <h3>Leads e clientes se perdendo</h3>
+          <p>Anotação em papel, WhatsApp espalhado, planilha desatualizada. Quando percebe, o cliente já foi para o concorrente.</p>
+        </div>
+        <div class="problem-card reveal">
+          <h3>Atendimento desorganizado</h3>
+          <p>Demora para responder, orçamento confuso, follow-up que nunca acontece. Cada falha custa uma venda.</p>
+        </div>
+        <div class="problem-card reveal">
+          <h3>Sistemas lentos ou complicados</h3>
+          <p>Ferramentas que prometem, mas ninguém da equipe usa. Treinamento caro, interface confusa e suporte que demora.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUÇÃO -->
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow reveal">A SaleStack resolve</div>
+      <h2 class="headline reveal">Não vendemos sites. Vendemos <em>resultado.</em></h2>
+      <p class="subhead reveal">Design e desenvolvimento com foco em vendas, organização e tempo. Do primeiro clique ao pós-venda.</p>
+      <div class="solution-highlight">
+        <div class="reveal">
+          <div class="checklist">
+            <div class="checklist-item"><span class="check-icon">✓</span><span><strong>Sites que captam lead</strong> e pedem contato automaticamente</span></div>
+            <div class="checklist-item"><span class="check-icon">✓</span><span><strong>Loja Shopify pronta</strong> para vender no primeiro dia</span></div>
+            <div class="checklist-item"><span class="check-icon">✓</span><span><strong>CRM/PDV simples</strong> que sua equipe realmente usa</span></div>
+            <div class="checklist-item"><span class="check-icon">✓</span><span><strong>Integrações inteligentes</strong> com WhatsApp e Google</span></div>
+          </div>
+        </div>
+        <div class="reveal">
+          <p style="color:var(--muted);font-size:15px;">
+            Nossa abordagem é direta: entendemos seu modelo de negócio, mapeamos pontos de perda de receita e implementamos a solução mais simples e lucrativa. Sem jargão, sem desperdício.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="eyebrow reveal">Planos e soluções</div>
+      <h2 class="headline reveal">Escolha o caminho mais rápido para vender mais</h2>
+      <div class="services-grid">
+        <article class="service-card reveal">
+          <div>
+            <h3>Sites Profissionais</h3>
+            <p>Site institucional ou landing page com foco em captação, velocidade e imagem premium.</p>
+          </div>
+          <ul class="service-features">
+            <li>Design de alta conversão</li>
+            <li>SEO técnico e content-grade</li>
+            <li>Integração WhatsApp</li>
+            <li>Hospedagem e SSL inclusos</li>
+          </ul>
+          <div class="service-price">A partir de R$ 1.500</div>
+          <a class="btn primary" href="https://wa.me/73981898081" target="_blank" rel="noopener">Quero esse</a>
+        </article>
+        <article class="service-card reveal">
+          <div>
+            <h3>Loja Shopify</h3>
+            <p>E-commerce profissional com layout premium, checkout otimizado e integrações que reduzem abandono.</p>
+          </div>
+          <ul class="service-features">
+            <li>Layout premium editável</li>
+            <li>Gateway e formas de pagamento</li>
+            <li>Gestão de estoque e pedidos</li>
+            <li>Relatórios de vendas</li>
+          </ul>
+          <div class="service-price">A partir de R$ 2.500</div>
+          <a class="btn primary" href="https://wa.me/73981898081" target="_blank" rel="noopener">Quero esse</a>
+        </article>
+        <article class="service-card reveal">
+          <div>
+            <h3>CRM / PDV</h3>
+            <p>Sistema de gestão comercial, leads e vendas em uma ferramenta simples e intuitiva.</p>
+          </div>
+          <ul class="service-features">
+            <li>Funil de vendas visual</li>
+            <li>Gestão de clientes e históricos</li>
+            <li>Relatórios e metas</li>
+            <li>Suporte e treinamento</li>
+          </ul>
+          <div class="service-price">A partir de R$ 990</div>
+          <a class="btn primary" href="https://wa.me/73981898081" target="_blank" rel="noopener">Quero esse</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow reveal">Por que a SaleStack</div>
+      <h2 class="headline reveal">Feito para quem quer <em>resultado,</em> não só tecnologia</h2>
+      <div class="diff-grid">
+        <div class="diff-card reveal">
+          <div style="font-weight:900;color:var(--accent);">✦</div>
+          <h4>Design Premium</h4>
+          <p>Estética moderna e alinhada ao seu mercado — sem templates genéricos.</p>
+        </div>
+        <div class="diff-card reveal">
+          <div style="font-weight:900;color:var(--accent);">⚡</div>
+          <h4>Performance</h4>
+          <p>Carregamento rápido, código limpo e SEO estruturado para ranquear e converter.</p>
+        </div>
+        <div class="diff-card reveal">
+          <div style="font-weight:900;color:var(--accent);">🤝</div>
+          <h4>Atendimento Humanizado</h4>
+          <p>Você fala com quem entende do seu negócio. Sem robôs, sem enrolação.</p>
+        </div>
+        <div class="diff-card reveal">
+          <div style="font-weight:900;color:var(--accent);">🎯</div>
+          <h4>Desenvolvimento Personalizado</h4>
+          <p>Cada projeto é desenhado para o seu modelo — e não o contrário.</p>
+        </div>
+        <div class="diff-card reveal">
+          <div style="font-weight:900;color:var(--accent);">🛡️</div>
+          <h4>Suporte Contínuo</h4>
+          <p>Acompanhamento pós-entrega com ajustes, melhorias e suporte rápido.</p>
+        </div>
+        <div class="diff-card reveal">
+          <div style="font-weight:900;color:var(--accent);">📈</div>
+          <h4>Escalabilidade</h4>
+          <p>Do primeiro lead ao décimo colaborador: a estrutura cresce com você.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow reveal">Números que respaldam</div>
+      <h2 class="headline reveal">Resultados que geram <em>confiança</em></h2>
+      <div class="stats-row">
+        <div class="stat reveal"><div class="value">+120</div><div class="label">Projetos entregues</div></div>
+        <div class="stat reveal"><div class="value">98%</div><div class="label">Clientes satisfeitos</div></div>
+        <div class="stat reveal"><div class="value">+500 mil</div><div class="label">Visitas processadas</div></div>
+        <div class="stat reveal"><div class="value">24h</div><div class="label">Tempo médio de resposta</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVA SOCIAL -->
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow reveal">Depoimentos reais</div>
+      <h2 class="headline reveal">Quem aplicou, <em>aprovou</em></h2>
+      <div class="testimonials">
+        <div class="testimonial reveal">
+          <p class="quote">“O site da pousada ficou muito melhor do que eu imaginava. Já nos primeiros dias começaram a chegar reservas diretamente pelo WhatsApp.”</p>
+          <div class="author">Carlos Mendes</div>
+          <div class="role">Dono — Pousada Vale Verde</div>
+        </div>
+        <div class="testimonial reveal">
+          <p class="quote">“Eu achava que CRM era coisa de empresa grande. Com a SaleStack ficou simples, a equipe adotou rápido e as vendas aumentaram.”</p>
+          <div class="author">Amanda Rocha</div>
+          <div class="role">Sócia — Loja R Lima Modas</div>
+        </div>
+        <div class="testimonial reveal">
+          <p class="quote">“A loja Shopify começou a vender no mesmo mês. Layout bonito, tudo integrado e suporte quando preciso.”</p>
+          <div class="author">Roberto Alves</div>
+          <div class="role">Fundador — Panificação Flor da Taquara</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow reveal">Dúvidas frequentes</div>
+      <h2 class="headline reveal">Respostas diretas, <em>sem enrolação</em></h2>
+      <div class="faq">
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            Em quanto tempo fica pronto?
+            <span class="chevron">▼</span>
+          </button>
+          <div class="faq-answer">Projetos simples ficam prontos em até 7 dias. Projetos mais completos seguem um cronograma alinhado desde o início.</div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            Como funciona o pagamento?
+            <span class="chevron">▼</span>
+          </button>
+          <div class="faq-answer">Parcelamento facilitado, com entrada + saldo. Projetos maiores podem ter condições personalizadas.</div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            O suporte continua após a entrega?
+            <span class="chevron">▼</span>
+          </button>
+          <div class="faq-answer">Sim. Oferecemos suporte contínuo e pacotes de melhoria para você evoluir sem dor de cabeça.</div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            O sistema é personalizado ou template?
+            <span class="chevron">▼</span>
+          </button>
+          <div class="faq-answer">Personalizamos layout, fluxo e conteúdo para o seu modelo de negócio. Nada de templates genéricos sem identidade.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL / CONTATO -->
+  <section class="section" id="proposta">
+    <div class="container">
+      <div class="final-cta reveal">
+        <h2>Pronto para parar de perder clientes todos os meses?</h2>
+        <p>Fale agora e receba uma proposta na medida para o seu negócio crescer.</p>
+        <div class="final-actions">
+          <a class="btn primary" href="https://wa.me/73981898081" target="_blank" rel="noopener">Falar com consultor</a>
+          <a class="btn ghost" href="https://wa.me/73981898081" target="_blank" rel="noopener">Ver no WhatsApp</a>
+        </div>
+        <div class="urgency">Vagas limitadas para novos projetos este mês.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO DIRETO -->
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow reveal">Contato</div>
+      <h2 class="headline reveal">Atendimento <em>direto</em></h2>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <div class="label">WhatsApp</div>
+          <div class="value">(21) 99999-9999</div>
+        </div>
+        <div class="contact-card reveal">
+          <div class="label">E-mail</div>
+          <div class="value">contato@salestack.com.br</div>
+        </div>
+        <div class="contact-card reveal">
+          <div class="label">Horário</div>
+          <div class="value">Seg-Sex, 9h às 18h</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+      <div>© <span id="year"></span> SaleStack. Todos os direitos reservados.</div>
+      <div>Feito para pequenos negócios que querem crescer com inteligência.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    /* Tilt efeito no mock */
+    (function() {
+      const visual = document.getElementById('heroVisual');
+      const dashboard = document.getElementById('mockDashboard');
+      const cursor = document.getElementById('tiltCursor');
+      if (!visual || !dashboard) return;
+
+      const maxRotate = 8;
+
+      function setTilt(e) {
+        const rect = visual.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateY = ((x - centerX) / centerX) * maxRotate;
+        const rotateX = -((y - centerY) / centerY) * maxRotate;
+
+        dashboard.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+
+        if (cursor) {
+          cursor.style.left = x + 'px';
+          cursor.style.top = y + 'px';
+        }
+      }
+
+      function resetTilt() {
+        dashboard.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+        if (cursor) { cursor.style.left = '-40px'; cursor.style.top = '-40px'; }
+      }
+
+      visual.addEventListener('mousemove', setTilt);
+      visual.addEventListener('mouseleave', resetTilt);
+    })();
+  </script>
+</body>
+</html>

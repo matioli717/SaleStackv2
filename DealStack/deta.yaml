@@ -1,0 +1,29 @@
+# Deta Space configuration
+# https://docs.deta.space/reference/spacefile
+
+name: "sales-dashboard"
+version: "1.0.0"
+runtime: "python3.11"
+entrypoint: "sales-prospecting/server.py"
+
+# Environment variables - sobrescreva no painel do Deta
+env:
+  API_KEYS: ""
+  ALLOWED_ORIGINS: "https://YOUR_PROJECT_ID.deta.app,http://localhost:8765"
+  RATE_LIMIT_PER_MIN: "60"
+  SHARED_DATA_DIR: "/mnt/data"
+  MAX_PAYLOAD_SIZE: "1048576"
+  SUBPROCESS_TIMEOUT: "60"
+
+# Monta volume persistente para shared_data
+volumes:
+  - name: "data"
+    mount_path: "/mnt/data"
+    size_mb: 100
+
+# Health check
+health_check_path: "/api/stats"
+
+# Expose porta
+ports:
+  - "8765"

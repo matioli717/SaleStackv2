@@ -1,0 +1,11 @@
+{
+  "hospitality": ["hotel", "guest_house", "hostel", "motel", "camp_site", "apartment", "bed_and_breakfast"],
+  "retail": ["clothes", "boutique", "fashion", "shoes", "jewelry", "supermarket", "convenience", "mall", "department_store", "electronics", "mobile_phone", "computer", "books", "gift", "florist", "optician", "cosmetics", "perfumery", "furniture", "hardware", "bakery", "butcher", "cheese", "chocolate", "coffee", "tea", "wine", "alcohol"],
+  "food": ["restaurant", "cafe", "fast_food", "ice_cream", "food_court", "bistro", "brasserie", "pizzeria", "steakhouse", "sushi", "noodle", "burger", "kebab", "chicken", "seafood", "vegetarian", "vegan", "bar", "pub"],
+  "health": ["dentist", "doctor", "clinic", "pharmacy", "optometrist", "physiotherapist", "veterinarian", "hospital"],
+  "beauty": ["hairdresser", "beauty", "spa", "nails", "massage", "tattoo", "piercing", "solarium", "barber"],
+  "automotive": ["car_repair", "car_wash", "gas_station", "car_rental", "parking"],
+  "services": ["laundry", "locksmith", "tailor", "bank", "atm", "insurance", "real_estate", "lawyer", "accountant"],
+  "education": ["school", "university", "kindergarten", "driving_school", "language_school"],
+  "entertainment": ["cinema", "theatre", "nightclub", "bowling_alley", "museum", "gallery", "zoo", "aquarium", "theme_park"]
+}

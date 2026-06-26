@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Comparador de Preços Pet | 5% OFF + Entrega Hoje</title>
+<style>
+:root{--bg:#05070b;--panel:#0b1320;--accent:#00e5ff;--accent2:#ff3b8e;--gold:#ffd866;--text:#eaf4ff;--muted:#8aa3bf;--green:#0b6e4f;--ok:#5dfcc8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:radial-gradient(1200px 600px at 10% -10%,#0b1b30,#05070b 55%) fixed;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto}
+.wrap{max-width:1240px;margin:0 auto;padding:64px 22px}
+.panel{background:linear-gradient(180deg,#14294a,#0e1c36);border:1px solid #1f3b66;border-radius:24px;padding:22px;position:relative;overflow:hidden;box-shadow:0 30px 80px #0009,inset 0 1px 0 #ffffff10}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9999px;background:#0a1830;border:1px solid #16345c;color:#cfe5ff;font-weight:800;font-size:12px;letter-spacing:.8px;text-transform:uppercase}
+h1{font-size:clamp(26px,4.2vw,60px);line-height:1.05;font-weight:900;margin:18px 0 14px;letter-spacing:-1.2px}
+.accent{background:linear-gradient(135deg,var(--accent),#7df9ff,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);font-size:17px;line-height:1.65;max-width:760px}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:14px;font-weight:800;text-decoration:none;border:0;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,#00e5ff,#00b8d4);color:#00111a;box-shadow:0 10px 40px #00e5ff55}
+.btn-whatsapp{background:linear-gradient(135deg,#25D366,#1da851);color:#001015;box-shadow:0 10px 40px #25d36666}
+.pill{display:inline-flex;padding:6px 12px;border-radius:9999px;font-size:12px;font-weight:700;background:#0a1830;border:1px solid #142d54;color:#cfe5ff}
+.marquee{overflow:hidden;margin:16px 0 0;padding:10px 0;border-top:1px solid #112240;border-bottom:1px solid #112240}
+.marquee .track{display:flex;gap:22px;white-space:nowrap;animation:trip 24s linear infinite}
+@keyframes trip{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee .item{opacity:.9;font-size:13px;color:#9cb5d0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:18px}
+.kpi .box{background:#0a1830;border:1px solid #16345c;border-radius:16px;padding:14px}
+.kpi .big{font-size:30px;font-weight:900;background:linear-gradient(135deg,#ffd866,#ffb347);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kpi .label{color:#8aa3bf;font-size:12px;margin-top:4px}
+.divider{height:1px;background:linear-gradient(90deg,#16345c,#16345c00);margin:34px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:18px}
+.card{border:1px solid #1a335c;background:linear-gradient(180deg,#14294a,#0e1c36);border-radius:20px;overflow:hidden}
+.media{height:180px;background:radial-gradient(circle at 10% 0%,#1e4066,#0b182a);display:flex;align-items:center;justify-content:center;color:#8aa3bf;font-size:13px;border-bottom:1px solid #1a335c}
+.p{padding:18px}
+.price{background:#052e1f;border:1px solid #0b6e4f;color:#5dfcc8;padding:8px 10px;border-radius:12px;font-weight:900;font-size:18px}
+.old{color:#8aa3bf;text-decoration:line-through;font-size:13px}
+.badge-green{display:inline-flex;padding:6px 10px;border-radius:9999px;font-size:12px;font-weight:700;background:#052e1f;border:1px solid #0b6e4f;color:#5dfcc8;margin-top:10px}
+.faq details{background:#0b1b30;border:1px solid #16345c;border-radius:16px;padding:14px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:800;color:#d6eeff}
+.faq p{margin:10px 0 0;color:#a8c4e0;line-height:1.6}
+footer{margin-top:36px;color:#7a9bb8;font-size:13px;text-align:center}
+.search-box{max-width:820px;margin-top:18px;display:flex;gap:10px}
+.search-box input{flex:1;padding:14px;border-radius:14px;background:#0b1b30;border:1px solid #16345c;color:#e9f2ff;font-size:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="panel">
+    <div class="badge">🐾 {NOME_EMPRESA}</div>
+    <h1>Menor preço em <span class="accent">ração, remédios e pet shop</span>.<br/>Com 5% de desconto extra.</h1>
+    <p class="sub">Comparamos Petlove, Cobasi, Petz e Zooplus em tempo real. Se achar mais barato, a gente cobre — e ainda entrega no mesmo dia em Jacarepaguá e Barra.</p>
+    <div class="marquee"><div class="track"><span class="item">✓ Petlove</span><span class="item">✓ Cobasi</span><span class="item">✓ Petz</span><span class="item">✓ Zooplus</span><span class="item">✓ +270 marcas</span><span class="item">✓ Atualização a cada 4h</span><span class="item">✓ Petlove</span><span class="item">✓ Cobasi</span><span class="item">✓ Petz</span><span class="item">✓ Zooplus</span><span class="item">✓ +270 marcas</span><span class="item">✓ Atualização a cada 4h</span></div></div>
+    <div class="btns">
+      <a class="btn btn-primary" href="#" onclick="search()">🔎 Comparar preços agora</a>
+      <a class="btn btn-whatsapp" href="https://wa.me/{NUMERO_WHATSAPP}?text=Quero%20o%205%25%20de%20desconto">💬 Pedir pelo WhatsApp</a>
+    </div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <span class="pill">✅ Entrega no mesmo dia</span>
+      <span class="pill">📍 Jacarepaguá e Barra</span>
+      <span class="pill">🔒 Preço garantido</span>
+    </div>
+  </div>
+
+  <div class="kpi">
+    <div class="box"><div class="big">+2.400</div><div class="label">Clientes atendidos</div></div>
+    <div class="box"><div class="big">R$ 12k+</div><div class="label"> Economia gerada</div></div>
+    <div class="box"><div class="big">4x</div><div class="label">Lojas monitoradas</div></div>
+    <div class="box"><div class="big">~1h40</div><div class="label">Entrega média</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <h2 style="font-size:24px;font-weight:900">Sua dor, em 3 frases</h2>
+  <p style="color:#8aa3bf;margin:6px 0 20px">Por que 87% dos donos de pet perdem dinheiro todo mês.</p>
+  <div class="grid">
+    <div class="panel" style="border-left:4px solid #ff3b8e"><div style="font-weight:900;font-size:28px">😤</div><div style="font-weight:800;margin-top:8px">Preços diferentes a cada semana</div><p style="color:#8aa3bf;margin-top:6px;line-height:1.5">A mesma ração custa R$ 30 diferente em cada loja — e ninguém avisa.</p></div>
+    <div class="panel" style="border-left:4px solid #ff3b8e"><div style="font-weight:900;font-size:28px">😰</div><div style="font-weight:800;margin-top:8px">Promoção falsa e frete invisível</div><p style="color:#8aa3bf;margin-top:6px;line-height:1.5">Desconto de fachada só no produto; no final sai mais caro.</p></div>
+    <div class="panel" style="border-left:4px solid #ff3b8e"><div style="font-weight:900;font-size:28px">⏳</div><div style="font-weight:800;margin-top:8px">Tempo perdido procurando</div><p style="color:#8aa3bf;margin-top:6px;line-height:1.5">Comparar 4 lojas demora 20 minutos. Você não tem isso todo dia.</p></div>
+  </div>
+
+  <div class="divider"></div>
+  <h2 style="font-size:24px;font-weight:900">Simulação de busca</h2>
+  <p style="color:#8aa3bf;margin:6px 0 20px">Digite qualquer termo e veja a comparação.</p>
+  <div class="search-box">
+    <input id="q" placeholder="Buscar: ração, antipulgas, brinquedo..." />
+    <button class="btn btn-primary" onclick="search()">Buscar</button>
+  </div>
+  <div id="results" class="grid" style="margin-top:22px"></div>
+
+  <div class="divider"></div>
+  <div class="panel" style="background:linear-gradient(135deg,#1a0b26,#200a18);border-color:#4a1640">
+    <div style="position:relative">
+      <div style="font-weight:900;color:#ffd4ec;font-size:14px;letter-spacing:.5px">OFERTA LIMITADA</div>
+      <h2 style="margin:8px 0;font-size:26px;font-weight:900">Hoje: 5% OFF + entrega gratuita</h2>
+      <p style="color:#c9a0d0;max-width:760px;line-height:1.6">Apenas para os 20 primeiros pedidos do dia. Depois volta para o preço normal.</p>
+      <a class="btn btn-whatsapp" href="https://wa.me/{NUMERO_WHATSAPP}?text=Quero%20a%20oferta%20de%205%25%20OFF" style="margin-top:12px">Ganhar meu desconto agora</a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h2 style="font-size:24px;font-weight:900;margin:0 0 12px">Perguntas frequentes</h2>
+  <div class="faq">
+    <details><summary>Como funciona a cobertura de preço?</summary><p>Você manda o link do produto mais barato. A gente valida e, se estiver tudo certo, já emite o pedido com 5% de desconto adicional.</p></details>
+    <details><summary>Qual a área de entrega?</summary><p>Jacarepaguá e Barra da Tijuca. Entregamos no mesmo dia para pedidos até as 14h.</p></details>
+    <details><summary>Quais formas de pagamento?</summary><p>PIX, cartão de crédito e dinheiro. Parcela em até 3x sem juros.</p></details>
+    <details><summary>Posso escolher a loja?</summary><p>Sim. Se preferir, você pode retirar na loja parceira mais próxima.</p></details>
+  </div>
+
+  <footer>© {NOME_EMPRESA} · {NUMERO_WHATSAPP} · Atendimento de segunda a sábado, 8h às 20h</footer>
+</div>
+
+<script>
+const MOCK=[
+  {name:'Ração Golden Premier 15kg',base:34990},
+  {name:'Antipulgas Nexgard 3 comp',base:26990},
+  {name:'Brinquedo Kong Classic',base:12990},
+  {name:'Vermífugo Drontal Plus',base:18990},
+];
+const RETAILERS=[{name:'Petlove',delta:-1000},{name:'Cobasi',delta:-3000},{name:'Petz',delta:-4000},{name:'Zooplus',delta:-2000}];
+function fmt(c){return 'R$ '+(c/100).toFixed(2).replace('.',',')}
+async function search(){
+  const q=document.getElementById('q').value.trim();
+  const out=document.getElementById('results');
+  if(!q){return}
+  out.innerHTML='<div class="panel" style="grid-column:1/-1;text-align:center;padding:18px">Buscando preços...</div>';
+  await new Promise(r=>setTimeout(r,300+Math.random()*400));
+  const base=MOCK.find(x=>q.toLowerCase().includes('racao'))||MOCK[0];
+  const partner=Math.max(...RETAILERS.map(r=>base.base+r.delta))-2140;
+  const cards=[
+    ...RETAILERS.map((r,idx)=>({id:'id'+idx,retailer:r.name,price_cents:base.base+r.delta,url:'#'})),
+    {id:'partner',retailer:'{NOME_EMPRESA}',price_cents:partner,url:'#'},
+  ];
+  const bestPrice=Math.min(...cards.map(x=>x.price_cents));
+  out.innerHTML=cards.map(it=>{
+    const isBest=it.price_cents===bestPrice;
+    const oldPrice=it.price_cents*1.15;
+    return `<div class="card">
+      <div class="media">Imagem do produto</div>
+      <div class="p">
+        <div style="font-weight:900">${q}</div>
+        <div style="color:#8aa3bf;font-size:13px">Mock · ${it.retailer}</div>
+        <div style="margin-top:8px">
+          <span class="old">${fmt(oldPrice)}</span>
+          <div class="price" style="margin-top:4px">${fmt(it.price_cents)}</div>
+        </div>
+        ${isBest?'<div class="badge-green">Melhor preço</div>':''}
+        <a class="btn btn-whatsapp" href="https://wa.me/{NUMERO_WHATSAPP}?text=Quero%20esse%20produto%20${encodeURIComponent(q)}" style="width:100%;justify-content:center;margin-top:12px">Pedir no WhatsApp</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+</script>
+</body>
+</html>

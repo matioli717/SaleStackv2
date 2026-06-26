@@ -1,0 +1,29 @@
+=== LEAD 1: Panificação Flor da Taquara Ltda ===
+ERRO: Hermes falhou: session_id: 20260611_183927_bde43e
+
+=== LEAD 2: Big Jaurú Móveis ===
+ERRO: Hermes falhou: session_id: 20260611_183942_99a961
+
+=== LEAD 3: Estofamento Mananciais ===
+ERRO: Hermes falhou: session_id: 20260611_183954_4010b4
+
+=== LEAD 4: Kát & Mari Modas ===
+ERRO: Hermes falhou: session_id: 20260611_184007_84adee
+
+=== LEAD 5: Ambientte Conceito ===
+ERRO: Hermes falhou: session_id: 20260611_184020_1809c0
+
+=== LEAD 6: Clara Acessórios ===
+ERRO: Hermes falhou: session_id: 20260611_184033_94b767
+
+=== LEAD 7: Pisa Bella Calçados ===
+ERRO: Hermes falhou: session_id: 20260611_184047_0912ef
+
+=== LEAD 8: Alecrim Flores e Decorações ===
+ERRO: Hermes falhou: session_id: 20260611_184101_b719b3
+
+=== LEAD 9: TECNOMEDI FREGUESIA ===
+ERRO: Hermes falhou: session_id: 20260611_184114_81774b
+
+=== LEAD 10: R Lima Modas ===
+ERRO: Hermes falhou: session_id: 20260611_184127_08bb47

@@ -1,0 +1,47 @@
+# ============================================================
+# security.txt - Política de Divulgação Responsável
+# RFC 9116 - https://securitytxt.org/
+# ============================================================
+
+Contact: mailto:security@dealstack.io
+Contact: https://github.com/matioli616/DealStack/security/advisories/new
+
+Encryption: https://github.com/matioli616/DealStack/security/pgp-key.asc
+
+Acknowledgments: https://github.com/matioli616/DealStack/security/policy#hall-of-fame
+
+Policy: https://github.com/matioli616/DealStack/security/policy
+
+Preferred-Languages: pt-BR, en
+
+Canonical: https://github.com/matioli616/DealStack/.well-known/security.txt
+
+Expires: 2026-06-11T23:59:59.000Z
+
+# ============================================================
+# SCOPO DE TESTES PERMITIDOS
+# ============================================================
+
+# Permitido testar:
+# - Dashboard web (localhost:8765 / Codespaces URL)
+# - APIs REST (/api/*) com autenticação válida
+# - Scripts CLI (shopify_ops.py, meta_*.py, add_prospect.py, generate_content.py)
+# - Pipeline de prospecção (pipeline_unified.py)
+
+# NÃO permitido:
+# - Ataques DoS/DDoS
+# - Engenharia social / phishing
+# - Acesso a dados de terceiros (leads reais)
+# - Modificação de arquivos em produção
+# - Testes em infraestrutura GitHub/Nous/NVIDIA
+
+# ============================================================
+# RECOMPENSAS (Bug Bounty - Opcional)
+# ============================================================
+
+# Crítico (RCE, Auth Bypass, Data Exposure massiva): R$ 2.000 - 5.000
+# Alto (SQLi, XSS stored, IDOR): R$ 500 - 2.000
+# Médio (CSRF, Info Disclosure, Rate Limit bypass): R$ 100 - 500
+# Baixo (Headers, Config issues): R$ 50 - 100
+
+# Pagamento via PIX após validação e fix deployado.
