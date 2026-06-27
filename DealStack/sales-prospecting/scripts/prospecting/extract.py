@@ -14,7 +14,7 @@ from typing import Dict, List, Optional, Tuple
 
 
 # ===== CATEGORIAS PRÉ-DEFINIDAS =====
-CATEGORIES_PATH = Path(__file__).parent.parent.parent / "sales-prospecting" / "references" / "categories.json"
+CATEGORIES_PATH = Path(__file__).parent.parent.parent / "references" / "categories.json"
 with open(CATEGORIES_PATH, encoding="utf-8") as f:
     CATEGORIES = json.load(f)
 
@@ -191,6 +191,7 @@ def extract_lead_from_element(el: dict, lat: float, lon: float) -> Optional[dict
         "business_type": business_type,
         "location": address,
         "phone": tags.get("phone") or tags.get("contact:phone") or tags.get("mobile"),
+        "email": tags.get("email") or tags.get("contact:email"),
         "website": tags.get("website") or tags.get("contact:website") or tags.get("url"),
         "address": address,
         "coordinates": [el_lon, el_lat],  # [lon, lat] padrão GeoJSON
@@ -201,35 +202,35 @@ def extract_lead_from_element(el: dict, lat: float, lon: float) -> Optional[dict
     }
 
     # Remove None
-    return {k: v for k, v in lead.items() if v is not None}
+    lead = {k: v for k, v in lead.items() if v is not None}
+    lead["has_whatsapp"] = has_mobile_phone(lead.get("phone", ""))
+    return lead
 
 
 import re
 
 def normalize_phone(phone: str) -> str:
-    """Normaliza telefone para formato +55DD9XXXXXXXX."""
+    """Normaliza telefone para formato DDD+número."""
     if not phone:
         return ""
-    # Remove tudo que não é dígito
     digits = re.sub(r'\D', '', phone)
-    # Remove código do país se presente
     if digits.startswith('55'):
         digits = digits[2:]
     return digits
 
-def is_valid_whatsapp_dd21(phone: str) -> bool:
-    """Verifica se telefone é WhatsApp válido DDD 21 + 9 + 8 dígitos."""
+def is_mobile_phone(phone: str) -> bool:
+    """Verifica se telefone é celular (qualquer DDD com nono dígito: XX9XXXXXXXX)."""
     normalized = normalize_phone(phone)
-    # Padrão: 21 (DDD) + 9 (celular) + 8 dígitos = 11 dígitos total
-    return bool(re.match(r'^219\d{8}$', normalized))
+    if not normalized:
+        return False
+    return bool(re.match(r'^\d{2}9\d{8}$', normalized))
 
-def has_valid_whatsapp_dd21(phone_field: str) -> bool:
-    """Verifica se qualquer telefone no campo é WhatsApp válido DDD 21."""
+def has_mobile_phone(phone_field: str) -> bool:
+    """Verifica se qualquer telefone no campo é celular (tem nono dígito)."""
     if not phone_field:
         return False
-    # Separa múltiplos telefones por ; ou ,
     for phone in re.split(r'[;,]', phone_field):
-        if is_valid_whatsapp_dd21(phone.strip()):
+        if is_mobile_phone(phone.strip()):
             return True
     return False
 
@@ -240,7 +241,7 @@ def filter_leads(leads: List[dict], args) -> List[dict]:
     if args.only_with_website:
         leads = [l for l in leads if l.get("website")]
     if args.only_whatsapp_dd21:
-        leads = [l for l in leads if l.get("phone") and has_valid_whatsapp_dd21(l["phone"])]
+        leads = [l for l in leads if l.get("has_whatsapp")]
     if args.min_reviews:
         # OSM não tem reviews nativamente, mantém tudo se não tiver fonte externa
         pass

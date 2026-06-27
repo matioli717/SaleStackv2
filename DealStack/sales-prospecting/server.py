@@ -23,6 +23,21 @@ try:
 except ImportError:
     BCRYPT_AVAILABLE = False
 
+try:
+    from neon_db import is_neon_available, init_db as neon_init_db, get_leads as neon_get_leads, get_lead as neon_get_lead, get_leads_for_tenant as neon_get_leads_for_tenant, upsert_leads as neon_save_leads, get_proposals as neon_get_proposals, get_proposal as neon_get_proposal, upsert_proposals as neon_save_proposals, get_stats as neon_get_stats, get_metrics as neon_get_metrics, update_lead_status as neon_update_status, migrate_from_json as neon_migrate
+    NEON_AVAILABLE = is_neon_available()
+    if NEON_AVAILABLE:
+        neon_init_db()
+        print("[NEON] PostgreSQL conectado")
+    else:
+        print("[NEON] PostgreSQL nao disponivel (defina DATABASE_URL para ativar)")
+except ImportError:
+    NEON_AVAILABLE = False
+    print("[NEON] neon_db.py nao encontrado, usando JSON")
+except Exception as e:
+    NEON_AVAILABLE = False
+    print(f"[NEON] Erro ao conectar: {e}")
+
 PASSWORD_MIN_LENGTH = 8
 PASSWORD_MIN_DIGITS = 1
 PASSWORD_MIN_UPPER = 1
@@ -198,7 +213,7 @@ def create_stripe_portal(customer_id: str, return_url: str) -> Optional[str]:
         print(f"[STRIPE] Portal error: {e}")
         return None
 
-file_lock = __import__('threading').Lock()
+file_lock = __import__('threading').RLock()
 
 def get_plan(plan_key: str) -> Optional[Dict]:
     return PLANS.get(plan_key)
@@ -420,8 +435,9 @@ class SecurityMiddleware:
         return {}
 
     def get_security_headers(self) -> Dict[str, str]:
+        cs_codespaces = "https://*.app.github.dev https://*.preview.app.github.dev"
         return {
-            "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://*.github.dev https://*.githubpreview.dev https://*.app.github.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; report-uri /api/csp-report",
+            "Content-Security-Policy": f"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' {cs_codespaces}; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; report-uri /api/csp-report",
             "X-Frame-Options": "DENY",
             "X-Content-Type-Options": "nosniff",
             "Referrer-Policy": "strict-origin-when-cross-origin",
@@ -510,23 +526,79 @@ def require_auth(scopes: Optional[List[str]] = None):
     return decorator
 
 def load_shared_data(key: str) -> List[Dict]:
-    with file_lock:
-        if key == "leads":
-            if LEADS_FILE.exists():
-                return json.loads(LEADS_FILE.read_text(encoding="utf-8"))
-            return []
-        if key == "proposals":
-            if PROPOSALS_FILE.exists():
-                return json.loads(PROPOSALS_FILE.read_text(encoding="utf-8"))
-            return []
+    if key == "leads":
+        return load_leads()
+    if key == "proposals":
+        return load_proposals()
     return []
 
 def save_shared_data(key: str, data: List[Dict]):
+    if key == "leads":
+        save_leads(data)
+    elif key == "proposals":
+        save_proposals(data)
+
+def load_leads() -> List[Dict]:
+    if NEON_AVAILABLE:
+        try:
+            return neon_get_leads()
+        except Exception as e:
+            print(f"[NEON] get_leads error: {e}")
     with file_lock:
-        if key == "leads":
-            LEADS_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-        elif key == "proposals":
-            PROPOSALS_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        if LEADS_FILE.exists():
+            return json.loads(LEADS_FILE.read_text(encoding="utf-8"))
+        return []
+
+def save_leads(leads: List[Dict]) -> int:
+    if NEON_AVAILABLE:
+        try:
+            return neon_save_leads(leads)
+        except Exception as e:
+            print(f"[NEON] save_leads error: {e}")
+    with file_lock:
+        LEADS_FILE.write_text(json.dumps(leads, ensure_ascii=False, indent=2), encoding="utf-8")
+        return len(leads)
+
+def load_proposals() -> List[Dict]:
+    if NEON_AVAILABLE:
+        try:
+            return neon_get_proposals()
+        except Exception as e:
+            print(f"[NEON] get_proposals error: {e}")
+    with file_lock:
+        if PROPOSALS_FILE.exists():
+            return json.loads(PROPOSALS_FILE.read_text(encoding="utf-8"))
+        return []
+
+def save_proposals(proposals: List[Dict]) -> int:
+    if NEON_AVAILABLE:
+        try:
+            return neon_save_proposals(proposals)
+        except Exception as e:
+            print(f"[NEON] save_proposals error: {e}")
+    with file_lock:
+        PROPOSALS_FILE.write_text(json.dumps(proposals, ensure_ascii=False, indent=2), encoding="utf-8")
+        return len(proposals)
+
+def update_lead_status_wrapper(lead_id: str, new_status: str) -> bool:
+    """Update lead status across Neon or JSON storage."""
+    if NEON_AVAILABLE:
+        try:
+            return neon_update_status(lead_id, new_status)
+        except Exception as e:
+            print(f"[NEON] update_status error: {e}")
+    # JSON fallback - load leads, update, save
+    leads = load_leads()
+    updated = False
+    for lead in leads:
+        lid = lead.get("id") or lead.get("osm_id")
+        if lid == lead_id:
+            lead["status"] = new_status
+            updated = True
+            break
+    if updated:
+        save_leads(leads)
+    return updated
 
 class SalesHandler(SimpleHTTPRequestHandler):
     def is_html_request(self) -> bool:
@@ -599,6 +671,10 @@ class SalesHandler(SimpleHTTPRequestHandler):
             self.handle_register()
         elif path == "/api/leads":
             self.handle_save_leads()
+        elif path == "/api/leads/status":
+            self.handle_update_lead_status()
+        elif path == "/api/leads/email-status":
+            self.handle_update_lead_email_status()
         elif path == "/api/proposals":
             self.handle_save_proposals()
         elif path == "/api/extract":
@@ -992,16 +1068,43 @@ loadStats();
     @require_auth(scopes=["read"])
     def serve_stats(self):
         tenant_id = self.auth_user.get("tenant_id") or self.auth_user["sub"]
-        leads = [l for l in load_shared_data("leads") if not l.get("tenant_id") or l.get("tenant_id") == tenant_id]
-        proposals = load_shared_data("proposals")
+        if NEON_AVAILABLE:
+            try:
+                metrics = neon_get_metrics(tenant_id)
+                metrics["categories"] = {}
+                self.send_json(200, metrics)
+                return
+            except Exception as e:
+                print(f"[NEON] get_metrics error: {e}")
+        leads = [l for l in load_leads() if not l.get("tenant_id") or l.get("tenant_id") == tenant_id]
+        proposals = load_proposals()
         categories = {}
         for l in leads:
             cat = l.get("category", "unknown")
             categories[cat] = categories.get(cat, 0) + 1
+        by_status = {}
+        closed = 0
+        in_progress = 0
+        for l in leads:
+            s = l.get("status", "novo")
+            by_status[s] = by_status.get(s, 0) + 1
+            if s == "fechado":
+                closed += 1
+            elif s in ("contatado", "negociacao"):
+                in_progress += 1
+        total = len(leads)
+        conv = round((closed / total * 100), 1) if total > 0 else 0
         self.send_json(200, {
-            "total_leads": len(leads),
+            "total_leads": total,
             "total_proposals": len(proposals),
             "categories": categories,
+            "by_status": by_status,
+            "closed": closed,
+            "in_progress": in_progress,
+            "conversion_rate": conv,
+            "leads_last_7d": 0,
+            "leads_last_30d": 0,
+            "leads_by_day": [],
             "last_update": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         })
 
@@ -1112,6 +1215,13 @@ loadStats();
         if path == "/api/admin/stripe-sync":
             sync_stripe_products()
             return self.send_json(200, {"message": "Produtos sincronizados com Stripe"})
+        if path == "/api/admin/migrate":
+            if not NEON_AVAILABLE:
+                return self.send_json(400, {"error": "Neon nao esta disponivel. Defina DATABASE_URL"})
+            leads = load_leads()
+            proposals = load_proposals()
+            result = neon_migrate(leads, proposals)
+            return self.send_json(200, {**result, "message": "Migracao concluida"})
         try:
             body = self._read_json_body()
         except ValueError as e:
@@ -1449,6 +1559,64 @@ loadStats();
             self.send_json(500, {"error": "Internal server error"})
 
     @require_auth(scopes=["write"])
+    def handle_update_lead_status(self):
+        try:
+            data = self._read_json_body()
+        except ValueError as e:
+            self._handle_body_error(e)
+            return
+        try:
+            lead_id = data.get("id", "")
+            new_status = data.get("status", "")
+            if not lead_id or not new_status:
+                self.send_json(400, {"error": "id e status obrigatorios"})
+                return
+            valid = ("novo", "contatado", "negociacao", "fechado", "perdido")
+            if new_status not in valid:
+                self.send_json(400, {"error": f"Status invalido: {new_status}"})
+                return
+            ok = update_lead_status_wrapper(lead_id, new_status)
+            if ok:
+                self.send_json(200, {"message": "Status atualizado", "status": new_status})
+            else:
+                self.send_json(404, {"error": "Lead nao encontrado"})
+        except Exception:
+            self.send_json(500, {"error": "Erro interno"})
+
+    @require_auth(scopes=["write"])
+    def handle_update_lead_email_status(self):
+        try:
+            data = self._read_json_body()
+        except ValueError as e:
+            self._handle_body_error(e)
+            return
+        try:
+            lead_id = data.get("id", "")
+            email_status = data.get("emailStatus", "")
+            if not lead_id or not email_status:
+                self.send_json(400, {"error": "id e emailStatus obrigatorios"})
+                return
+            valid = ("nao_enviado", "enviado", "aberto", "respondido")
+            if email_status not in valid:
+                self.send_json(400, {"error": f"Status invalido: {email_status}"})
+                return
+            leads = load_leads()
+            updated = False
+            for lead in leads:
+                lid = lead.get("id") or lead.get("osm_id")
+                if lid == lead_id:
+                    lead["emailStatus"] = email_status
+                    updated = True
+                    break
+            if updated:
+                save_leads(leads)
+                self.send_json(200, {"message": "Email status atualizado", "emailStatus": email_status})
+            else:
+                self.send_json(404, {"error": "Lead nao encontrado"})
+        except Exception:
+            self.send_json(500, {"error": "Erro interno"})
+
+    @require_auth(scopes=["write"])
     def handle_save_proposals(self):
         try:
             try:
@@ -1672,6 +1840,7 @@ def main():
     print(f"   Login:     http://0.0.0.0:{port}/login")
     print(f"   Dashboard: http://0.0.0.0:{port}/dashboard")
     print(f"   API:       http://0.0.0.0:{port}/api")
+    print(f"   Database:  {'Neon PostgreSQL' if NEON_AVAILABLE else 'JSON files'}")
     print(f"   Shared:    {SHARED_DATA_DIR}")
     print(f"   Users:     {USERS_FILE}")
     print(f"{'='*50}\n")

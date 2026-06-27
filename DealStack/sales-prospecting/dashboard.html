@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.github.dev https://*.githubpreview.dev https://*.app.github.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.app.github.dev https://*.preview.app.github.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
@@ -471,6 +471,73 @@
     .badge-status[data-status="perdido"] { background: rgba(255,58,110,0.14); color: var(--accent-danger); }
     .badge-prospect { background: rgba(0,255,180,0.12); color: #00c286; font-size:10px; padding:3px 8px; border-radius:999px; font-weight:700; letter-spacing:.3px; white-space:nowrap; }
     .badge-lowscore { background: rgba(255,58,110,0.10); color: #ff3a6e; font-size:10px; padding:3px 8px; border-radius:999px; font-weight:700; letter-spacing:.3px; white-space:nowrap; }
+    .badge-whatsapp { background: rgba(37,211,102,0.15); color: #25D366; font-size:10px; padding:2px 8px; border-radius:999px; font-weight:700; letter-spacing:.3px; white-space:nowrap; }
+    .badge-email { background: rgba(59,130,246,0.15); color: #3B82F6; font-size:10px; padding:2px 8px; border-radius:999px; font-weight:700; letter-spacing:.3px; white-space:nowrap; }
+    .badge-email-status { cursor:pointer; user-select:none; font-size:10px; padding:2px 8px; border-radius:999px; font-weight:700; letter-spacing:.3px; white-space:nowrap; }
+    .badge-email-status[data-email-status="nao_enviado"] { background: rgba(255,255,255,0.06); color: #666; }
+    .badge-email-status[data-email-status="enviado"] { background: rgba(59,130,246,0.15); color: #3B82F6; }
+    .badge-email-status[data-email-status="aberto"] { background: rgba(240,192,64,0.15); color: #F0C040; }
+    .badge-email-status[data-email-status="respondido"] { background: rgba(0,255,180,0.15); color: #00FFB4; }
+
+    .icon-btn.email {
+      border-color: rgba(59,130,246,0.25);
+      color: #3B82F6;
+    }
+    .icon-btn.email:hover {
+      border-color: rgba(59,130,246,0.5);
+      background: rgba(59,130,246,0.1);
+    }
+    .icon-btn.copy {
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text-secondary);
+    }
+    .icon-btn.copy:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .btn-gmail {
+      background: #EA4335 !important;
+      color: #fff !important;
+    }
+    .btn-gmail:hover {
+      background: #d33426 !important;
+    }
+
+    .modal-card-wide {
+      max-width: 860px !important;
+    }
+
+    .email-preview-box {
+      background: var(--bg-primary);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-height: 380px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-family: system-ui, sans-serif;
+    }
+
+    .email-var-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .actions-cell .btn-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .actions-cell .btn-row + .btn-row {
+      margin-top: 6px;
+    }
 
     /* Buttons inside actions */
     .actions-cell {
@@ -746,6 +813,10 @@
         <div class="num gold" id="sConv">0</div>
         <div class="label">Conversão</div>
       </div>
+      <div class="metric-card">
+        <div class="num" id="sLeads7d">0</div>
+        <div class="label">Novos (7d)</div>
+      </div>
     </section>
 
     <section class="panel animate" style="animation-delay:0.3s">
@@ -774,6 +845,14 @@
           </div>
         </div>
         <div class="filter-group">
+          <span class="filter-label">EMAIL</span>
+          <div class="pill-row">
+            <button class="pill active" data-filter="email" data-value="all">Todos</button>
+            <button class="pill" data-filter="email" data-value="com">Com email</button>
+            <button class="pill" data-filter="email" data-value="sem">Sem email</button>
+          </div>
+        </div>
+        <div class="filter-group">
           <span class="filter-label">PROSPECÇÃO</span>
           <div class="pill-row">
             <button class="pill" data-filter="prospect" data-value="good">✅ Bons prospects</button>
@@ -790,6 +869,8 @@
               <th>Tipo</th>
               <th>Localização</th>
               <th>Telefone</th>
+              <th>WhatsApp</th>
+              <th>Email</th>
               <th>Produto</th>
               <th>Ações</th>
             </tr>
@@ -902,6 +983,48 @@
     </div>
   </div>
 
+  <div class="modal-backdrop" id="emailModal">
+    <div class="modal-card modal-card-wide">
+      <h3>Email de Prospecção · <span id="emailLeadName" style="color:var(--accent-primary)"></span></h3>
+      <p style="color:var(--text-secondary);font-size:13px;margin:-8px 0 4px 0">Escolha a variação do assunto e revise o email antes de enviar.</p>
+      <div>
+        <div class="email-var-label">Variação do Assunto</div>
+        <div class="pill-row" id="emailVarPills">
+          <button class="pill pill-email-var active" data-var="A">A — Nome da empresa</button>
+          <button class="pill pill-email-var" data-var="B">B — Concorrente no bairro</button>
+          <button class="pill pill-email-var" data-var="C">C — Google Maps</button>
+        </div>
+      </div>
+      <div>
+        <div class="email-var-label">Assunto</div>
+        <div id="emailSubjectPreview" style="background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;font-weight:600;color:var(--text-primary)"></div>
+      </div>
+      <div>
+        <div class="email-var-label">Corpo do Email</div>
+        <div class="email-preview-box" id="emailBodyPreview"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeEmailModal()">Fechar</button>
+        <button class="btn btn-primary" id="copyEmailBtn">📋 Copiar Email</button>
+        <button class="btn btn-gmail" id="gmailBtn">📧 Abrir no Gmail</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="visualModal">
+    <div class="modal-card modal-card-wide">
+      <h3>Proposta Visual · <span id="visualLeadName" style="color:var(--accent-primary)"></span></h3>
+      <p style="color:var(--text-secondary);font-size:13px;margin:-8px 0 4px 0">Preview da proposta antes de baixar.</p>
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;height:520px">
+        <iframe id="visualIframe" style="width:100%;height:100%;border:none"></iframe>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeVisualModal()">Fechar</button>
+        <button class="btn btn-primary" id="downloadVisualBtn">⬇ Baixar HTML</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     function getToken(){ return localStorage.getItem('dealstack_token'); }
     function redirectLogin(){ window.location.href='/login'; }
@@ -916,7 +1039,7 @@
     }
 
     const state = { leads: [], proposals: [], page: 1, perPage: 25 };
-    const filters = { product: 'all', status: 'all', prospect: 'all' };
+    const filters = { product: 'all', status: 'all', email: 'all', prospect: 'all' };
 
     function esc(t){ const d=document.createElement('div'); d.textContent = t || ''; return d.innerHTML.replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
@@ -973,18 +1096,209 @@
       return Math.max(0, Math.min(100, score));
     }
 
-    function statusBadge(s, leadName){
+    // ===== SISTEMA DE EMAIL DE PROSPECÇÃO =====
+    const SEGMENT_FOCUS=[
+      {id:'moveis',      label:'Móveis', kw:/m[oó]veis|marcenaria|decoração|decoracao|estofados|colch[oõ]es/, dor:'móveis planejados e decoração', pb:['Clientes buscam "marcenaria perto de mim" no celular e não te encontram','Perdem vendas sem conseguir mostrar o portfólio online','Concorrentes com site aparecem primeiro no Google e levam os orçamentos'], prova:'Já ajudei outras marcenarias em {cidade} a aumentar 40% nos pedidos de orçamento pelo site', sol:'Criei uma prévia de site gratuita pra mostrar como vocês podem aparecer pra centenas de clientes que buscam móveis planejados online todo mês'},
+      {id:'petshop',      label:'Pet Shop', kw:/pet shop|petshop|veterin[áa]rio|banho|tosa/, dor:'donos de pet que buscam banho e tosa perto', pb:['Donos de pet buscam "banho e tosa perto de mim" e não te acham no celular','Perdem clientes fiéis porque não têm agenda online','Vacinação, hospedagem e serviços ficam invisíveis sem presença digital'], prova:'Já ajudei petshops em {cidade} a atrair 30+ clientes novos por mês com site e agendamento online', sol:'Criei uma prévia de site gratuita pra mostrar como vocês podem aparecer pra centenas de donos de pet que buscam serviços perto de casa'},
+      {id:'sapataria',    label:'Sapataria', kw:/sapataria|calçados|calcados|sapato/, dor:'quem busca calçados no bairro pelo celular', pb:['Clientes pesquisam "sapataria perto de mim" e encontram concorrentes primeiro','Novas coleções e promoções ficam limitadas ao Instagram','Perdem vendas de quem busca calçados específicos online'], prova:'Já ajudei sapatarias em {cidade} a vender 25% mais com site profissional + WhatsApp integrado', sol:'Criei uma prévia de site gratuita pra mostrar como vocês podem aparecer pra quem busca calçados no bairro pelo celular'},
+      {id:'conveniencia', label:'Conveniência', kw:/conveni[êe]ncia|mercearia|hortifruti|sacolão|acougue|açougue/, dor:'clientes de delivery e horário de funcionamento', pb:['Clientes buscam "mercado perto de mim" e não sabem que vocês existem','Horários, promoções e delivery ficam perdidos no boca a boca','Concorrentes com site e delivery online roubam clientes da região'], prova:'Já ajudei mercados em {cidade} a receber 50+ pedidos de delivery por semana com site próprio', sol:'Criei uma prévia de site gratuita pra mostrar como vocês podem aparecer pra todo bairro que busca conveniência perto de casa'},
+      {id:'ferragens',    label:'Ferragens', kw:/ferragens|construção|construcao|material|ferragem|elétrica|eletrica|hidráulica|hidraulica|telhado|pisos/, dor:'profissionais que buscam materiais na região', pb:['Pedreiros, marceneiros e eletricistas buscam "ferragem perto" no celular','Perdem profissionais que precisam de material urgente porque não te acham','Estoque enorme mas invisível pra quem pesquisa online antes de ir'], prova:'Já ajudei ferragens em {cidade} a triplicar o número de clientes profissionais com site de busca de materiais', sol:'Criei uma prévia de site gratuita pra mostrar como vocês podem aparecer pros profissionais que buscam materiais na região'},
+      {id:'cosmeticos',   label:'Cosméticos/Salão', kw:/salão|salao|cabeleireiro|barbearia|cosm[ée]ticos|est[ée]tica|manicure|beleza|spa/, dor:'clientes que buscam salão e estética online', pb:['Clientes buscam "salão perto de mim" no celular e não encontram vocês','Agenda cheia de cancelamentos porque não têm sistema de confirmação','Concorrentes com site e agendamento online levam os clientes'], prova:'Já ajudei salões em {cidade} a reduzir 60% de cancelamentos com agendamento online + confirmação automática', sol:'Criei uma prévia de site gratuita pra mostrar como vocês podem aparecer pra quem busca serviços de beleza perto de casa'},
+      {id:'restaurante',  label:'Restaurante', kw:/restaurante|lanchonete|pizzaria|hamburgueria|bar|pub|café|cafeteria|doceria|confeitaria|sorveteria|delivery|pastelaria|esfiha|crepe|petiscaria|espetinho|churrascaria/, dor:'quem busca delivery e cardápio pelo celular', pb:['Clientes buscam "restaurante perto" e pedem no iFood pagando até 30% de taxa','Cardápio digital no lugar certo = mais vendas diretas sem comissão','Concorrentes com site próprio faturam mais e pagam menos taxa'], prova:'Já ajudei restaurantes em {cidade} a economizar R$ 3.000+/mês em taxas de delivery com site + pedidos diretos', sol:'Criei uma prévia de site gratuita pra mostrar como vocês podem receber pedidos diretos sem pagar taxa de plataforma'},
+    ];
+
+    function generateSegmentFocus(biz){
+      const b=(biz||'').toLowerCase();
+      for(const s of SEGMENT_FOCUS){
+        if(s.kw.test(b)) return s;
+      }
+      return {
+        id:'default', label:biz||'Negócio', dor:'clientes que pesquisam serviços online antes de comprar',
+        pb:['87% dos consumidores pesquisam online antes de comprar — e muitos não te encontram','Sem site, sua empresa fica invisível pra quem busca no Google','Concorrentes com site aparecem primeiro e levam os clientes'],
+        prova:'Já ajudei empresas em {cidade} a aumentar em 40% os contatos pelo WhatsApp depois de criar um site profissional',
+        sol:'Criei uma prévia de site gratuita pra mostrar como vocês podem aparecer pros clientes que buscam {biz} em {cidade}'
+      };
+    }
+
+    function parseLocation(loc){
+      if(!loc) return {city:'', neighborhood:''};
+      const parts=loc.split(',').map(s=>s.trim());
+      const city=parts.length>=3?parts[2]:parts[0]||'';
+      const neighborhood=parts.length>=2?parts[0]:'';
+      return {city, neighborhood};
+    }
+
+    function generateSubject(lead, variation, seg){
+      const n=lead.lead_name||lead.name||'Empresa';
+      const loc=parseLocation(lead.location||'');
+      const bairro=loc.neighborhood||loc.city||'região';
+      if(variation==='B') return `Seu concorrente em ${bairro} já tem site. Vocês também merecem`;
+      if(variation==='C') return `Encontrei ${n} no Google Maps — tenho algo pra mostrar`;
+      return `${n} — vi que vocês ainda não têm site`;
+    }
+
+    function generateEmailBody(lead, seg, subject){
+      const n=lead.lead_name||lead.name||'Empresa';
+      const fn=n.split(' ')[0];
+      const biz=lead.business_type||'negócio';
+      const loc=parseLocation(lead.location||'');
+      const city=loc.city||'região';
+      const bairro=loc.neighborhood||city;
+      const waDigits=String(lead.phone||'').replace(/[^\d]/g,'');
+      const waLink=waDigits.startsWith('55')?waDigits:(waDigits.length>=10?'55'+waDigits:'5521999999999');
+      const phoneDisplay=lead.phone||'(21) 99999-9999';
+      const provaCustom=seg.prova.replace('{cidade}',city);
+      const solCustom=seg.sol.replace('{cidade}',city).replace('{biz}',biz.toLowerCase());
+
+      const body=[
+        `Olá, ${fn}!`,'',
+        `Pesquisei empresas de ${biz.toLowerCase()} em ${city} e ${n} apareceu. Fiz algo que quero te mostrar.`,
+        '',
+        `Sem um site, ${n} perde oportunidades todo dia:`,
+        `• ${seg.pb[0]}`,
+        `• ${seg.pb[1]}`,
+        `• ${seg.pb[2]}`,
+        '',
+        `📊 ${provaCustom}.`,
+        '',
+        `✅ ${solCustom}.`,
+        '',
+        `👉 Ver meu site demo agora → http://localhost:8765/dashboard`,
+        '',
+        `📱 Prefere ver pelo WhatsApp? Me chama: ${phoneDisplay}`,
+        `   ${'https://wa.me/'+waLink}`,
+        '',
+        `⏳ Mantenho essa proposta disponível por 48h. Estou prospectando só 3 empresas de ${biz.toLowerCase()} em ${city} nesta semana.`,
+        '',
+        `PS: Se não for você que cuida do marketing, pode encaminhar pra quem cuida?`,
+        '',
+        `Abs,`,
+        `Equipe DealStack`
+      ].join('\n');
+
+      return body;
+    }
+
+    function generateEmail(lead, variation){
+      const seg=generateSegmentFocus(lead.business_type);
+      const subject=generateSubject(lead, variation, seg);
+      const bodyPlain=generateEmailBody(lead, seg, subject);
+      return {subject, bodyPlain, seg};
+    }
+
+    function emailStatusBadge(status){
+      const key=['nao_enviado','enviado','aberto','respondido'].includes(status)?status:'nao_enviado';
+      const label={nao_enviado:'Não enviado',enviado:'Enviado',aberto:'Aberto',respondido:'Respondido'}[key];
+      return `<span class="badge-email-status" data-email-status="${key}">${label}</span>`;
+    }
+
+    function getEmailStatus(lead){
+      return lead.emailStatus||'nao_enviado';
+    }
+
+    async function setEmailStatus(lead, value){
+      const old=lead.emailStatus||'nao_enviado';
+      lead.emailStatus=value;
+      try{
+        const lid=lead.id||lead.osm_id;
+        if(lid) await api('/leads/email-status', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:lid, emailStatus:value})});
+      } catch(e){
+        lead.emailStatus=old;
+        console.error('Falha ao salvar status email:', e);
+      }
+    }
+
+    function copyEmailToClipboard(lead){
+      const varEl=document.querySelector('#emailVarPills .pill.active');
+      const variation=varEl?varEl.getAttribute('data-var'):'A';
+      const {subject, bodyPlain}=generateEmail(lead, variation);
+      const full=`Assunto: ${subject}\n\n${bodyPlain}`;
+      copyText(full);
+    }
+
+    function openGmailCompose(lead){
+      const varEl=document.querySelector('#emailVarPills .pill.active');
+      const variation=varEl?varEl.getAttribute('data-var'):'A';
+      const {subject, bodyPlain}=generateEmail(lead, variation);
+      const mailto=`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(lead.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyPlain)}`;
+      window.open(mailto, '_blank');
+    }
+
+    let _emailModalLead=null;
+
+    function updateEmailPreview(){
+      const lead=_emailModalLead;
+      if(!lead) return;
+      const varEl=document.querySelector('#emailVarPills .pill.active');
+      const variation=varEl?varEl.getAttribute('data-var'):'A';
+      const {subject, bodyPlain}=generateEmail(lead, variation);
+      document.getElementById('emailSubjectPreview').textContent=subject;
+      document.getElementById('emailBodyPreview').textContent=bodyPlain;
+      document.getElementById('emailLeadName').textContent=lead.lead_name||lead.name||'Lead';
+    }
+
+    function openEmailModal(lead){
+      _emailModalLead=lead;
+      document.getElementById('emailLeadName').textContent=lead.lead_name||lead.name||'Lead';
+      updateEmailPreview();
+      document.getElementById('emailModal').style.display='flex';
+    }
+
+    function closeEmailModal(){
+      document.getElementById('emailModal').style.display='none';
+      _emailModalLead=null;
+    }
+
+    function openVisualPreview(lead){
+      const html=generatePropostaVisual(lead);
+      document.getElementById('visualLeadName').textContent=lead.lead_name||lead.name||'Lead';
+      const iframe=document.getElementById('visualIframe');
+      iframe.srcdoc=html;
+      document.getElementById('visualModal').style.display='flex';
+      document.getElementById('downloadVisualBtn').onclick=()=>{
+        const blob=new Blob([html], {type:'text/html;charset=utf-8'});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url; a.download='proposta-'+(lead.lead_name||lead.name||'lead').replace(/[^a-zA-Z0-9]/g,'-').toLowerCase()+'.html';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(()=>URL.revokeObjectURL(url),5000);
+      };
+      if(lead.id||lead.osm_id){
+        const lid=lead.id||lead.osm_id;
+        const l=state.leads.find(l=>(l.id||l.osm_id)===lid);
+        if(l) l.lastProposalAt=new Date().toISOString();
+      }
+    }
+
+    function closeVisualModal(){
+      document.getElementById('visualModal').style.display='none';
+      document.getElementById('visualIframe').srcdoc='';
+    }
+
+    function statusBadge(s, leadId, leadName){
       const key=['novo','contatado','negociacao','fechado','perdido'].includes(s)?s:'novo';
       const label={novo:'Novo',contatado:'Contatado',negociacao:'Em negociação',fechado:'Fechado',perdido:'Perdido'}[key];
-      return `<span class="badge badge-status" data-status="${key}" data-lead="${esc(leadName)}">${label}</span>`;
+      return `<span class="badge badge-status" data-status="${key}" data-lead-id="${esc(leadId)}" data-lead="${esc(leadName)}">${label}</span>`;
     }
     function getLeadStatus(lead){
-      const k='dealstack_status_'+(lead.lead_name||lead.name||'').replace(/\s+/g,'_').toLowerCase();
-      try{ return sessionStorage.getItem(k)||'novo'; } catch(e){ return 'novo'; }
+      return lead.status||'novo';
     }
-    function setLeadStatus(lead, value){
-      const k='dealstack_status_'+(lead.lead_name||lead.name||'').replace(/\s+/g,'_').toLowerCase();
-      try{ sessionStorage.setItem(k, value); } catch(e){}
+    async function setLeadStatus(lead, value){
+      const oldStatus=lead.status||'novo';
+      lead.status=value;
+      try{
+        const lid=lead.id||lead.osm_id;
+        if(lid){
+          await api('/leads/status', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({id:lid, status:value})
+          });
+        }
+      } catch(e){
+        lead.status=oldStatus;
+        console.error('Falha ao salvar status:', e);
+      }
     }
     function proposalTemplate(lead){
       const name=lead.lead_name||lead.name||'Cliente';
@@ -1074,14 +1388,17 @@
     function renderStats(stats){
       const leads=stats.total_leads??state.leads.length;
       const props=stats.total_proposals??state.proposals.length;
-      const contacted=(state.leads||[]).filter(l=>{const s=getLeadStatus(l); return s==='contatado'||s==='negociacao';}).length;
-      const closed=(state.leads||[]).filter(l=>getLeadStatus(l)==='fechado').length;
+      const inProgress=stats.in_progress??(state.leads||[]).filter(l=>{const s=getLeadStatus(l); return s==='contatado'||s==='negociacao';}).length;
+      const closed=stats.closed??(state.leads||[]).filter(l=>getLeadStatus(l)==='fechado').length;
+      const conv=stats.conversion_rate??(leads>0?Math.round((closed/leads)*100):0);
+      const leads7d=stats.leads_last_7d??0;
       passiveCount(document.getElementById('sLeads'), leads);
       passiveCount(document.getElementById('sProps'), props);
-      passiveCount(document.getElementById('sSent'), contacted);
+      passiveCount(document.getElementById('sSent'), inProgress);
       passiveCount(document.getElementById('sClosed'), closed);
-      const conv=leads>0?Math.round((closed/leads)*100):0;
       passiveCount(document.getElementById('sConv'), conv, '%');
+      const leads7dEl=document.getElementById('sLeads7d');
+      if(leads7dEl) passiveCount(leads7dEl, leads7d);
     }
     function filteredLeads(){
       const q=document.getElementById('search')?.value?.toLowerCase()||'';
@@ -1091,9 +1408,11 @@
         const st=getLeadStatus(lead);
         if(filters.product!=='all' && pk!==filters.product) return false;
         if(filters.status!=='all' && st!==filters.status) return false;
+        if(filters.email==='com' && !lead.email) return false;
+        if(filters.email==='sem' && lead.email) return false;
         if(filters.prospect==='good' && leadScore(lead)<20) return false;
         if(q){
-          const hay=[lead.lead_name, lead.name, lead.business_type, lead.location, lead.phone].join(' ').toLowerCase();
+          const hay=[lead.lead_name, lead.name, lead.business_type, lead.location, lead.phone, lead.email].join(' ').toLowerCase();
           if(!hay.includes(q)) return false;
         }
         return true;
@@ -1140,19 +1459,30 @@
         const tr=document.createElement('tr');
         const st=getLeadStatus(lead);
         const phone=lead.phone||'';
+        const email=lead.email||'';
         const sc=leadScore(lead);
+        const leadId=lead.id||lead.osm_id||'';
+        const waBadge=lead.has_whatsapp?` <span class="badge-whatsapp">WhatsApp</span>`:' <span class="badge-lowscore" style="color:#666">sem WhatsApp</span>';
+        const emailBadge=email?` <span class="badge-email">Email</span>`:'';
         const prospectBadge=sc>=60?` <span class="badge-prospect">✅ Bom prospect</span>`:sc<20?` <span class="badge-lowscore">⚠️ ${sc}pts</span>`:'';
+        const es=getEmailStatus(lead);
         tr.innerHTML=`
-          <td>${statusBadge(st, (lead.lead_name||lead.name))}</td>
+          <td>${statusBadge(st, leadId, (lead.lead_name||lead.name))}</td>
           <td>${esc(lead.lead_name||lead.name||'-')}${prospectBadge}</td>
           <td>${esc(lead.business_type||'-')}</td>
           <td>${esc(lead.location||'-')}</td>
           <td>${esc(phone)}</td>
+          <td>${waBadge}</td>
+          <td>${emailBadge} <span style="font-size:11px;color:var(--text-muted)">${esc(email)}</span> ${email?emailStatusBadge(es):''}</td>
           <td>${productBadge(lead.business_type)}</td>
           <td class="actions-cell">
-            <button class="icon-btn" data-act="proposal" data-phone="${esc(phone)}" data-biz="${esc(lead.business_type)}" data-name="${esc(lead.lead_name||lead.name||'')}" data-loc="${esc(lead.location||'')}">Proposta</button>
-            <button class="icon-btn" data-act="visual" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" style="color:var(--accent-secondary);border-color:rgba(123,92,250,0.3)">Proposta Visual</button>
-            <button class="icon-btn wa" data-act="whatsapp" data-phone="${esc(phone)}">WA</button>
+            <div class="btn-row">
+              <button class="icon-btn" data-act="proposal" data-phone="${esc(phone)}" data-biz="${esc(lead.business_type)}" data-name="${esc(lead.lead_name||lead.name||'')}" data-loc="${esc(lead.location||'')}">Proposta</button>
+              <button class="icon-btn" data-act="visual" data-id="${esc(leadId)}" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" data-email="${esc(email)}" style="color:var(--accent-secondary);border-color:rgba(123,92,250,0.3)">Proposta Visual</button>
+              <button class="icon-btn copy" data-act="copy-email" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" data-email="${esc(email)}">Copiar Email</button>
+              <button class="icon-btn wa" data-act="whatsapp" data-phone="${esc(phone)}">WA</button>
+            </div>
+            ${email?`<div class="btn-row"><button class="icon-btn email" data-act="send-email" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" data-email="${esc(email)}">📧 Enviar Email</button></div>`:''}
           </td>`;
         leadsBody.appendChild(tr);
       });
@@ -1172,15 +1502,17 @@
 
       document.getElementById('leadsBody').querySelectorAll('.badge-status').forEach((el)=>{
         el.addEventListener('click', async()=>{
+          const leadId=el.getAttribute('data-lead-id');
           const leadName=el.getAttribute('data-lead');
-          const lead=state.leads.find(l=>(l.lead_name||l.name)===leadName);
+          const lead=state.leads.find(l=>(l.id||l.osm_id||'')===leadId);
           if(!lead) return;
           const cycle=['novo','contatado','negociacao','fechado','perdido'];
           const cur=getLeadStatus(lead);
           let next=cycle[(cycle.indexOf(cur)+1)%cycle.length];
-          setLeadStatus(lead, next);
+          await setLeadStatus(lead, next);
+          const statsRes=await api('/stats');
+          renderStats(statsRes);
           render();
-          try{ await api('/leads'); } catch(e){}
         });
       });
 
@@ -1191,22 +1523,59 @@
       });
       document.querySelectorAll('[data-act="visual"]').forEach((btn)=>{
         btn.addEventListener('click', ()=>{
-          const html=generatePropostaVisual({
+          openVisualPreview({
             name: btn.dataset.name,
             biz: btn.dataset.biz,
             loc: btn.dataset.loc,
-            phone: btn.dataset.phone
+            phone: btn.dataset.phone,
+            email: btn.dataset.email||'',
+            lead_name: btn.dataset.name,
+            business_type: btn.dataset.biz,
+            location: btn.dataset.loc,
+            id: btn.dataset.id,
+            osm_id: btn.dataset.id
           });
-          const blob=new Blob([html], {type:'text/html;charset=utf-8'});
-          const url=URL.createObjectURL(blob);
-          const a=document.createElement('a'); a.href=url;
-          a.download='proposta-'+(btn.dataset.name||'lead').replace(/[^a-zA-Z0-9]/g,'-').toLowerCase()+'.html';
-          document.body.appendChild(a); a.click(); document.body.removeChild(a);
-          setTimeout(()=>URL.revokeObjectURL(url),5000);
+        });
+      });
+      document.querySelectorAll('[data-act="copy-email"]').forEach((btn)=>{
+        btn.addEventListener('click', ()=>{
+          copyEmailToClipboard({
+            lead_name: btn.dataset.name,
+            business_type: btn.dataset.biz,
+            location: btn.dataset.loc,
+            phone: btn.dataset.phone,
+            email: btn.dataset.email||''
+          });
+          const b=btn; const prev=b.textContent;
+          b.textContent='✅ Copiado'; setTimeout(()=>b.textContent=prev,1200);
+        });
+      });
+      document.querySelectorAll('[data-act="send-email"]').forEach((btn)=>{
+        btn.addEventListener('click', ()=>{
+          openEmailModal({
+            lead_name: btn.dataset.name,
+            business_type: btn.dataset.biz,
+            location: btn.dataset.loc,
+            phone: btn.dataset.phone,
+            email: btn.dataset.email||''
+          });
         });
       });
       document.querySelectorAll('[data-act="whatsapp"]').forEach((btn)=>{
         btn.addEventListener('click', ()=>openWhatsApp(btn.dataset.phone));
+      });
+
+      document.getElementById('leadsBody').querySelectorAll('.badge-email-status').forEach((el)=>{
+        el.addEventListener('click', async()=>{
+          const leadId=el.closest('tr')?.querySelector('.badge-status')?.getAttribute('data-lead-id');
+          const lead=state.leads.find(l=>(l.id||l.osm_id||'')===leadId);
+          if(!lead||!lead.email) return;
+          const cycle=['nao_enviado','enviado','aberto','respondido'];
+          const cur=getEmailStatus(lead);
+          let next=cycle[(cycle.indexOf(cur)+1)%cycle.length];
+          await setEmailStatus(lead, next);
+          render();
+        });
       });
     }
     async function load(){
@@ -1272,9 +1641,9 @@
       } catch(e){ alert('Erro ao gerar convite.'); }
     }
     function exportCSV(){
-      const rows=[['Status','Nome','Tipo','Localizacao','Telefone','Produto']];
+      const rows=[['Status','Nome','Tipo','Localizacao','Telefone','Email','WhatsApp','Produto']];
       (state.leads||[]).forEach((lead)=>{
-        rows.push([getLeadStatus(lead), lead.lead_name||lead.name||'', lead.business_type||'', lead.location||'', (lead.phone||'').replace(/[^\d]/g,''), productKey(lead.business_type)]);
+        rows.push([getLeadStatus(lead), lead.lead_name||lead.name||'', lead.business_type||'', lead.location||'', (lead.phone||'').replace(/[^\d]/g,''), lead.email||'', lead.has_whatsapp?'Sim':'Não', productKey(lead.business_type)]);
       });
       const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
       const blob=new Blob(['\uFEFF'+csv], {type: 'text/csv;charset=utf-8;'});
@@ -1286,14 +1655,45 @@
     document.getElementById('search').addEventListener('input', ()=>{ state.page=1; render(); });
 
     document.querySelectorAll('.pill').forEach((p)=>{
+      if(p.classList.contains('pill-email-var')) return;
       p.addEventListener('click', ()=>{
-        document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.pill:not(.pill-email-var)').forEach(btn => btn.classList.remove('active'));
         p.classList.add('active');
         const type = p.getAttribute('data-filter');
         const value = p.getAttribute('data-value');
         filters[type] = value;
         state.page=1;
         render();
+      });
+    });
+
+    document.querySelectorAll('.pill-email-var').forEach((p)=>{
+      p.addEventListener('click', ()=>{
+        document.querySelectorAll('.pill-email-var').forEach(btn => btn.classList.remove('active'));
+        p.classList.add('active');
+        updateEmailPreview();
+      });
+    });
+
+    document.getElementById('copyEmailBtn').addEventListener('click', ()=>{
+      if(!_emailModalLead) return;
+      copyEmailToClipboard(_emailModalLead);
+      const btn=document.getElementById('copyEmailBtn');
+      const prev=btn.textContent;
+      btn.textContent='✅ Copiado!'; setTimeout(()=>btn.textContent=prev,1500);
+    });
+    document.getElementById('gmailBtn').addEventListener('click', ()=>{
+      if(!_emailModalLead) return;
+      openGmailCompose(_emailModalLead);
+    });
+
+    document.querySelectorAll('.modal-backdrop').forEach((el)=>{
+      el.addEventListener('click', (e)=>{
+        if(e.target===el){
+          el.style.display='none';
+          const iframe=el.querySelector('iframe');
+          if(iframe) iframe.srcdoc='';
+        }
       });
     });
 
@@ -1576,8 +1976,9 @@
     }
 
     function generatePropostaVisual(lead){
-      const n=lead.name||'Sua Empresa', b=lead.biz||'negócio', l=lead.loc||'sua região', p=lead.phone||'';
+      const n=lead.name||'Sua Empresa', b=lead.biz||'negócio', l=lead.loc||'sua região', p=lead.phone||'', e=lead.email||'';
       const wa=p.replace(/[^\d]/g,''), waLink=wa.startsWith('55')?wa:wa.length>=10?'55'+wa:wa||'5521999999999';
+      const mailto=e?'mailto:'+e:'#';
       const city=l.split(',')[0]||l;
       const seg=segTheme(b);
       const pal=hashColor(n, seg.segHue);
@@ -1710,11 +2111,15 @@ footer{text-align:center;padding:24px 0;color:var(--dim);font-size:.8rem;border-
 <div class="tag">💬 Entre em Contato</div>
 <h2>Vamos conversar?</h2>
 <p>Tire dúvidas, peça orçamentos ou agende seu horário.</p>
-<a class="contact-btn" href="https://wa.me/${waLink}" target="_blank" rel="noopener">
-<svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.882.51 3.64 1.395 5.137L2 22l4.925-1.316C8.354 21.503 10.12 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/><\/svg>
-${pers.cta}
-</a>
-<div class="contact-info">${n} · ${b} · ${city} · WhatsApp: ${p}</div>
+            <a class="contact-btn" href="https://wa.me/${waLink}" target="_blank" rel="noopener">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.882.51 3.64 1.395 5.137L2 22l4.925-1.316C8.354 21.503 10.12 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/><\/svg>
+              ${pers.cta}
+            </a>
+            ${e ? `<a class="contact-btn" href="mailto:${e}" style="background:#3B82F6" target="_blank" rel="noopener">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/><\/svg>
+              Enviar por Email
+            </a>` : ''}
+            <div class="contact-info">${n} · ${b} · ${city} · WhatsApp: ${p}${e ? ` · Email: ${e}` : ''}</div>
 </div>
 </section>
 <footer><div class="container"><p>© 2026 ${n} — Todos os direitos reservados</p></div></footer>

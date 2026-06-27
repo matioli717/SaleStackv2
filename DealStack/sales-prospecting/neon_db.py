@@ -103,6 +103,7 @@ def init_db():
                     category VARCHAR(50),
                     status VARCHAR(20) DEFAULT 'new',
                     raw_tags JSONB,
+                    tenant_id VARCHAR(100),
                     created_at TIMESTAMP DEFAULT NOW(),
                     updated_at TIMESTAMP DEFAULT NOW()
                 )
@@ -125,8 +126,11 @@ def init_db():
             # Indexes
             cur.execute("CREATE INDEX IF NOT EXISTS idx_leads_category ON leads(category)")
             cur.execute("CREATE INDEX IF NOT EXISTS idx_leads_status ON leads(status)")
+            cur.execute("CREATE INDEX IF NOT EXISTS idx_leads_tenant_id ON leads(tenant_id)")
+            cur.execute("CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at)")
             cur.execute("CREATE INDEX IF NOT EXISTS idx_proposals_lead_id ON proposals(lead_id)")
             cur.execute("CREATE INDEX IF NOT EXISTS idx_proposals_status ON proposals(status)")
+            cur.execute("CREATE INDEX IF NOT EXISTS idx_proposals_created_at ON proposals(created_at)")
         conn.commit()
 
 
@@ -143,7 +147,7 @@ def get_leads() -> List[Dict]:
                 SELECT 
                     id, lead_name, business_type, location, phone,
                     email, website, address, coordinates, osm_type,
-                    osm_id, source, category, status, raw_tags,
+                    osm_id, source, category, status, raw_tags, tenant_id,
                     to_char(created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at,
                     to_char(updated_at, 'YYYY-MM-DD HH24:MI:SS') as updated_at
                 FROM leads ORDER BY created_at DESC
@@ -162,7 +166,7 @@ def get_lead(lead_id: str) -> Optional[Dict]:
                 SELECT 
                     id, lead_name, business_type, location, phone,
                     email, website, address, coordinates, osm_type,
-                    osm_id, source, category, status, raw_tags,
+                    osm_id, source, category, status, raw_tags, tenant_id,
                     to_char(created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at,
                     to_char(updated_at, 'YYYY-MM-DD HH24:MI:SS') as updated_at
                 FROM leads WHERE id = %s
@@ -187,6 +191,11 @@ def upsert_leads(leads: List[Dict]) -> int:
                 if not lead_id:
                     continue
                 
+                # Normalize lead_name (JSON may use "name" instead of "lead_name")
+                lead_name = lead.get("lead_name") or lead.get("name") or ""
+                status = lead.get("status", "novo")
+                tenant_id = lead.get("tenant_id")
+                
                 # Check if exists
                 cur.execute("SELECT id FROM leads WHERE id = %s", (lead_id,))
                 exists = cur.fetchone()
@@ -200,17 +209,18 @@ def upsert_leads(leads: List[Dict]) -> int:
                             phone = %s, email = %s, website = %s, address = %s,
                             coordinates = %s, osm_type = %s, osm_id = %s,
                             source = %s, category = %s, status = %s,
-                            raw_tags = %s, updated_at = %s
+                            raw_tags = %s, tenant_id = %s, updated_at = %s
                         WHERE id = %s
                     """, (
-                        lead.get("lead_name"), lead.get("business_type"),
+                        lead_name, lead.get("business_type"),
                         lead.get("location"), lead.get("phone"),
                         lead.get("email"), lead.get("website"),
-                        lead.get("address"), json.dumps(lead.get("coordinates")),
+                        lead.get("address"), json.dumps(lead.get("coordinates")) if lead.get("coordinates") else None,
                         lead.get("osm_type"), lead.get("osm_id"),
                         lead.get("source"), lead.get("category"),
-                        lead.get("status", "new"),
-                        json.dumps(lead.get("raw_tags")),
+                        status,
+                        json.dumps(lead.get("raw_tags")) if lead.get("raw_tags") else None,
+                        tenant_id,
                         now, lead_id
                     ))
                 else:
@@ -220,17 +230,19 @@ def upsert_leads(leads: List[Dict]) -> int:
                             id, lead_name, business_type, location, phone,
                             email, website, address, coordinates, osm_type,
                             osm_id, source, category, status, raw_tags,
-                            created_at, updated_at
-                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            tenant_id, created_at, updated_at
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """, (
-                        lead_id, lead.get("lead_name"), lead.get("business_type"),
+                        lead_id, lead_name, lead.get("business_type"),
                         lead.get("location"), lead.get("phone"),
                         lead.get("email"), lead.get("website"),
-                        lead.get("address"), json.dumps(lead.get("coordinates")),
+                        lead.get("address"),
+                        json.dumps(lead.get("coordinates")) if lead.get("coordinates") else None,
                         lead.get("osm_type"), lead.get("osm_id"),
                         lead.get("source"), lead.get("category"),
-                        lead.get("status", "new"),
-                        json.dumps(lead.get("raw_tags")),
+                        status,
+                        json.dumps(lead.get("raw_tags")) if lead.get("raw_tags") else None,
+                        tenant_id,
                         now, now
                     ))
                 saved += 1
@@ -354,6 +366,133 @@ def get_stats() -> Dict:
                 "categories": categories,
                 "last_update": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
+
+
+def get_leads_for_tenant(tenant_id: str) -> List[Dict]:
+    """Get leads filtered by tenant_id."""
+    pool = get_pool()
+    if pool is None:
+        return []
+    with pool.connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT 
+                    id, lead_name, business_type, location, phone,
+                    email, website, address, coordinates, osm_type,
+                    osm_id, source, category, status, raw_tags, tenant_id,
+                    to_char(created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at,
+                    to_char(updated_at, 'YYYY-MM-DD HH24:MI:SS') as updated_at
+                FROM leads
+                WHERE tenant_id = %s OR tenant_id IS NULL
+                ORDER BY created_at DESC
+            """, (tenant_id,))
+            return cur.fetchall()
+
+
+def update_lead_status(lead_id: str, status: str) -> bool:
+    """Update lead status. Returns True if found."""
+    pool = get_pool()
+    if pool is None:
+        return False
+    valid = ("novo", "contatado", "negociacao", "fechado", "perdido", "new", "contacted", "negotiation", "closed", "lost")
+    if status not in valid:
+        return False
+    with pool.connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE leads SET status = %s, updated_at = %s WHERE id = %s",
+                (status, datetime.now(), lead_id)
+            )
+            updated = cur.rowcount
+        conn.commit()
+    return updated > 0
+
+
+def get_metrics(tenant_id: Optional[str] = None) -> Dict:
+    """Get rich metrics for dashboard."""
+    pool = get_pool()
+    if pool is None:
+        return {
+            "total_leads": 0, "total_proposals": 0,
+            "leads_last_7d": 0, "leads_last_30d": 0,
+            "by_status": {}, "leads_by_day": [],
+            "conversion_rate": 0,
+        }
+    
+    tenant_filter = "WHERE tenant_id = %s" if tenant_id else ""
+    params = (tenant_id,) if tenant_id else ()
+    
+    with pool.connection() as conn:
+        with conn.cursor() as cur:
+            # Total leads
+            cur.execute(f"SELECT COUNT(*) as count FROM leads {tenant_filter}", params)
+            total_leads = cur.fetchone()["count"]
+            
+            # Total proposals
+            cur.execute("SELECT COUNT(*) as count FROM proposals")
+            total_proposals = cur.fetchone()["count"]
+            
+            # Leads by status
+            cur.execute(f"SELECT status, COUNT(*) as count FROM leads {tenant_filter} GROUP BY status", params)
+            by_status = {row["status"] or "novo": row["count"] for row in cur.fetchall()}
+            
+            # Leads last 7 days
+            cur.execute(f"""
+                SELECT COUNT(*) as count FROM leads 
+                {tenant_filter + ' AND' if tenant_filter else 'WHERE'} 
+                created_at >= NOW() - INTERVAL '7 days'
+            """, params)
+            leads_last_7d = cur.fetchone()["count"]
+            
+            # Leads last 30 days
+            cur.execute(f"""
+                SELECT COUNT(*) as count FROM leads 
+                {tenant_filter + ' AND' if tenant_filter else 'WHERE'} 
+                created_at >= NOW() - INTERVAL '30 days'
+            """, params)
+            leads_last_30d = cur.fetchone()["count"]
+            
+            # Leads by day (last 7 days)
+            cur.execute(f"""
+                SELECT to_char(created_at, 'YYYY-MM-DD') as day, COUNT(*) as count
+                FROM leads
+                {tenant_filter + ' AND' if tenant_filter else 'WHERE'}
+                created_at >= NOW() - INTERVAL '7 days'
+                GROUP BY day ORDER BY day
+            """, params)
+            leads_by_day = [{"day": row["day"], "count": row["count"]} for row in cur.fetchall()]
+            
+            # Conversion rate
+            closed = by_status.get("fechado", 0) + by_status.get("closed", 0)
+            conversion_rate = round((closed / total_leads * 100), 1) if total_leads > 0 else 0
+            
+            return {
+                "total_leads": total_leads,
+                "total_proposals": total_proposals,
+                "leads_last_7d": leads_last_7d,
+                "leads_last_30d": leads_last_30d,
+                "by_status": by_status,
+                "leads_by_day": leads_by_day,
+                "conversion_rate": conversion_rate,
+                "closed": closed,
+                "in_progress": by_status.get("contatado", 0) + by_status.get("negociacao", 0),
+                "last_update": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            }
+
+
+def migrate_from_json(leads: List[Dict], proposals: List[Dict]) -> Dict:
+    """Migrate existing JSON data to Neon. Returns counts."""
+    pool = get_pool()
+    if pool is None:
+        return {"leads_migrated": 0, "proposals_migrated": 0, "error": "Neon not available"}
+    
+    lead_count = upsert_leads(leads)
+    prop_count = upsert_proposals(proposals)
+    
+    return {
+        "leads_migrated": lead_count,
+        "proposals_migrated": prop_count,
+    }
 
 
 def close_pool():
