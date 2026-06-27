@@ -1087,6 +1087,7 @@
       const hay=(name+' '+biz).toLowerCase();
       if(isBlacklisted(name)) return Math.floor(Math.random()*15)+1;
       const hasPhone=!!(lead.phone||'').replace(/[^\d]/g,'');
+      const hasEmail=!!getEmail(lead);
       let score=50;
       if(HIGH_SEG.test(hay)) score+=30;
       if(!hasPhone) score-=25;
@@ -1275,6 +1276,23 @@
       document.getElementById('visualIframe').srcdoc='';
     }
 
+    function hasWhatsApp(lead){
+      if(lead.has_whatsapp!==undefined) return lead.has_whatsapp;
+      const phone=lead.phone||'';
+      if(!phone) return false;
+      const phones=phone.split(/[;,]/);
+      for(const p of phones){
+        const d=p.replace(/[^\d]/g,'');
+        const n=d.startsWith('55')?d.slice(2):d;
+        if(/^\d{2}9\d{8}$/.test(n)) return true;
+      }
+      return false;
+    }
+
+    function getEmail(lead){
+      return lead.email||'';
+    }
+
     function statusBadge(s, leadId, leadName){
       const key=['novo','contatado','negociacao','fechado','perdido'].includes(s)?s:'novo';
       const label={novo:'Novo',contatado:'Contatado',negociacao:'Em negociação',fechado:'Fechado',perdido:'Perdido'}[key];
@@ -1408,11 +1426,11 @@
         const st=getLeadStatus(lead);
         if(filters.product!=='all' && pk!==filters.product) return false;
         if(filters.status!=='all' && st!==filters.status) return false;
-        if(filters.email==='com' && !lead.email) return false;
-        if(filters.email==='sem' && lead.email) return false;
+        if(filters.email==='com' && !getEmail(lead)) return false;
+        if(filters.email==='sem' && getEmail(lead)) return false;
         if(filters.prospect==='good' && leadScore(lead)<20) return false;
         if(q){
-          const hay=[lead.lead_name, lead.name, lead.business_type, lead.location, lead.phone, lead.email].join(' ').toLowerCase();
+          const hay=[lead.lead_name, lead.name, lead.business_type, lead.location, lead.phone, getEmail(lead)].join(' ').toLowerCase();
           if(!hay.includes(q)) return false;
         }
         return true;
@@ -1459,10 +1477,11 @@
         const tr=document.createElement('tr');
         const st=getLeadStatus(lead);
         const phone=lead.phone||'';
-        const email=lead.email||'';
+        const email=getEmail(lead);
         const sc=leadScore(lead);
         const leadId=lead.id||lead.osm_id||'';
-        const waBadge=lead.has_whatsapp?` <span class="badge-whatsapp">WhatsApp</span>`:' <span class="badge-lowscore" style="color:#666">sem WhatsApp</span>';
+        const wa=hasWhatsApp(lead);
+        const waBadge=wa?` <span class="badge-whatsapp">WhatsApp</span>`:' <span class="badge-lowscore" style="color:#666">sem WhatsApp</span>';
         const emailBadge=email?` <span class="badge-email">Email</span>`:'';
         const prospectBadge=sc>=60?` <span class="badge-prospect">✅ Bom prospect</span>`:sc<20?` <span class="badge-lowscore">⚠️ ${sc}pts</span>`:'';
         const es=getEmailStatus(lead);
@@ -1569,7 +1588,7 @@
         el.addEventListener('click', async()=>{
           const leadId=el.closest('tr')?.querySelector('.badge-status')?.getAttribute('data-lead-id');
           const lead=state.leads.find(l=>(l.id||l.osm_id||'')===leadId);
-          if(!lead||!lead.email) return;
+          if(!lead||!getEmail(lead)) return;
           const cycle=['nao_enviado','enviado','aberto','respondido'];
           const cur=getEmailStatus(lead);
           let next=cycle[(cycle.indexOf(cur)+1)%cycle.length];
