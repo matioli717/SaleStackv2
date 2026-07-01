@@ -30,11 +30,10 @@ def test_cors_allows_configured_origin():
     assert headers["Access-Control-Allow-Credentials"] == "true"
 
 
-def test_cors_allows_wildcard_with_credentials():
+def test_cors_rejects_wildcard():
     security.allowed_origins = ["*"]
     headers = security.get_cors_headers("http://localhost:8765")
-    assert headers["Access-Control-Allow-Origin"] == "http://localhost:8765"
-    assert "Access-Control-Allow-Credentials" in headers
+    assert headers == {}  # wildcard not allowed for security
 
 
 def test_login_rate_limit_and_reset():

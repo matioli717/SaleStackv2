@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS leads (
     category VARCHAR(50),
     status VARCHAR(20) DEFAULT 'new',
     raw_tags JSONB,
+    tenant_id VARCHAR(100),
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -36,5 +37,8 @@ CREATE TABLE IF NOT EXISTS proposals (
 
 CREATE INDEX IF NOT EXISTS idx_leads_category ON leads(category);
 CREATE INDEX IF NOT EXISTS idx_leads_status ON leads(status);
+CREATE INDEX IF NOT EXISTS idx_leads_tenant_id ON leads(tenant_id);
+CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at);
 CREATE INDEX IF NOT EXISTS idx_proposals_lead_id ON proposals(lead_id);
 CREATE INDEX IF NOT EXISTS idx_proposals_status ON proposals(status);
+CREATE INDEX IF NOT EXISTS idx_proposals_created_at ON proposals(created_at);

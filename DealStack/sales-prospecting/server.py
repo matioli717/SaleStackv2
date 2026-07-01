@@ -6,22 +6,16 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 from datetime import datetime, timedelta, timezone
 from typing import Optional, List, Dict, Any
+import threading
+import subprocess
 
 from dotenv import load_dotenv
+import jwt
+import bcrypt
+import stripe
+
 dotenv_path = Path(__file__).parent.parent / ".env"
 load_dotenv(dotenv_path=dotenv_path)
-
-try:
-    import jwt
-    JWT_AVAILABLE = True
-except ImportError:
-    JWT_AVAILABLE = False
-
-try:
-    import bcrypt
-    BCRYPT_AVAILABLE = True
-except ImportError:
-    BCRYPT_AVAILABLE = False
 
 try:
     from neon_db import is_neon_available, init_db as neon_init_db, get_leads as neon_get_leads, get_lead as neon_get_lead, get_leads_for_tenant as neon_get_leads_for_tenant, upsert_leads as neon_save_leads, get_proposals as neon_get_proposals, get_proposal as neon_get_proposal, upsert_proposals as neon_save_proposals, get_stats as neon_get_stats, get_metrics as neon_get_metrics, update_lead_status as neon_update_status, migrate_from_json as neon_migrate
@@ -45,8 +39,10 @@ PASSWORD_MIN_LOWER = 1
 
 JWT_SECRET = os.environ.get("JWT_SECRET", "")
 if not JWT_SECRET:
-    JWT_SECRET = hashlib.sha256(secrets.token_hex(32).encode()).hexdigest()
-    print(f"[INIT] JWT_SECRET gerado automaticamente")
+    print("[FATAL] JWT_SECRET nao configurado. Gere um com:")
+    print("  python3 -c \"import secrets; print(secrets.token_hex(32))\"")
+    print("  E adicione ao .env: JWT_SECRET=<valor_gerado>")
+    sys.exit(1)
 
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRY_HOURS = 24
@@ -145,12 +141,8 @@ def init_data_files():
 
 STRIPE_AVAILABLE = False
 if settings.STRIPE_SECRET_KEY:
-    try:
-        import stripe
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        STRIPE_AVAILABLE = True
-    except ImportError:
-        print("[STRIPE] stripe lib not installed. Install with: pip install stripe")
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    STRIPE_AVAILABLE = True
 
 def sync_stripe_products():
     if not STRIPE_AVAILABLE:
@@ -213,7 +205,7 @@ def create_stripe_portal(customer_id: str, return_url: str) -> Optional[str]:
         print(f"[STRIPE] Portal error: {e}")
         return None
 
-file_lock = __import__('threading').RLock()
+file_lock = threading.RLock()
 
 def get_plan(plan_key: str) -> Optional[Dict]:
     return PLANS.get(plan_key)
@@ -265,14 +257,10 @@ def validate_password_strength(password: str) -> Optional[str]:
     return None
 
 def hash_password(password: str) -> str:
-    if BCRYPT_AVAILABLE:
-        return bcrypt.hashpw(password.encode(), bcrypt.gensalt(12)).decode()
-    return hashlib.sha256(password.encode()).hexdigest()
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(12)).decode()
 
 def verify_password(password: str, password_hash: str) -> bool:
-    if BCRYPT_AVAILABLE and password_hash.startswith("$2b$"):
-        return bcrypt.checkpw(password.encode(), password_hash.encode())
-    return hmac.compare_digest(hashlib.sha256(password.encode()).hexdigest(), password_hash)
+    return bcrypt.checkpw(password.encode(), password_hash.encode())
 
 def init_users():
     if USERS_FILE.exists():
@@ -369,10 +357,10 @@ class SecurityMiddleware:
         self.rate_limit = settings.RATE_LIMIT_PER_MIN
         self.request_counts = defaultdict(list)
         self.blocked_ips = set()
-        self._block_lock = __import__('threading').Lock()
+        self._block_lock = threading.Lock()
         self.public_routes = {"/api/login", "/api/register", "/api/webhook/stripe", "/login"}
         self.login_attempts = defaultdict(list)
-        self.login_lock = __import__('threading').Lock()
+        self.login_lock = threading.Lock()
         self.max_login_attempts = 5
         self.login_window = 300
 
@@ -411,14 +399,12 @@ class SecurityMiddleware:
         return keys
 
     def check_origin(self, origin: str) -> bool:
-        if not origin:
+        if not origin or not self.allowed_origins or self.allowed_origins == [""]:
             return False
         for allowed in self.allowed_origins:
             if allowed == origin:
                 return True
             if allowed.startswith("*.") and origin.endswith(allowed[1:]):
-                return True
-            if allowed == "*":
                 return True
         return False
 
@@ -459,7 +445,7 @@ class SecurityMiddleware:
                 return False
             if len(self.request_counts[client_ip]) >= self.rate_limit:
                 self.blocked_ips.add(client_ip)
-                __import__('threading').Timer(900, self._unblock_ip, args=[client_ip]).start()
+                threading.Timer(900, self._unblock_ip, args=[client_ip]).start()
                 return False
             self.request_counts[client_ip].append(now)
             return True
@@ -1690,8 +1676,8 @@ loadStats();
             ]
             if only_phone:
                 commands.append("--only_with_phone")
-            result = __import__('subprocess').run(
-                commands, capture_output=True, text=True, timeout=300
+            result = subprocess.run(
+                commands, capture_output=True, text=True, timeout=60
             )
             if result.returncode != 0:
                 self.send_json(500, {"error": f"Pipeline falhou: {result.stderr[:500]}"})
@@ -1727,8 +1713,8 @@ loadStats();
                 "location": location,
                 "category": category,
             })
-        except __import__('subprocess').TimeoutExpired:
-            self.send_json(408, {"error": "Pipeline excedeu tempo limite (5 min)"})
+        except subprocess.TimeoutExpired:
+            self.send_json(408, {"error": "Pipeline excedeu tempo limite (60s)"})
         except Exception as e:
             self.send_json(500, {"error": f"Erro na extracao: {str(e)[:200]}"})
 
@@ -1750,7 +1736,12 @@ loadStats();
                 sig_header = self.headers.get("Stripe-Signature", "")
                 try:
                     stripe.Webhook.construct_event(raw_body, sig_header, settings.STRIPE_WEBHOOK_SECRET)
-                except Exception:
+                except stripe.error.SignatureVerificationError as e:
+                    print(f"[STRIPE] Invalid webhook signature: {e}")
+                    self.send_json(400, {"error": "Invalid signature"})
+                    return
+                except Exception as e:
+                    print(f"[STRIPE] Webhook validation error: {e}")
                     self.send_json(400, {"error": "Invalid signature"})
                     return
             body = json.loads(raw_body)
@@ -1779,17 +1770,36 @@ loadStats();
                     slots["used"] = slots.get("used", 0) + 1
                     FOUNDER_SLOTS_FILE.write_text(json.dumps(slots, indent=2), encoding="utf-8")
                 save_users(users)
+                print(f"[STRIPE] Checkout completed for {username}, plan={plan_key}")
             elif event_type == "invoice.payment_failed":
                 user["is_suspended"] = True
                 user["is_active"] = False
                 save_users(users)
+                print(f"[STRIPE] Payment failed for {username}")
             elif event_type == "invoice.payment_succeeded":
                 user["is_suspended"] = False
                 user["is_active"] = True
                 save_users(users)
+                print(f"[STRIPE] Payment succeeded for {username}")
+            elif event_type == "customer.subscription.deleted":
+                user["is_suspended"] = True
+                user["is_active"] = False
+                save_users(users)
+                print(f"[STRIPE] Subscription cancelled for {username}")
+            elif event_type == "customer.subscription.updated":
+                plan_key = data.get("metadata", {}).get("plan", user.get("plan", "free"))
+                user["plan"] = plan_key
+                save_users(users)
+                print(f"[STRIPE] Subscription updated for {username}, plan={plan_key}")
+            else:
+                print(f"[STRIPE] Unhandled event type: {event_type}")
             self.send_json(200, {"received": True})
-        except Exception:
-            self.send_json(200, {"received": True})
+        except json.JSONDecodeError as e:
+            print(f"[STRIPE] Invalid JSON body: {e}")
+            self.send_json(400, {"error": "Invalid JSON"})
+        except Exception as e:
+            print(f"[STRIPE] Webhook error: {e}")
+            self.send_json(500, {"error": "Internal error"})
 
     def _read_json_body(self, skip_auth=False) -> Dict:
         content_length = int(self.headers.get("Content-Length", 0))
