@@ -14,13 +14,15 @@ FASE 1: Eliminar duplicação de código          [COMPLETE]
   ✓ sales-prospecting/ mantido como única fonte de verdade
   ✓ pet-price-comparator movido para sales-prospecting/
   ✓ inject_to_dashboard.py copiado para sales-prospecting/
-  ✓ pipeline_unified.py e neon_db.py sincronizados
+  ✓ pipeline_unified.py consolidado em scripts/prospecting/ (única cópia)
+  ✓ neon_db.py sincronizado entre raiz e scripts/prospecting/ (ambos com tenant_id)
 
 ─────────────────────────────────────────────────────────────
 FASE 2: Segurança crítica                       [COMPLETE]
 ─────────────────────────────────────────────────────────────
-  ✓ Dependências obrigatórias (bcrypt, PyJWT, stripe)
-    removido try/except ImportError — hard fail se faltar
+  ✓ Dependências obrigatórias (bcrypt, PyJWT, stripe):
+    try/except ImportError removido para estas 3 — hard fail se faltar
+    (neon_db mantém except opcional para dev local)
   ✓ SHA-256 fallback removido — apenas bcrypt
   ✓ JWT_SECRET obrigatório — servidor não inicia sem
   ✓ __import__() substituído por imports estáticos

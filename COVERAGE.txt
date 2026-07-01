@@ -3,6 +3,12 @@
 ╚════════════════════════════════════════════════════════╝
 
 Total: 51 tests, all passing
+Coverage report (pytest --cov-branch):
+  server.py:   18% (1324 stmts)
+  neon_db.py:  20% (209 stmts)
+  pipeline:     8% (198 stmts)
+  Overall:     17%
+  (baixa porque tests importam modules mas nao disparam handlers HTTP nem conectam Neon real)
 
 ─────────────────────────────────────────────────────────
 Test File                  Tests   What It Covers
