@@ -43,3 +43,6 @@ htmlcov/
 .pytest_cache/
 *.coverage
 coverage/
+.env
+pipeline_output/
+pipeline_output/

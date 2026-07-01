@@ -255,7 +255,7 @@ def main():
     parser.add_argument("--location", help="Cidade/endereço ou 'lat,lon' (obrigatório exceto com --input)")
     parser.add_argument("--business_types", help="Tipos OSM separados por vírgula")
     parser.add_argument("--category", choices=list(CATEGORIES.keys()), help="Categoria pré-definida")
-    parser.add_argument("--radius", type=int, default=5000, help="Raio em metros (padrão: 5000)")
+    parser.add_argument("--radius", type=int, default=50000, help="Raio em metros (padrão: 50000)")
     parser.add_argument("--limit", type=int, default=100, help="Máximo de leads (padrão: 100)")
     parser.add_argument("--output", help="Arquivo JSON de saída")
     parser.add_argument("--input", help="Arquivo JSON de entrada (em vez de buscar no OSM)")

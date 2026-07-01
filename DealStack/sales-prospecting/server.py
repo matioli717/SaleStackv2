@@ -775,7 +775,7 @@ class SalesHandler(SimpleHTTPRequestHandler):
         return """<!DOCTYPE html>
 <html lang="pt-BR">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>DealStack - Login</title>
+<title>SaleStack - Login</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'DM Sans', sans-serif; background: #07070A; color: #F0F0EC; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
@@ -797,7 +797,7 @@ input:focus { border-color: rgba(0,255,180,0.4); }
 </head>
 <body>
 <div class="login-card">
-<div class="logo">DealStack</div>
+<div class="logo">SaleStack</div>
 <p class="subtitle">Sales Prospecting Platform</p>
 <form id="loginForm" onsubmit="return handleLogin(event)">
 <div class="form-group">
@@ -812,7 +812,7 @@ input:focus { border-color: rgba(0,255,180,0.4); }
 <div class="error" id="errorMsg"></div>
 <div class="loading" id="loadingMsg">Autenticando...</div>
 </form>
-<p class="info">Acesso exclusivo para assinantes DealStack</p>
+<p class="info">Acesso exclusivo para assinantes SaleStack</p>
 </div>
 <script>
 async function handleLogin(e){
@@ -875,7 +875,7 @@ if(token){ fetch('/api/me',{headers:{'Authorization':'Bearer '+token}}).then(r=>
         return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>DealStack - Plataforma de Prospecção</title>
+<title>SaleStack - Plataforma de Prospecção</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -910,7 +910,7 @@ footer{{text-align:center;padding:30px;color:#444455;font-size:12px;position:rel
 <body>
 <div class="hero">
 <h1>Prospecção <span>Inteligente</span> de Clientes</h1>
-<p>Extraia leads qualificados do Google Maps, gere propostas visuais com IA e feche mais negócios com a plataforma tudo-em-um da DealStack.</p>
+<p>Extraia leads qualificados do Google Maps, gere propostas visuais com IA e feche mais negócios com a plataforma tudo-em-um da SaleStack.</p>
 <div class="ctas">
 <a href="/login" class="btn btn-primary">Começar Agora</a>
 <a href="#planos" class="btn btn-secondary">Ver Planos</a>
@@ -926,11 +926,11 @@ footer{{text-align:center;padding:30px;color:#444455;font-size:12px;position:rel
 <div class="affiliate">
 <div class="card">
 <h2>💰 Programa de Afiliados</h2>
-<p>Ganhe comissões recorrentes indicando a DealStack para outros profissionais. Compartilhe seu link exclusivo e receba <strong style="color:#00FFB4">30%</strong> de comissão todo mês!</p>
+<p>Ganhe comissões recorrentes indicando a SaleStack para outros profissionais. Compartilhe seu link exclusivo e receba <strong style="color:#00FFB4">30%</strong> de comissão todo mês!</p>
 <a href="/login?ref=affiliate" class="btn">Quero ser Afiliado</a>
 </div>
 </div>
-<footer>© 2024 DealStack. Todos os direitos reservados.</footer>
+<footer>© 2024 SaleStack. Todos os direitos reservados.</footer>
 </body>
 </html>"""
 
@@ -939,7 +939,7 @@ footer{{text-align:center;padding:30px;color:#444455;font-size:12px;position:rel
         return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>DealStack - Admin</title>
+<title>SaleStack - Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -982,7 +982,7 @@ input{{padding:8px 10px;background:#07070A;border:1px solid rgba(255,255,255,0.1
 <body>
 <header>
 <div class="header-inner">
-<div><span class="logo">DealStack</span><span class="tagline">ADMIN</span><span class="admin-badge">ADMIN</span></div>
+<div><span class="logo">SaleStack</span><span class="tagline">ADMIN</span><span class="admin-badge">ADMIN</span></div>
 <div><button class="btn btn-outline btn-sm" onclick="localStorage.removeItem('dealstack_token');window.location.href='/login'">Sair</button></div>
 </div>
 </header>
@@ -1058,7 +1058,15 @@ loadStats();
         tenant_id = self.auth_user.get("tenant_id") or self.auth_user["sub"]
         leads = load_shared_data("leads")
         filtered = [l for l in leads if not l.get("tenant_id") or l.get("tenant_id") == tenant_id]
-        self.send_json(200, {"leads": filtered, "count": len(filtered)})
+        self.send_json(200, {
+            "leads": filtered,
+            "count": len(filtered),
+            "debug_match": {
+                "user_tenant_id": tenant_id,
+                "lead_tenant_ids": sorted({l.get("tenant_id") for l in leads if l.get("tenant_id")}),
+                "total_loaded": len(leads),
+            },
+        })
 
     @require_auth(scopes=["read"])
     def serve_shared_proposals(self):
@@ -1835,7 +1843,7 @@ loadStats();
 def main():
     port = int(os.getenv("PORT", "8765"))
     print(f"\n{'='*50}")
-    print(f"🚀 DealStack Dashboard (JWT Auth)")
+    print(f"🚀 SaleStack Dashboard (JWT Auth)")
     print(f"{'='*50}")
     print(f"   Login:     http://0.0.0.0:{port}/login")
     print(f"   Dashboard: http://0.0.0.0:{port}/dashboard")

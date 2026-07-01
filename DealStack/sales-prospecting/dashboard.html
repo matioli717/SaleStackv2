@@ -7,7 +7,7 @@
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-  <title>DealStack Sales Prospecting</title>
+  <title>SaleStack Sales Prospecting</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -495,6 +495,14 @@
       border-color: rgba(255,255,255,0.3);
       background: rgba(255,255,255,0.05);
     }
+    .icon-btn.approach {
+      border-color: rgba(240,192,64,0.3);
+      color: var(--accent-gold);
+    }
+    .icon-btn.approach:hover {
+      border-color: rgba(240,192,64,0.6);
+      background: rgba(240,192,64,0.1);
+    }
 
     .btn-gmail {
       background: #EA4335 !important;
@@ -768,7 +776,7 @@
   <header>
     <div class="header-inner">
       <div class="brand">
-        <span class="logo">DealStack</span>
+        <span class="logo">SaleStack</span>
         <span class="tagline">EXTRATOR DE LEADS</span>
         <span id="planBadge" class="plan-badge-header"></span>
       </div>
@@ -836,12 +844,19 @@
           </div>
         </div>
         <div class="filter-group">
-          <span class="filter-label">PRODUTO</span>
+          <span class="filter-label">INDICADO PARA</span>
           <div class="pill-row" id="productPills">
             <button class="pill active" data-filter="product" data-value="all">Todos</button>
-            <button class="pill" data-filter="product" data-value="site">SITE</button>
-            <button class="pill" data-filter="product" data-value="shopify">SHOPIFY</button>
-            <button class="pill" data-filter="product" data-value="crm">CRM/PDV</button>
+            <button class="pill" data-filter="product" data-value="site">🟣 Site</button>
+            <button class="pill" data-filter="product" data-value="crm">🟢 CRM/PDV</button>
+            <button class="pill" data-filter="product" data-value="shopify">🔵 Shopify</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">WHATSAPP</span>
+          <div class="pill-row">
+            <button class="pill active" data-filter="whatsapp" data-value="yes">✅ Com WhatsApp</button>
+            <button class="pill" data-filter="whatsapp" data-value="all">Incluir sem WhatsApp</button>
           </div>
         </div>
         <div class="filter-group">
@@ -939,7 +954,7 @@
       <p style="color:var(--text-secondary);font-size:13px;margin:0 0 8px 0">Extrai leads do OpenStreetMap e gera propostas automaticamente.</p>
       <div class="form-group">
         <label>Localização</label>
-        <input type="text" id="extractLocation" value="Jacarepaguá, Rio de Janeiro, RJ" class="form-input" placeholder="Cidade, Estado">
+        <input type="text" id="extractLocation" value="Rio de Janeiro, RJ" class="form-input" placeholder="Ex: Copacabana, RJ / Barra da Tijuca, RJ / Rio de Janeiro, RJ">
       </div>
       <div class="form-row">
         <div class="form-group" style="flex:1">
@@ -963,7 +978,7 @@
       </div>
       <div class="form-group">
         <label>Raio (metros)</label>
-        <input type="number" id="extractRadius" value="5000" min="100" max="50000" step="500" class="form-input">
+        <input type="number" id="extractRadius" value="50000" min="100" max="50000" step="500" class="form-input">
       </div>
       <div class="form-group">
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
@@ -976,9 +991,20 @@
         </div>
         <div id="extractLog" style="color:var(--text-secondary);font-size:12px;max-height:120px;overflow-y:auto;background:var(--bg-primary);border-radius:8px;padding:8px;font-family:monospace;white-space:pre-wrap"></div>
       </div>
-      <div class="modal-actions">
-        <button class="btn btn-outline" onclick="closeExtractModal()">Fechar</button>
-        <button class="btn btn-primary" id="extractBtn" onclick="runExtraction()">Iniciar Extração</button>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+        <span style="font-size:11px;color:var(--text-muted);width:100%;margin-bottom:2px">Sugestões rápidas:</span>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Centro, RJ'">Centro</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Copacabana, RJ'">Copacabana</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Barra da Tijuca, RJ'">Barra da Tijuca</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Botafogo, RJ'">Botafogo</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Tijuca, RJ'">Tijuca</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Jacarepaguá, RJ'">Jacarepaguá</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Campo Grande, RJ'">Campo Grande</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Santa Cruz, RJ'">Santa Cruz</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Méier, RJ'">Méier</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Ilha do Governador, RJ'">Ilha do Governador</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Recreio dos Bandeirantes, RJ'">Recreio</button>
+        <button class="pill" type="button" onclick="document.getElementById('extractLocation').value='Niterói, RJ'">Niterói</button>
       </div>
     </div>
   </div>
@@ -1025,6 +1051,41 @@
     </div>
   </div>
 
+  <div class="modal-backdrop" id="approachModal">
+    <div class="modal-card modal-card-wide">
+      <h3>Abordagem Inicial · <span id="approachLeadName" style="color:var(--accent-primary)"></span></h3>
+      <p style="color:var(--text-secondary);font-size:13px;margin:-8px 0 4px 0">Escolha o canal e copie a mensagem.</p>
+      <div>
+        <div class="pill-row" id="approachPills">
+          <button class="pill pill-approach active" data-app="whatsapp">💬 WhatsApp</button>
+          <button class="pill pill-approach" data-app="email">📧 Email</button>
+          <button class="pill pill-approach" data-app="dm">📱 Instagram DM</button>
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <div class="pill-row" id="approachVarPills">
+          <button class="pill pill-var active" data-var="A">A · Dor + Curiosidade</button>
+          <button class="pill pill-var" data-var="B">B · Resultado Direto</button>
+          <button class="pill pill-var" data-var="C">C · Exclusividade</button>
+        </div>
+      </div>
+      <div>
+        <div id="approachSubjectArea" style="display:none">
+          <div class="email-var-label">Assunto</div>
+          <div id="approachSubjectPreview" style="background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;font-weight:600;color:var(--text-primary)"></div>
+        </div>
+      </div>
+      <div>
+        <div class="email-var-label">Mensagem</div>
+        <div class="email-preview-box" id="approachBodyPreview" style="white-space:pre-wrap"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeApproachModal()">Fechar</button>
+        <button class="btn btn-primary" id="copyApproachBtn">📋 Copiar Mensagem</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     function getToken(){ return localStorage.getItem('dealstack_token'); }
     function redirectLogin(){ window.location.href='/login'; }
@@ -1039,22 +1100,30 @@
     }
 
     const state = { leads: [], proposals: [], page: 1, perPage: 25 };
-    const filters = { product: 'all', status: 'all', email: 'all', prospect: 'all' };
+    const filters = { product: 'all', status: 'all', email: 'all', prospect: 'all', whatsapp: 'yes' };
 
     function esc(t){ const d=document.createElement('div'); d.textContent = t || ''; return d.innerHTML.replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
     function productKey(biz){
       const b=(biz||'').toLowerCase();
-      if(/(pousada|hotel|hotel fazenda)/.test(b)) return 'lobby';
-      if(/(shopify)/.test(b)) return 'shopify';
-      if(/(loja|comércio|varejo|supermercado|roupas|calçados|floricultura|restaurante)/.test(b)) return 'crm';
+      if(/(pousada|hotel|hostel|hospedagem)/.test(b)) return 'lobby';
+      if(/(e.?commerce|loja.?virtual|shopify|artesanato|handmade)/.test(b)) return 'shopify';
+      if(/(loja|comércio|comercio|varejo|supermercado|mercado|conveniência|conveniencia|minimercado|restaurante|lanchonete|fast.?food|pizzaria|churrascaria|padaria|confeitaria|acougue|açougue|mercearia|sacolão|quitanda|roupa|roupas|moda|vestuário|vestuario|calçados|calcados|sapato|farmácia|farmacia|drogaria|pet.?shop|petshop|pet|ferragem|ferragens|material.*construção|material.*construcao|madeireira|serralheria|eletrônicos|eletronicos|informática|informatica|floricultura|decoração|decoracao|presentes)/.test(b)) return 'crm';
       return 'site';
     }
     function productBadge(biz){
       const k=productKey(biz);
       const map={lobby:'badge-lobby', crm:'badge-crm', site:'badge-site', shopify:'badge-shopify'};
-      const label={lobby:'LOBBY', crm:'CRM/PDV', site:'SITE', shopify:'SHOPIFY'};
-      return `<span class="badge ${map[k]}">${label[k]}</span>`;
+      const label={lobby:'🔵 LOBBY', crm:'🟢 CRM/PDV', site:'🟣 Site', shopify:'🔵 Shopify'};
+      return `<span class="badge ${map[k]}" style="cursor:pointer;transition:filter .15s" onclick="setProductFilter('${k}')" onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter=''">${label[k]}</span>`;
+    }
+    function setProductFilter(value){
+      document.querySelectorAll('#productPills .pill').forEach(b=>b.classList.remove('active'));
+      const pill=document.querySelector(`#productPills .pill[data-value="${value}"]`);
+      if(pill) pill.classList.add('active');
+      filters.product=value;
+      state.page=1;
+      render();
     }
     const BLACKLIST=['shopping','mall','center','plaza','galeria','outlet','park','tower','torres',
       'magazine luiza','casas bahia','americanas','submarino','renner','riachuelo',
@@ -1145,9 +1214,9 @@
       const loc=parseLocation(lead.location||'');
       const city=loc.city||'região';
       const bairro=loc.neighborhood||city;
-      const waDigits=String(lead.phone||'').replace(/[^\d]/g,'');
-      const waLink=waDigits.startsWith('55')?waDigits:(waDigits.length>=10?'55'+waDigits:'5521999999999');
-      const phoneDisplay=lead.phone||'(21) 99999-9999';
+      const companyWA='5573981898081';
+      const waLink=companyWA;
+      const phoneDisplay='(73) 98189-8081';
       const provaCustom=seg.prova.replace('{cidade}',city);
       const solCustom=seg.sol.replace('{cidade}',city).replace('{biz}',biz.toLowerCase());
 
@@ -1174,7 +1243,7 @@
         `PS: Se não for você que cuida do marketing, pode encaminhar pra quem cuida?`,
         '',
         `Abs,`,
-        `Equipe DealStack`
+        `Equipe SaleStack`
       ].join('\n');
 
       return body;
@@ -1276,6 +1345,42 @@
       document.getElementById('visualIframe').srcdoc='';
     }
 
+    let _approachMessages=null;
+    let _approachVariation='A';
+    function openApproachModal(lead){
+      _approachMessages=generateApproachMessages(lead);
+      _approachVariation='A';
+      document.getElementById('approachLeadName').textContent=lead.lead_name||lead.name||'Lead';
+      document.querySelectorAll('.pill-approach').forEach(b=>b.classList.remove('active'));
+      document.querySelector('.pill-approach[data-app="whatsapp"]').classList.add('active');
+      document.querySelectorAll('.pill-var').forEach(b=>b.classList.remove('active'));
+      document.querySelector('.pill-var[data-var="A"]').classList.add('active');
+      updateApproachPreview('whatsapp');
+      document.getElementById('approachModal').style.display='flex';
+    }
+    function closeApproachModal(){
+      document.getElementById('approachModal').style.display='none';
+      _approachMessages=null;
+    }
+    function updateApproachPreview(app){
+      const varMsg=_approachMessages[app][_approachVariation];
+      if(app==='email'){
+        document.getElementById('approachSubjectArea').style.display='block';
+        document.getElementById('approachSubjectPreview').textContent=varMsg.subject;
+        document.getElementById('approachBodyPreview').textContent=varMsg.body;
+      } else {
+        document.getElementById('approachSubjectArea').style.display='none';
+        document.getElementById('approachBodyPreview').textContent=varMsg;
+      }
+    }
+    function setApproachVariation(varKey){
+      _approachVariation=varKey;
+      document.querySelectorAll('.pill-var').forEach(b=>b.classList.remove('active'));
+      document.querySelector(`.pill-var[data-var="${varKey}"]`).classList.add('active');
+      const app=document.querySelector('.pill-approach.active')?.dataset?.app||'whatsapp';
+      updateApproachPreview(app);
+    }
+
     function hasWhatsApp(lead){
       if(lead.has_whatsapp!==undefined) return lead.has_whatsapp;
       const phone=lead.phone||'';
@@ -1283,8 +1388,7 @@
       const phones=phone.split(/[;,]/);
       for(const p of phones){
         const d=p.replace(/[^\d]/g,'');
-        const n=d.startsWith('55')?d.slice(2):d;
-        if(/^\d{2}9\d{8}$/.test(n)) return true;
+        if(d.length>=10) return true;
       }
       return false;
     }
@@ -1424,6 +1528,7 @@
       return scored.filter(({lead})=>{
         const pk=productKey(lead.business_type);
         const st=getLeadStatus(lead);
+        if(filters.whatsapp==='yes' && !hasWhatsApp(lead)) return false;
         if(filters.product!=='all' && pk!==filters.product) return false;
         if(filters.status!=='all' && st!==filters.status) return false;
         if(filters.email==='com' && !getEmail(lead)) return false;
@@ -1434,7 +1539,13 @@
           if(!hay.includes(q)) return false;
         }
         return true;
-      }).sort((a,b)=>b.score-a.score).map(s=>s.lead);
+      }).sort((a,b)=>{
+        const waA=hasWhatsApp(a.lead), waB=hasWhatsApp(b.lead);
+        const pkA=productKey(a.lead.business_type), pkB=productKey(b.lead.business_type);
+        const sortA=(waA?100:0)+(pkA!=='site'?50:0);
+        const sortB=(waB?100:0)+(pkB!=='site'?50:0);
+        return sortB-sortA || b.score-a.score;
+      }).map(s=>s.lead);
     }
     function goToPage(p){
       state.page = Math.max(1, Math.min(p, Math.max(1, Math.ceil(filteredLeads().length / state.perPage))));
@@ -1499,6 +1610,7 @@
               <button class="icon-btn" data-act="proposal" data-phone="${esc(phone)}" data-biz="${esc(lead.business_type)}" data-name="${esc(lead.lead_name||lead.name||'')}" data-loc="${esc(lead.location||'')}">Proposta</button>
               <button class="icon-btn" data-act="visual" data-id="${esc(leadId)}" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" data-email="${esc(email)}" style="color:var(--accent-secondary);border-color:rgba(123,92,250,0.3)">Proposta Visual</button>
               <button class="icon-btn copy" data-act="copy-email" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" data-email="${esc(email)}">Copiar Email</button>
+              <button class="icon-btn approach" data-act="approach" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" data-email="${esc(email)}">📨 Abordagem</button>
               <button class="icon-btn wa" data-act="whatsapp" data-phone="${esc(phone)}">WA</button>
             </div>
             ${email?`<div class="btn-row"><button class="icon-btn email" data-act="send-email" data-name="${esc(lead.lead_name||lead.name||'')}" data-biz="${esc(lead.business_type)}" data-loc="${esc(lead.location||'')}" data-phone="${esc(phone)}" data-email="${esc(email)}">📧 Enviar Email</button></div>`:''}
@@ -1582,6 +1694,20 @@
       });
       document.querySelectorAll('[data-act="whatsapp"]').forEach((btn)=>{
         btn.addEventListener('click', ()=>openWhatsApp(btn.dataset.phone));
+      });
+      document.querySelectorAll('[data-act="approach"]').forEach((btn)=>{
+        btn.addEventListener('click', ()=>{
+          openApproachModal({
+            lead_name: btn.dataset.name,
+            business_type: btn.dataset.biz,
+            location: btn.dataset.loc,
+            phone: btn.dataset.phone,
+            email: btn.dataset.email||'',
+            name: btn.dataset.name,
+            biz: btn.dataset.biz,
+            loc: btn.dataset.loc
+          });
+        });
       });
 
       document.getElementById('leadsBody').querySelectorAll('.badge-email-status').forEach((el)=>{
@@ -1674,9 +1800,9 @@
     document.getElementById('search').addEventListener('input', ()=>{ state.page=1; render(); });
 
     document.querySelectorAll('.pill').forEach((p)=>{
-      if(p.classList.contains('pill-email-var')) return;
+      if(p.classList.contains('pill-email-var')||p.classList.contains('pill-var')) return;
       p.addEventListener('click', ()=>{
-        document.querySelectorAll('.pill:not(.pill-email-var)').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.pill:not(.pill-email-var):not(.pill-var)').forEach(btn => btn.classList.remove('active'));
         p.classList.add('active');
         const type = p.getAttribute('data-filter');
         const value = p.getAttribute('data-value');
@@ -1704,6 +1830,28 @@
     document.getElementById('gmailBtn').addEventListener('click', ()=>{
       if(!_emailModalLead) return;
       openGmailCompose(_emailModalLead);
+    });
+
+    document.querySelectorAll('.pill-approach').forEach((p)=>{
+      p.addEventListener('click', ()=>{
+        document.querySelectorAll('.pill-approach').forEach(b=>b.classList.remove('active'));
+        p.classList.add('active');
+        updateApproachPreview(p.dataset.app);
+      });
+    });
+    document.querySelectorAll('.pill-var').forEach((p)=>{
+      p.addEventListener('click', ()=>setApproachVariation(p.dataset.var));
+    });
+    document.getElementById('copyApproachBtn').addEventListener('click', ()=>{
+      if(!_approachMessages) return;
+      const app=document.querySelector('.pill-approach.active')?.dataset?.app||'whatsapp';
+      const msg=_approachMessages[app][_approachVariation];
+      const text=app==='email'?`Assunto: ${msg.subject}\n\n${msg.body}`:msg;
+      copyText(`${app.toUpperCase()} · Var. ${_approachVariation}\n\n${text}`).then(()=>{
+        const btn=document.getElementById('copyApproachBtn');
+        const prev=btn.textContent;
+        btn.textContent='✅ Copiado!'; setTimeout(()=>btn.textContent=prev,1500);
+      });
     });
 
     document.querySelectorAll('.modal-backdrop').forEach((el)=>{
@@ -1744,15 +1892,19 @@
         icon:'🪑',gradDir:'135deg',accents:'terrosos',
         tagBg:'rgba(139,90,43,.12)', tagBorder:'1px solid rgba(139,90,43,.2)',
         section1Title:'Móveis Planejados',section1Sub:'Sob medida para seu espaço',
-        cat1:'Sala de Estar',cat1Img:'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80',
-        cat2:'Quartos',cat2Img:'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=400&q=80',
-        cat3:'Cozinhas',cat3Img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',
-        cat4:'Escritórios',cat4Img:'https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800&q=80',
+        cat1:'Sala de Estar',cat1Img:'https://picsum.photos/seed/photo-1544457070-4cd773b4d71e/400/400',
+        cat2:'Quartos',cat2Img:'https://picsum.photos/seed/photo-1616594039964-ae9021a400a0/400/400',
+        cat3:'Cozinhas',cat3Img:'https://picsum.photos/seed/photo-1556909114-f6e7ad7d3136/400/400',
+        cat4:'Escritórios',cat4Img:'https://picsum.photos/seed/photo-1593062096033-9a26b09da705/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1555041469-a586c61ea9bc/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1493663284031-b7e3aefcae8e/800/600',
         about1:'Há mais de 10 anos transformando espaços em ambientes funcionais e elegantes. Cada peça é planejada sob medida, respeitando o estilo e as necessidades de cada cliente.',
         about2:'Trabalhamos com materiais de alta durabilidade e design contemporâneo, garantindo móveis que duram gerações.',
-        tagline:'Móveis planejados que transformam seu lar'
+        tagline:'Móveis planejados que transformam seu lar',
+        navItems:[{label:'Início',id:'hero'},{label:'Móveis',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Carlos A.',text:'Móveis planejados de altíssima qualidade. Minha sala ficou dos sonhos!',rating:5},{name:'Fernanda L.',text:'Atendimento excelente e prazo cumprido. Recomendo de olhos fechados.',rating:5},{name:'Roberto M.',text:'O projeto do escritório ficou incrível. Profissionalismo e pontualidade.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1555041469-a586c61ea9bc/400/400','https://picsum.photos/seed/photo-1493663284031-b7e3aefcae8e/400/400','https://picsum.photos/seed/photo-1544457070-4cd773b4d71e/400/400','https://picsum.photos/seed/photo-1616594039964-ae9021a400a0/400/400','https://picsum.photos/seed/photo-1556909114-f6e7ad7d3136/400/400'],
+        contactInfo:{hours:'Seg–Sex: 8h–18h | Sáb: 8h–13h',addressExtra:'Centro'}
       };
       if(/(sapataria|calçados|calcados|sapato|shoe)/.test(bt)) return {
         segHue:45,font:'Poppins',fontUrl:'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500&display=swap',
@@ -1763,15 +1915,19 @@
         icon:'👞',gradDir:'135deg',accents:'preto e dourado',
         tagBg:'rgba(212,175,55,.1)', tagBorder:'1px solid rgba(212,175,55,.2)',
         section1Title:'Coleção Exclusiva',section1Sub:'Estilo e conforto para você',
-        cat1:'Casual',cat1Img:'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&q=80',
-        cat2:'Social',cat2Img:'https://images.unsplash.com/photo-1614251056216-f2f4e9c37c66?w=400&q=80',
-        cat3:'Esportivo',cat3Img:'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&q=80',
-        cat4:'Acessórios',cat4Img:'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80',
+        cat1:'Casual',cat1Img:'https://picsum.photos/seed/photo-1595950653106-6c9ebd614d3a/400/400',
+        cat2:'Social',cat2Img:'https://picsum.photos/seed/photo-1614251056216-f2f4e9c37c66/400/400',
+        cat3:'Esportivo',cat3Img:'https://picsum.photos/seed/photo-1608231387042-66d1773070a5/400/400',
+        cat4:'Acessórios',cat4Img:'https://picsum.photos/seed/photo-1606761568499-6d2451b23c66/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1595950653106-6c9ebd614d3a/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1549298916-b41d501d3772/800/600',
         about1:'Referência em calçados na região, oferecemos as melhores marcas com atendimento personalizado. Cada par é escolhido para garantir qualidade e durabilidade.',
         about2:'Do casual ao formal, temos o calçado ideal para cada momento da sua vida.',
-        tagline:'O passo certo para seu estilo'
+        tagline:'O passo certo para seu estilo',
+        navItems:[{label:'Início',id:'hero'},{label:'Calçados',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Luciana M.',text:'Comprei um sapato social e é o mais confortável que já tive. Qualidade incrível!',rating:5},{name:'Pedro H.',text:'Variedade enorme e preço justo. Saí com dois pares e já volto semana que vem.',rating:5},{name:'Camila R.',text:'Atendimento nota 10. Me ajudaram a escolher o modelo ideal.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1595950653106-6c9ebd614d3a/400/400','https://picsum.photos/seed/photo-1549298916-b41d501d3772/400/400','https://picsum.photos/seed/photo-1614251056216-f2f4e9c37c66/400/400','https://picsum.photos/seed/photo-1608231387042-66d1773070a5/400/400','https://picsum.photos/seed/photo-1606761568499-6d2451b23c66/400/400'],
+        contactInfo:{hours:'Seg–Sáb: 9h–19h | Dom: 10h–14h',addressExtra:'Centro'}
       };
       if(/(conveniencia|conveniência|mercado|supermercado|mercearia|hortifruti|sacolão)/.test(bt)) return {
         segHue:120,font:'Nunito',fontUrl:'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap',
@@ -1782,15 +1938,19 @@
         icon:'🛒',gradDir:'135deg',accents:'verde vibrante',
         tagBg:'rgba(34,197,94,.1)', tagBorder:'1px solid rgba(34,197,94,.2)',
         section1Title:'Produtos Frescos',section1Sub:'Qualidade que você merece',
-        cat1:'Hortifrúti',cat1Img:'https://images.unsplash.com/photo-1557844352-761f2565b576?w=400&q=80',
-        cat2:'Padaria',cat2Img:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80',
-        cat3:'Bebidas',cat3Img:'https://images.unsplash.com/photo-1561758033-48d5264ae2b4?w=400&q=80',
-        cat4:'Açougue',cat4Img:'https://images.unsplash.com/photo-1603048297172-c92544798e51?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=800&q=80',
+        cat1:'Hortifrúti',cat1Img:'https://picsum.photos/seed/photo-1557844352-761f2565b576/400/400',
+        cat2:'Padaria',cat2Img:'https://picsum.photos/seed/photo-1509440159596-0249088772ff/400/400',
+        cat3:'Bebidas',cat3Img:'https://picsum.photos/seed/photo-1561758033-48d5264ae2b4/400/400',
+        cat4:'Açougue',cat4Img:'https://picsum.photos/seed/photo-1603048297172-c92544798e51/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1542838132-92c53300491e/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1578916171728-46686eac8d58/800/600',
         about1:'Tradição em qualidade e bom atendimento. Trabalhamos com produtos selecionados para garantir o melhor para sua família.',
         about2:'Da feira ao empório, tudo que você precisa em um só lugar, com preços justos e frescor de ponta a ponta.',
-        tagline:'Tudo fresco, tudo perto de você'
+        tagline:'Tudo fresco, tudo perto de você',
+        navItems:[{label:'Início',id:'hero'},{label:'Produtos',id:'produtos'},{label:'Ofertas',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Marcos V.',text:'Produtos frescos e preço justo. Faço compras aqui toda semana.',rating:5},{name:'Débora S.',text:'O hortifrúti é o melhor da região. Tudo muito fresco e bem cuidado.',rating:5},{name:'Luiz F.',text:'Atendimento rápido e organizado. Ótima opção para compras do dia a dia.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1542838132-92c53300491e/400/400','https://picsum.photos/seed/photo-1578916171728-46686eac8d58/400/400','https://picsum.photos/seed/photo-1557844352-761f2565b576/400/400','https://picsum.photos/seed/photo-1509440159596-0249088772ff/400/400','https://picsum.photos/seed/photo-1561758033-48d5264ae2b4/400/400'],
+        contactInfo:{hours:'Seg–Sáb: 7h–21h | Dom: 8h–12h',addressExtra:'Centro'}
       };
       if(/(ferragens|construção|construcao|material|madeireira|telhado)/.test(bt)) return {
         segHue:20,font:'Bebas Neue',fontUrl:'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap',
@@ -1801,15 +1961,19 @@
         icon:'🔧',gradDir:'135deg',accents:'laranja industrial',
         tagBg:'rgba(234,88,12,.1)', tagBorder:'1px solid rgba(234,88,12,.2)',
         section1Title:'Materiais de Qualidade',section1Sub:'Sua obra merece o melhor',
-        cat1:'Ferragens',cat1Img:'https://images.unsplash.com/photo-1586864387636-7e4f694a6f4e?w=400&q=80',
-        cat2:'Hidráulica',cat2Img:'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=400&q=80',
-        cat3:'Elétrica',cat3Img:'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&q=80',
-        cat4:'Acabamento',cat4Img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800&q=80',
+        cat1:'Ferragens',cat1Img:'https://picsum.photos/seed/photo-1586864387636-7e4f694a6f4e/400/400',
+        cat2:'Hidráulica',cat2Img:'https://picsum.photos/seed/photo-1607472586893-edb57bdc0e39/400/400',
+        cat3:'Elétrica',cat3Img:'https://picsum.photos/seed/photo-1621905252507-b35492cc74b4/400/400',
+        cat4:'Acabamento',cat4Img:'https://picsum.photos/seed/photo-1560448204-e02f11c3d0e2/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1589939705384-5185137a7f0f/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1621905251918-48416bd8575a/800/600',
         about1:'Solução completa em materiais de construção e ferragens. Atendemos profissionais e consumidores finais com a mesma dedicação.',
         about2:'Estoque diversificado, entrega rápida e preços competitivos para sua obra sair do papel.',
-        tagline:'Construa com quem entende'
+        tagline:'Construa com quem entende',
+        navItems:[{label:'Início',id:'hero'},{label:'Materiais',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Antônio C.',text:'Material de primeira e entrega no prazo. Parceiro de confiança para obras.',rating:5},{name:'Rafael S.',text:'Preço competitivo e estoque completo. Não precisei ir em mais nenhuma loja.',rating:5},{name:'Patrícia O.',text:'Equipe técnica muito prestativa. Me ajudaram a escolher os materiais certos.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1589939705384-5185137a7f0f/400/400','https://picsum.photos/seed/photo-1621905251918-48416bd8575a/400/400','https://picsum.photos/seed/photo-1586864387636-7e4f694a6f4e/400/400','https://picsum.photos/seed/photo-1607472586893-edb57bdc0e39/400/400','https://picsum.photos/seed/photo-1621905252507-b35492cc74b4/400/400'],
+        contactInfo:{hours:'Seg–Sex: 7h–17h | Sáb: 7h–12h',addressExtra:'Centro'}
       };
       if(/(pet|petshop|cachorro|gato|veterin|animal)/.test(bt)) return {
         segHue:195,font:'Fredoka',fontUrl:'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap',
@@ -1820,15 +1984,19 @@
         icon:'🐾',gradDir:'135deg',accents:'azul suave e verde',
         tagBg:'rgba(14,165,233,.1)', tagBorder:'1px solid rgba(14,165,233,.2)',
         section1Title:'Produtos & Serviços',section1Sub:'O melhor para seu melhor amigo',
-        cat1:'Alimentação',cat1Img:'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=400&q=80',
-        cat2:'Brinquedos',cat2Img:'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=400&q=80',
-        cat3:'Higiene',cat3Img:'https://images.unsplash.com/photo-1628009368231-3bb7cfcb8b9f?w=400&q=80',
-        cat4:'Acessórios',cat4Img:'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&q=80',
+        cat1:'Alimentação',cat1Img:'https://picsum.photos/seed/photo-1589924691995-400dc9ecc119/400/400',
+        cat2:'Brinquedos',cat2Img:'https://picsum.photos/seed/photo-1583512603805-3cc6b41f3edb/400/400',
+        cat3:'Higiene',cat3Img:'https://picsum.photos/seed/photo-1628009368231-3bb7cfcb8b9f/400/400',
+        cat4:'Acessórios',cat4Img:'https://picsum.photos/seed/photo-1576201836106-db1758fd1c97/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1450778869180-41d0601e046e/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1601758228041-f3b2795255f1/800/600',
         about1:'Amamos animais tanto quanto você. Oferecemos produtos de alta qualidade e serviços especializados para manter seu pet saudável e feliz.',
         about2:'Banho, tosa, rações premium e acessórios — tudo que seu pet precisa em um só lugar.',
-        tagline:'Amor em forma de cuidado'
+        tagline:'Amor em forma de cuidado',
+        navItems:[{label:'Início',id:'hero'},{label:'Produtos',id:'produtos'},{label:'Serviços',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Juliana M.',text:'Meu cachorro ama o banho e tosa aqui. Equipe super cuidadosa e carinhosa.',rating:5},{name:'Felipe A.',text:'Rações de qualidade e preço bom. Entrega rápida em casa também.',rating:5},{name:'Tatiane R.',text:'Atendimento veterinário excelente. Profissionais atenciosos e preparados.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1450778869180-41d0601e046e/400/400','https://picsum.photos/seed/photo-1601758228041-f3b2795255f1/400/400','https://picsum.photos/seed/photo-1589924691995-400dc9ecc119/400/400','https://picsum.photos/seed/photo-1583512603805-3cc6b41f3edb/400/400','https://picsum.photos/seed/photo-1576201836106-db1758fd1c97/400/400'],
+        contactInfo:{hours:'Seg–Sáb: 8h–19h | Dom: 9h–13h',addressExtra:'Centro'}
       };
       if(/(cosmeticos|cosméticos|beleza|salão|salao|maquiagem|perfumaria|estetica|estética)/.test(bt)) return {
         segHue:330,font:'Playfair Display',fontUrl:'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap',
@@ -1839,15 +2007,19 @@
         icon:'💄',gradDir:'135deg',accents:'rosé e dourado',
         tagBg:'rgba(244,114,182,.1)', tagBorder:'1px solid rgba(244,114,182,.2)',
         section1Title:'Beleza & Bem-Estar',section1Sub:'Realce sua beleza natural',
-        cat1:'Maquiagem',cat1Img:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80',
-        cat2:'Cabelos',cat2Img:'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80',
-        cat3:'Unhas',cat3Img:'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80',
-        cat4:'Tratamentos',cat4Img:'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80',
+        cat1:'Maquiagem',cat1Img:'https://picsum.photos/seed/photo-1596462502278-27bfdc403348/400/400',
+        cat2:'Cabelos',cat2Img:'https://picsum.photos/seed/photo-1560066984-138dadb4c035/400/400',
+        cat3:'Unhas',cat3Img:'https://picsum.photos/seed/photo-1604654894610-df63bc536371/400/400',
+        cat4:'Tratamentos',cat4Img:'https://picsum.photos/seed/photo-1570172619644-dfd03ed5d881/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1560066984-138dadb4c035/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1522337360788-8b13dee7a37e/800/600',
         about1:'Referência em beleza e bem-estar na região. Nossa equipe é formada por profissionais capacitados e apaixonados pelo que fazem.',
         about2:'Produtos importados, técnicas modernas e um ambiente pensado para seu conforto e satisfação.',
-        tagline:'Sua beleza, nossa paixão'
+        tagline:'Sua beleza, nossa paixão',
+        navItems:[{label:'Início',id:'hero'},{label:'Serviços',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Aline S.',text:'Melhor salão da região! Saí de lá me sentindo uma nova mulher.',rating:5},{name:'Carla M.',text:'A maquiagem para o casamento ficou perfeita. Profissional super talentosa.',rating:5},{name:'Letícia D.',text:'As unhas duram muito mais que em outros lugares. Amo o atendimento!',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1560066984-138dadb4c035/400/400','https://picsum.photos/seed/photo-1522337360788-8b13dee7a37e/400/400','https://picsum.photos/seed/photo-1596462502278-27bfdc403348/400/400','https://picsum.photos/seed/photo-1604654894610-df63bc536371/400/400','https://picsum.photos/seed/photo-1570172619644-dfd03ed5d881/400/400'],
+        contactInfo:{hours:'Seg–Sáb: 8h–20h | Dom: Fechado',addressExtra:'Jacarepaguá, Rio de Janeiro'}
       };
       if(/(shopping|centro comercial|galeria|mall)/.test(bt)) return {
         segHue:260,font:'Outfit',fontUrl:'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500&display=swap',
@@ -1858,15 +2030,19 @@
         icon:'🏬',gradDir:'135deg',accents:'roxo corporativo',
         tagBg:'rgba(139,92,246,.1)', tagBorder:'1px solid rgba(139,92,246,.2)',
         section1Title:'Lojas & Variedades',section1Sub:'Tudo em um só lugar',
-        cat1:'Moda',cat1Img:'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&q=80',
-        cat2:'Gastronomia',cat2Img:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80',
-        cat3:'Serviços',cat3Img:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80',
-        cat4:'Lazer',cat4Img:'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&q=80',
+        cat1:'Moda',cat1Img:'https://picsum.photos/seed/photo-1567401893414-76b7b1e5a7a5/400/400',
+        cat2:'Gastronomia',cat2Img:'https://picsum.photos/seed/photo-1414235077428-338989a2e8c0/400/400',
+        cat3:'Serviços',cat3Img:'https://picsum.photos/seed/photo-1454165804606-c3d57bc86b40/400/400',
+        cat4:'Lazer',cat4Img:'https://picsum.photos/seed/photo-1517457373958-b7bdd4587205/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1519567241046-7f570eee3ce6/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1580674684081-7617fbf3d745/800/600',
         about1:'O shopping que é a cara da cidade. Mais de 100 lojas, praça de alimentação completa e eventos para toda família.',
         about2:'Venha viver experiências únicas de compras, lazer e gastronomia em um ambiente seguro e acolhedor.',
-        tagline:'O melhor encontro da cidade'
+        tagline:'O melhor encontro da cidade',
+        navItems:[{label:'Início',id:'hero'},{label:'Lojas',id:'produtos'},{label:'Eventos',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Thiago L.',text:'Shopping completo, com ótimas lojas e praça de alimentação variada.',rating:5},{name:'Sandra K.',text:'Eventos incríveis para família. As crianças amam o espaço kids!',rating:5},{name:'Marcelo N.',text:'Estacionamento amplo e segurança. Vou sempre com a família.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1519567241046-7f570eee3ce6/400/400','https://picsum.photos/seed/photo-1580674684081-7617fbf3d745/400/400','https://picsum.photos/seed/photo-1567401893414-76b7b1e5a7a5/400/400','https://picsum.photos/seed/photo-1414235077428-338989a2e8c0/400/400','https://picsum.photos/seed/photo-1454165804606-c3d57bc86b40/400/400'],
+        contactInfo:{hours:'Seg–Sáb: 10h–22h | Dom: 11h–20h',addressExtra:'Centro'}
       };
       if(/(restaurante|restaurant|comida|gastronomia|jantar)/.test(bt)) return {
         segHue:360,font:'DM Serif Display',fontUrl:'https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400&family=Inter:wght@300;400;500;600;700&display=swap',
@@ -1877,15 +2053,19 @@
         icon:'🍽️',gradDir:'135deg',accents:'vermelho apetitoso',
         tagBg:'rgba(220,38,38,.1)', tagBorder:'1px solid rgba(220,38,38,.2)',
         section1Title:'Nosso Cardápio',section1Sub:'Sabores que encantam',
-        cat1:'Entradas',cat1Img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80',
-        cat2:'Pratos Principais',cat2Img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80',
-        cat3:'Sobremesas',cat3Img:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
-        cat4:'Bebidas',cat4Img:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80',
+        cat1:'Entradas',cat1Img:'https://picsum.photos/seed/photo-1546069901-ba9599a7e63c/400/400',
+        cat2:'Pratos Principais',cat2Img:'https://picsum.photos/seed/photo-1544025162-d76694265947/400/400',
+        cat3:'Sobremesas',cat3Img:'https://picsum.photos/seed/photo-1488477181946-6428a0291777/400/400',
+        cat4:'Bebidas',cat4Img:'https://picsum.photos/seed/photo-1551024709-8f23befc6f87/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1517248135467-4c7edcad34c4/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1559339352-11d035aa65de/800/600',
         about1:'Gastronomia de qualidade com ingredientes frescos e receitas que unem tradição e inovação. Cada prato é preparado com dedicação.',
         about2:'Ambiente acolhedor e equipe preparada para proporcionar experiências gastronômicas inesquecíveis.',
-        tagline:'Sabores que conquistam'
+        tagline:'Sabores que conquistam',
+        navItems:[{label:'Início',id:'hero'},{label:'Cardápio',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Eduardo G.',text:'Comida espetacular! O prato principal é de dar água na boca. Voltarei sempre.',rating:5},{name:'Vivian T.',text:'Ambiente aconchegante e atendimento impecável. Melhor restaurante da cidade.',rating:5},{name:'Fábio R.',text:'A sobremesa é imperdível! Experiência gastronômica completa.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1517248135467-4c7edcad34c4/400/400','https://picsum.photos/seed/photo-1559339352-11d035aa65de/400/400','https://picsum.photos/seed/photo-1546069901-ba9599a7e63c/400/400','https://picsum.photos/seed/photo-1544025162-d76694265947/400/400','https://picsum.photos/seed/photo-1488477181946-6428a0291777/400/400'],
+        contactInfo:{hours:'Ter–Dom: 18h–23h | Seg: Fechado',addressExtra:'Centro'}
       };
       if(/(hotel|pousada|hostel|hospedagem|resort)/.test(bt)) return {
         segHue:210,font:'Cormorant Garamond',fontUrl:'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap',
@@ -1896,15 +2076,19 @@
         icon:'🏨',gradDir:'135deg',accents:'azul marinho premium',
         tagBg:'rgba(56,189,248,.08)', tagBorder:'1px solid rgba(56,189,248,.15)',
         section1Title:'Nossas Acomodações',section1Sub:'Conforto que é nota 10',
-        cat1:'Suítes',cat1Img:'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80',
-        cat2:'Lazer',cat2Img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80',
-        cat3:'Eventos',cat3Img:'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&q=80',
-        cat4:'Gastronomia',cat4Img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80',
+        cat1:'Suítes',cat1Img:'https://picsum.photos/seed/photo-1590490360182-c33d57733427/400/400',
+        cat2:'Lazer',cat2Img:'https://picsum.photos/seed/photo-1571003123894-1f0594d2b5d9/400/400',
+        cat3:'Eventos',cat3Img:'https://picsum.photos/seed/photo-1464366400600-7168b8af9bc3/400/400',
+        cat4:'Gastronomia',cat4Img:'https://picsum.photos/seed/photo-1559339352-11d035aa65de/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1566073771259-6a8506099945/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1582719508461-905c673771fd/800/600',
         about1:'Há mais de 15 anos proporcionando hospedagens inesquecíveis. Conforto, localização privilegiada e atendimento personalizado.',
         about2:'Estrutura completa para lazer e negócios, com quartos equipados e áreas de convivência que fazem você se sentir em casa.',
-        tagline:'Seu refúgio perfeito'
+        tagline:'Seu refúgio perfeito',
+        navItems:[{label:'Início',id:'hero'},{label:'Acomodações',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Cristina O.',text:'Hospedagem incrível! Quarto confortável e café da manhã maravilhoso.',rating:5},{name:'Gustavo H.',text:'Localização perfeita e atendimento nota 10. Voltarei com certeza!',rating:5},{name:'Larissa F.',text:'Estrutura completa para lazer. A piscina e área kids são sensacionais.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1566073771259-6a8506099945/400/400','https://picsum.photos/seed/photo-1582719508461-905c673771fd/400/400','https://picsum.photos/seed/photo-1590490360182-c33d57733427/400/400','https://picsum.photos/seed/photo-1571003123894-1f0594d2b5d9/400/400','https://picsum.photos/seed/photo-1464366400600-7168b8af9bc3/400/400'],
+        contactInfo:{hours:'24 horas · Check-in: 14h · Check-out: 12h',addressExtra:'Centro'}
       };
       if(/(padaria|bakery|confeitaria|bolo|pao)/.test(bt)) return {
         segHue:35,font:'DM Serif Display',fontUrl:'https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400&family=Nunito:wght@400;600;700;800&display=swap',
@@ -1915,15 +2099,19 @@
         icon:'🥐',gradDir:'135deg',accents:'dourado aconchegante',
         tagBg:'rgba(245,158,11,.1)', tagBorder:'1px solid rgba(245,158,11,.2)',
         section1Title:'Nossos Produtos',section1Sub:'Fresquinho todo dia',
-        cat1:'Pães Artesanais',cat1Img:'https://images.unsplash.com/photo-1549931319-a5457534672e?w=400&q=80',
-        cat2:'Doces & Bolos',cat2Img:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
-        cat3:'Salgados',cat3Img:'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&q=80',
-        cat4:'Café Especial',cat4Img:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&q=80',
+        cat1:'Pães Artesanais',cat1Img:'https://picsum.photos/seed/photo-1549931319-a5457534672e/400/400',
+        cat2:'Doces & Bolos',cat2Img:'https://picsum.photos/seed/photo-1488477181946-6428a0291777/400/400',
+        cat3:'Salgados',cat3Img:'https://picsum.photos/seed/photo-1559847844-5315695dadae/400/400',
+        cat4:'Café Especial',cat4Img:'https://picsum.photos/seed/photo-1495474472287-4d71bcdd2085/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1509440159596-0249088772ff/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1558961363-fa8fdf82db35/800/600',
         about1:'Tradição familiar que atravessa gerações. Nossas receitas são preparadas diariamente com ingredientes selecionados.',
         about2:'O aroma do pão fresco invade as manhãs da cidade. Venha experimentar nossas delícias e sentir o sabor caseiro.',
-        tagline:'Frescor e sabor todo dia'
+        tagline:'Frescor e sabor todo dia',
+        navItems:[{label:'Início',id:'hero'},{label:'Produtos',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Ana P.',text:'Pão fresquinho toda manhã! O croissant é o melhor da cidade.',rating:5},{name:'José M.',text:'Bolos deliciosos e atendimento sempre simpático. Padaria de primeira!',rating:5},{name:'Renata C.',text:'Café especial e pão de queijo quentinho. Combinação perfeita!',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1509440159596-0249088772ff/400/400','https://picsum.photos/seed/photo-1558961363-fa8fdf82db35/400/400','https://picsum.photos/seed/photo-1549931319-a5457534672e/400/400','https://picsum.photos/seed/photo-1488477181946-6428a0291777/400/400','https://picsum.photos/seed/photo-1559847844-5315695dadae/400/400'],
+        contactInfo:{hours:'Seg–Dom: 6h–20h',addressExtra:'Centro'}
       };
       if(/(academia|fitness|ginastica|musculacao|crossfit|pilates)/.test(bt)) return {
         segHue:0,font:'Oswald',fontUrl:'https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap',
@@ -1934,15 +2122,42 @@
         icon:'💪',gradDir:'135deg',accents:'vermelho energia',
         tagBg:'rgba(239,68,68,.1)', tagBorder:'1px solid rgba(239,68,68,.2)',
         section1Title:'Modalidades',section1Sub:'Treine com quem entende',
-        cat1:'Musculação',cat1Img:'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=400&q=80',
-        cat2:'Aulas Coletivas',cat2Img:'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=400&q=80',
-        cat3:'Funcional',cat3Img:'https://images.unsplash.com/photo-1534258369761-b5aeb6f1105c?w=400&q=80',
-        cat4:'Personal Trainer',cat4Img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80',
+        cat1:'Musculação',cat1Img:'https://picsum.photos/seed/photo-1526506118085-60ce8714f8c5/400/400',
+        cat2:'Aulas Coletivas',cat2Img:'https://picsum.photos/seed/photo-1575052814086-f385e2e2ad1b/400/400',
+        cat3:'Funcional',cat3Img:'https://picsum.photos/seed/photo-1534258369761-b5aeb6f1105c/400/400',
+        cat4:'Personal Trainer',cat4Img:'https://picsum.photos/seed/photo-1571019613454-1cb2f99b2d8b/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1534438327276-14e5300c3a48/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1571902943202-507ec2618e8f/800/600',
         about1:'Equipamentos modernos, profissionais qualificados e um ambiente motivador para você alcançar seus objetivos fitness.',
         about2:'Da musculação ao funcional, temos o plano ideal para cada aluno, do iniciante ao avançado.',
-        tagline:'Transforme seu corpo, transforme sua vida'
+        tagline:'Transforme seu corpo, transforme sua vida',
+        navItems:[{label:'Início',id:'hero'},{label:'Modalidades',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Bruno L.',text:'Evolução incrível desde que comecei. Profissionais super qualificados!',rating:5},{name:'Patrícia N.',text:'Ambiente motivador e equipamentos modernos. Melhor academia da região.',rating:5},{name:'Gabriel S.',text:'Aulas coletivas são demais! Corpo e mente agradecem.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1534438327276-14e5300c3a48/400/400','https://picsum.photos/seed/photo-1571902943202-507ec2618e8f/400/400','https://picsum.photos/seed/photo-1526506118085-60ce8714f8c5/400/400','https://picsum.photos/seed/photo-1575052814086-f385e2e2ad1b/400/400','https://picsum.photos/seed/photo-1534258369761-b5aeb6f1105c/400/400'],
+        contactInfo:{hours:'Seg–Sex: 6h–22h | Sáb: 8h–18h | Dom: 9h–13h',addressExtra:'Centro'}
+      };
+      if(/(floricultura|flores|flor|jardinagem|paisagismo|planta|jardim|arranjo|floral|bouquet)/.test(bt)) return {
+        segHue:340,font:'Playfair Display',fontUrl:'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap',
+        bodyFont:'Inter',radius:'18px',radiusCard:'14px',shadow:'0 8px 32px rgba(0,0,0,.25)',
+        heroOverlay:'linear-gradient(135deg,rgba(40,0,20,.7),transparent 50%)',
+        cardBorder:'1px solid rgba(244,114,182,.12)',
+        cardHover:'0 8px 32px rgba(244,114,182,.1)',
+        icon:'🌸',gradDir:'135deg',accents:'rosé delicado',
+        tagBg:'rgba(244,114,182,.1)', tagBorder:'1px solid rgba(244,114,182,.2)',
+        section1Title:'Nossas Flores',section1Sub:'Beleza que encanta em cada detalhe',
+        cat1:'Rosas',cat1Img:'https://picsum.photos/seed/photo-1548588624-f2b1cb3c1c0c/400/400',
+        cat2:'Lírios',cat2Img:'https://picsum.photos/seed/photo-1490750967868-88aa5f44baee/400/400',
+        cat3:'Girassóis',cat3Img:'https://picsum.photos/seed/photo-1601625233740-92fb5e1b8959/400/400',
+        cat4:'Orquídeas',cat4Img:'https://picsum.photos/seed/photo-1606248184157-8b97c7dc2a52/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1563241527-3004b7be0ffd/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1487530811176-3780de880c2d/800/600',
+        about1:'Transformamos momentos especiais em memórias inesquecíveis através de arranjos florais únicos. Cada buquê é pensado com carinho para emocionar.',
+        about2:'Trabalhamos com flores frescas selecionadas diariamente, qualidade e durabilidade em cada criação.',
+        tagline:'Flores que encantam, decorações que emocionam',
+        navItems:[{label:'Início',id:'hero'},{label:'Flores',id:'produtos'},{label:'Decorações',id:'galeria'},{label:'Depoimentos',id:'depoimentos'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Maria S.',text:'Fizeram a decoração do meu casamento e ficou simplesmente perfeito. Cada detalhe pensado com carinho!',rating:5},{name:'João P.',text:'Encomendei um buquê de presentes e chegou no mesmo dia. Flores lindas e frescas!',rating:5},{name:'Ana C.',text:'A decoração da festa de aniversário ficou maravilhosa. Super profissional e criativa.',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1563241527-3004b7be0ffd/400/400','https://picsum.photos/seed/photo-1490750967868-88aa5f44baee/400/400','https://picsum.photos/seed/photo-1519378058457-4c29a0a2efac/400/400','https://picsum.photos/seed/photo-1463648067506-066bae42348b/400/400','https://picsum.photos/seed/photo-1470509037663-253afd7f0f51/400/400'],
+        contactInfo:{hours:'Seg–Sáb: 8h–18h | Dom: Sob consulta',addressExtra:'Jacarepaguá, Rio de Janeiro'}
       };
       return {
         segHue:220,font:'Inter',fontUrl:'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap',
@@ -1953,15 +2168,19 @@
         icon:'📦',gradDir:'135deg',accents:'clean',
         tagBg:'rgba(255,255,255,.06)', tagBorder:'1px solid rgba(255,255,255,.1)',
         section1Title:'Nossos Produtos',section1Sub:'Qualidade e variedade',
-        cat1:'Categoria 1',cat1Img:'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-        cat2:'Categoria 2',cat2Img:'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&q=80',
-        cat3:'Categoria 3',cat3Img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
-        cat4:'Categoria 4',cat4Img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80',
-        heroImg:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
-        heroImg2:'https://images.unsplash.com/photo-1553729459-afe8f2e2a910?w=800&q=80',
+        cat1:'Categoria 1',cat1Img:'https://picsum.photos/seed/photo-1472851294608-062f824d29cc/400/400',
+        cat2:'Categoria 2',cat2Img:'https://picsum.photos/seed/photo-1441984904996-e0b6ba687e04/400/400',
+        cat3:'Categoria 3',cat3Img:'https://picsum.photos/seed/photo-1507003211169-0a1dd7228f2d/400/400',
+        cat4:'Categoria 4',cat4Img:'https://picsum.photos/seed/photo-1558618666-fcd25c85f82e/400/400',
+        heroImg:'https://picsum.photos/seed/photo-1460925895917-afdab827c52f/800/600',
+        heroImg2:'https://picsum.photos/seed/photo-1553729459-afe8f2e2a910/800/600',
         about1:'Referência no segmento, oferecemos produtos e serviços de alta qualidade com atendimento personalizado.',
         about2:'Nossa equipe está pronta para atender você da melhor forma possível.',
-        tagline:`Excelência em ${b.toLowerCase()}`
+        tagline:`Excelência em ${biz.toLowerCase()}`,
+        navItems:[{label:'Início',id:'hero'},{label:'Produtos',id:'produtos'},{label:'Galeria',id:'galeria'},{label:'Sobre',id:'sobre'},{label:'Contato',id:'contato'}],
+        testimonials:[{name:'Cliente Satisfeito',text:'Excelente atendimento e produtos de qualidade. Super recomendo!',rating:5},{name:'Cliente Fiel',text:'Encontrei tudo que precisava. Preço justo e entrega rápida.',rating:5},{name:'Cliente Parceiro',text:'Empresa séria e comprometida. Nota 1000!',rating:5}],
+        galleryImages:['https://picsum.photos/seed/photo-1472851294608-062f824d29cc/400/400','https://picsum.photos/seed/photo-1441984904996-e0b6ba687e04/400/400','https://picsum.photos/seed/photo-1558618666-fcd25c85f82e/400/400','https://picsum.photos/seed/photo-1460925895917-afdab827c52f/400/400','https://picsum.photos/seed/photo-1507003211169-0a1dd7228f2d/400/400'],
+        contactInfo:{hours:'Seg–Sáb: 8h–18h',addressExtra:'Sua região'}
       };
     }
 
@@ -1994,168 +2213,477 @@
       };
     }
 
+    function generateApproachMessages(lead){
+      const n=lead.lead_name||lead.name||'Cliente', b=lead.business_type||lead.biz||'negócio', l=lead.location||lead.loc||'sua região', p=lead.phone||'', e=lead.email||'';
+      const city=l.split(',')[0]||l;
+      const nameShort=n.split(' ')[0];
+      const bizLower=b.toLowerCase();
+      const pk=productKey(b);
+      const vars={
+        site:{
+          whatsapp:{
+            A:`Olá ${nameShort}! 👋\n\nVi ${bizLower} de vocês aqui em ${city} e fiquei curioso — vocês já têm site ou página online?\n\nPergunto porque a maioria dos negócios da região ainda não aparece no Google quando alguém pesquisa... e perde cliente todo dia sem perceber. 😅\n\nDesenvolvemos sites profissionais e simples de manter. Posso te mostrar um modelo em 5 minutos?`,
+            B:`Oi ${nameShort}! Tudo bem? 😊\n\nTrabalho com criação de sites profissionais para ${bizLower} — sites que aparecem no Google, carregam rápido e geram clientes.\n\nNegócios que fizeram site conosco passaram a receber em média 3× mais pedidos online. Tudo integrado com WhatsApp.\n\nPosso te mandar uma demonstração gratuita? Sem compromisso. 🙏`,
+            C:`Olá! 👋\n\nEstou criando sites profissionais para ${bizLower} aqui em ${city} — e separei uma vaga para ${nameShort} esta semana.\n\nO site já vem com:\n✅ Página profissional\n✅ Aparece no Google\n✅ WhatsApp integrado\n✅ Painel pra editar tudo\n\nSão só 3 vagas nesta semana. Posso te mostrar como funciona hoje ou amanhã?`
+          },
+          email:{
+            A:{subject:`${nameShort}, seu negócio aparece no Google?`,body:`Olá!\n\nVi ${bizLower} de vocês em ${city} e fiquei curioso — já pensou em como estão te encontrando no Google?\n\nA maioria dos negócios da região perde cliente por não ter presença digital. Um site profissional custa menos do que você imagina e transforma seu negócio.\n\nPosso te enviar uma prévia? É gratuita.\n\nAbs,\nEquipe SaleStack`},
+            B:{subject:`Resultados com site profissional para ${nameShort}`,body:`Oi!\n\nTrabalho com criação de sites que geram resultados reais para ${bizLower}.\n\nNossos clientes passaram a receber pedidos 24h por dia e aparecem no Google quando alguém pesquisa.\n\nQuer ver um modelo pronto para o seu negócio? Sem custo.\n\nAbs,\nEquipe SaleStack`},
+            C:{subject:`Vaga exclusiva para ${nameShort}`,body:`Olá!\n\nEstou montando sites profissionais para ${bizLower} em ${city} e reservei uma vaga para vocês esta semana.\n\nBenefícios:\n• Site profissional com seu domínio\n• Aparece no Google\n• WhatsApp direto no site\n• Fácil de atualizar\n\nVagas limitadas para garantir qualidade. Posso apresentar?\n\nAbs,\nEquipe SaleStack`}
+          },
+          dm:{
+            A:`Ei ${nameShort}! 👋 Vi ${bizLower} de vocês em ${city} — já pensaram em ter um site profissional? A maioria dos negócios da região perde cliente por não aparecer no Google. Tenho um modelo pronto pra mostrar!`,
+            B:`Oi ${nameShort}! 😊 Trabalho com sites que geram clientes para ${bizLower}. Negócios que fizeram site conosco aumentaram os pedidos em 3×. Quer ver um modelo gratuito?`,
+            C:`Olá ${nameShort}! 👋 Estou criando sites para ${bizLower} em ${city} e tenho uma vaga esta semana. Site profissional, aparece no Google, WhatsApp integrado. Posso te mostrar?`
+          }
+        },
+        crm:{
+          whatsapp:{
+            A:`Olá, tudo bem? 👋\n\nVi a ${n} aqui em ${city} e fiquei curioso — vocês já têm algum sistema pra controlar as vendas e os clientes?\n\nPergunto porque a maioria dos negócios da região ainda faz isso no caderno ou no Excel... e perde muito dinheiro sem perceber. 😅\n\nDesenvolvemos um sistema simples e barato feito pra ${bizLower} como a de vocês. Posso te mostrar em 5 minutos?`,
+            B:`Oi! Tudo bem? 😊\n\nTrabalho com um sistema de vendas e gestão de clientes feito pra ${bizLower} — dá pra controlar estoque, histórico de clientes e caixa tudo pelo celular.\n\nNegócios que adotaram aqui na região reduziram em 40% o tempo perdido com planilha e aumentaram as vendas recorrentes.\n\nPosso te mandar uma demonstração gratuita? Sem compromisso. 🙏`,
+            C:`Olá! 👋\n\nEstou implantando meu sistema de CRM e PDV em ${bizLower} aqui em ${city} — e separei uma vaga pra ${nameShort} essa semana.\n\nO sistema controla:\n✅ Histórico de cada cliente\n✅ Estoque em tempo real\n✅ Caixa e relatório de vendas\n✅ Tudo pelo celular, sem complicação\n\nSão só 3 vagas essa semana. Posso te mostrar como funciona hoje ou amanhã?`
+          },
+          email:{
+            A:{subject:`${nameShort}, como controlam as vendas hoje?`,body:`Olá!\n\nVi ${bizLower} de vocês em ${city} e fiquei curioso — como fazem o controle de vendas e clientes atualmente?\n\nSe ainda usam caderno ou Excel, é provável que estejam perdendo vendas e deixando clientes voltarem sem saber.\n\nDesenvolvemos um sistema de gestão completo e acessível. Quer conhecer?\n\nAbs,\nEquipe SaleStack`},
+            B:{subject:`Reduza o trabalho manual da ${nameShort}`,body:`Oi!\n\nTrabalho com um sistema que automatiza vendas, controle de clientes e estoque para ${bizLower}.\n\nNossos clientes economizam horas por dia e aumentaram as vendas recorrentes em mais de 30%.\n\nTudo pelo celular, sem complicação. Posso te mostrar uma demo gratuita?\n\nAbs,\nEquipe SaleStack`},
+            C:{subject:`Vaga exclusiva — sistema de gestão para ${nameShort}`,body:`Olá!\n\nEstou implementando meu sistema de CRM/PDV em ${bizLower} em ${city} e reservei uma vaga para vocês.\n\nO que inclui:\n• Controle de clientes e histórico\n• Estoque em tempo real\n• Caixa e relatórios\n• Acesso pelo celular\n\nSó 3 vagas esta semana para garantir suporte de qualidade.\n\nAbs,\nEquipe SaleStack`}
+          },
+          dm:{
+            A:`Ei ${nameShort}! 👋 Vi ${bizLower} de vocês em ${city} — como controlam as vendas hoje? Ainda usam caderno ou Excel? Desenvolvemos um sistema simples que pode ajudar. Quer ver?`,
+            B:`Oi ${nameShort}! 😊 Trabalho com um sistema de gestão pra ${bizLower} que reduz em 40% o tempo perdido com planilha. Clientes aumentaram vendas recorrentes. Quer uma demo grátis?`,
+            C:`Olá ${nameShort}! 👋 Estou implantando CRM/PDV em ${bizLower} em ${city} — tenho 3 vagas essa semana. Sistema completo pelo celular. Posso te mostrar?`
+          }
+        },
+        shopify:{
+          whatsapp:{
+            A:`Olá ${nameShort}! 👋\n\nVi ${bizLower} de vocês em ${city} e fiquei curioso — vocês já vendem online ou só na loja física?\n\nPergunto porque muitos negócios estão perdendo clientes que preferem comprar pela internet. Uma loja online resolve isso. 😊\n\nCriamos lojas virtuais profissionais que integram com WhatsApp e entregam em toda região. Posso te mostrar um modelo?`,
+            B:`Oi! Tudo bem? 😊\n\nTrabalho com criação de lojas online profissionais para ${bizLower} — lojas que vendem 24h por dia, aparecem no Google e integram com WhatsApp.\n\nNossos clientes passaram a vender também pela internet e aumentaram o faturamento em até 50%.\n\nPosso te mandar uma demonstração gratuita? 🙏`,
+            C:`Olá! 👋\n\nEstou montando lojas online para ${bizLower} aqui em ${city} — e separei uma vaga pra ${nameShort} essa semana.\n\nA loja já vem com:\n✅ Catálogo online completo\n✅ Pagamento integrado\n✅ WhatsApp direto\n✅ Aparece no Google\n\nSó 3 vagas essa semana. Posso te mostrar como funciona?`
+          },
+          email:{
+            A:{subject:`${nameShort}, já pensou em vender online?`,body:`Olá!\n\nVi ${bizLower} de vocês em ${city} — já pensaram em vender pela internet?\n\nMuitos clientes hoje preferem comprar online antes de ir à loja. Sem uma loja virtual, você está perdendo essas vendas.\n\nCriamos lojas online profissionais e fáceis de gerenciar. Quer conhecer?\n\nAbs,\nEquipe SaleStack`},
+            B:{subject:`Aumente as vendas da ${nameShort} com uma loja online`,body:`Oi!\n\nCriamos lojas virtuais para ${bizLower} que vendem 24h por dia.\n\nNossos clientes aumentaram o faturamento em até 50% depois de passar a vender também pela internet.\n\nLoja com catálogo, pagamento integrado e WhatsApp. Quer ver uma demonstração?\n\nAbs,\nEquipe SaleStack`},
+            C:{subject:`Vaga exclusiva — loja online para ${nameShort}`,body:`Olá!\n\nEstou criando lojas online para ${bizLower} em ${city} e reservei uma vaga para vocês esta semana.\n\nInclui:\n• Loja virtual profissional\n• Catálogo de produtos\n• Pagamento online\n• Integração com WhatsApp\n• Aparece no Google\n\nVagas limitadas. Posso apresentar?\n\nAbs,\nEquipe SaleStack`}
+          },
+          dm:{
+            A:`Ei ${nameShort}! 👋 Vi ${bizLower} em ${city} — já vendem online? Muitos clientes hoje compram pela internet. Tenho uma solução de loja virtual que pode ajudar!`,
+            B:`Oi ${nameShort}! 😊 Trabalho com lojas online para ${bizLower}. Nossos clientes aumentaram vendas em até 50% com loja virtual. Quer ver uma demonstração grátis?`,
+            C:`Olá ${nameShort}! 👋 Estou montando lojas online para ${bizLower} em ${city} — tenho 3 vagas essa semana. Loja completa com pagamento e WhatsApp. Posso mostrar?`
+          }
+        },
+        lobby:{
+          whatsapp:{
+            A:`Olá ${nameShort}! 👋\n\nVi que o ${bizLower} de vocês fica em ${city} — como fazem o controle de reservas atualmente?\n\nPergunto porque muitos hotéis ainda usam planilha ou papel e perdem reservas sem perceber. 😅\n\nTemos um sistema de gestão hoteleira que automatiza check-in, reservas e relatórios. Quer conhecer em 5 minutos?`,
+            B:`Oi ${nameShort}! Tudo bem? 😊\n\nTrabalho com um sistema de gestão hoteleira que automatiza check-in, reservas e relatórios — tudo pelo celular.\n\nHotéis que adotaram reduziram o tempo de check-in em 60% e diminuíram erros de reserva.\n\nPosso te mandar uma demonstração gratuita? 🙏`,
+            C:`Olá! 👋\n\nEstou implantando meu sistema de gestão hoteleira em ${city} — e separei uma vaga pra ${nameShort} essa semana.\n\nO sistema inclui:\n✅ Check-in e check-out digital\n✅ Controle de reservas\n✅ Relatórios financeiros\n✅ Tudo pelo celular\n\nSó 3 vagas esta semana. Posso te mostrar?`
+          },
+          email:{
+            A:{subject:`${nameShort}, como controlam as reservas?`,body:`Olá!\n\nVi que o ${bizLower} de vocês fica em ${city} — como fazem o controle de reservas atualmente?\n\nMuitos hotéis ainda usam métodos manuais e perdem reservas. Automatizar pode aumentar sua ocupação.\n\nTemos um sistema completo. Quer conhecer?\n\nAbs,\nEquipe SaleStack`},
+            B:{subject:`Automatize a gestão do ${nameShort}`,body:`Oi!\n\nTrabalho com um sistema de gestão hoteleira que automatiza as operações do seu ${bizLower}.\n\nCheck-in digital, controle de reservas e relatórios — tudo integrado. Hotéis que adotaram reduziram o trabalho manual em 60%.\n\nPosso enviar uma demonstração?\n\nAbs,\nEquipe SaleStack`},
+            C:{subject:`Vaga exclusiva — sistema hoteleiro para ${nameShort}`,body:`Olá!\n\nEstou implantando sistemas em hotéis em ${city} e reservei uma vaga para o ${nameShort}.\n\nBenefícios:\n• Check-in digital\n• Reservas automatizadas\n• Relatórios financeiros\n• Acesso pelo celular\n\nVagas limitadas. Posso apresentar?\n\nAbs,\nEquipe SaleStack`}
+          },
+          dm:{
+            A:`Ei ${nameShort}! 👋 Vi o ${bizLower} em ${city} — como fazem as reservas? Ainda usam planilha? Tenho um sistema que automatiza tudo!`,
+            B:`Oi ${nameShort}! 😊 Trabalho com gestão hoteleira que reduz check-in em 60%. Sistema completo pelo celular. Quer uma demonstração?`,
+            C:`Olá ${nameShort}! 👋 Estou implantando sistema de gestão em hotéis em ${city} — 3 vagas essa semana. Check-in digital e relatórios. Posso mostrar?`
+          }
+        }
+      };
+      const t=vars[pk]||vars.site;
+      return {
+        whatsapp:{A:t.whatsapp.A,B:t.whatsapp.B,C:t.whatsapp.C},
+        email:{A:t.email.A,B:t.email.B,C:t.email.C},
+        dm:{A:t.dm.A,B:t.dm.B,C:t.dm.C}
+      };
+    }
+
+    function getPropostaSeed(n,b){
+      let h=0; const s=(n||'')+(b||'');
+      for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))&0xFFFFFFFF;
+      h=Math.abs(h);
+      return{heroLayout:h%4,cardStyle:Math.floor(h/4)%3,fontChoice:Math.floor(h/16)%3,sectionOrder:Math.floor(h/64)%4};
+    }
+    function getFontSet(biz,choice){
+      const bt=biz.toLowerCase();
+      const sets={
+        beauty:[
+          {display:'Playfair Display',body:'Inter',url:'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap'},
+          {display:'Cormorant Garamond',body:'DM Sans',url:'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap'},
+          {display:'Outfit',body:'Outfit',url:'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap'}
+        ],
+        food:[
+          {display:'DM Serif Display',body:'Inter',url:'https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400&family=Inter:wght@300;400;500;600&display=swap'},
+          {display:'Nunito',body:'Nunito',url:'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap'},
+          {display:'Fredoka',body:'Fredoka',url:'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap'}
+        ],
+        hardware:[
+          {display:'Bebas Neue',body:'Inter',url:'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap'},
+          {display:'Oswald',body:'Inter',url:'https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap'},
+          {display:'Inter',body:'Inter',url:'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'}
+        ],
+        fashion:[
+          {display:'Playfair Display',body:'Poppins',url:'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Poppins:wght@300;400;500&display=swap'},
+          {display:'Poppins',body:'Poppins',url:'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap'},
+          {display:'Outfit',body:'DM Sans',url:'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap'}
+        ]
+      };
+      let key='default';
+      if(/(beleza|cosmeticos|cosméticos|salão|salao|estetic|spa|cabelo|barbearia)/.test(bt)) key='beauty';
+      else if(/(restaurante|alimentação|alimentacao|comida|pizza|bar|lanche|sorvete|doce|confeitaria|padaria|gastronomia)/.test(bt)) key='food';
+      else if(/(ferragem|construção|construcao|material|madeireira|serralheria|marcenaria)/.test(bt)) key='hardware';
+      else if(/(moda|roupa|vestuário|vestuario|calçado|calcado|sapato|acessorio|joia)/.test(bt)) key='fashion';
+      const group=sets[key]||[
+        {display:'Inter',body:'Inter',url:'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'},
+        {display:'DM Sans',body:'DM Sans',url:'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap'},
+        {display:'Syne',body:'Inter',url:'https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap'}
+      ];
+      return group[choice%3];
+    }
+    function getSegmentHook(biz,city,n){
+      const bt=biz.toLowerCase();
+      const c=city||'sua região';
+      if(/(beleza|cosmeticos|cosméticos|salão|salao|estetic|spa|cabelo|barbearia)/.test(bt)) return{
+        hook:'Seu salão merece ser encontrado com a mesma facilidade que um cliente procura por "corte perto de mim".',
+        problems:[
+          {icon:'🔍',title:'Invisível Online',text:'87% dos clientes pesquisam no Google antes de escolher um salão. Seu negócio aparece?'},
+          {icon:'📱',title:'Sem Contato Digital',text:'Clientes querem agendar online. Sem site, você perde agendamentos 24h por dia.'},
+          {icon:'⭐',title:'Sem Prova Social',text:'Sem site, você não mostra resultados, avaliações e portfólio dos seus melhores trabalhos.'}
+        ],
+        impact:'R$ 3.200'
+      };
+      if(/(restaurante|alimentação|alimentacao|comida|pizza|bar|lanche|sorvete|doce|confeitaria|padaria|gastronomia)/.test(bt)) return{
+        hook:'Seu cardápio precisa estar a um clique de distância — não perdido em uma busca no Google.',
+        problems:[
+          {icon:'🍽️',title:'Cardápio Escondido',text:'Clientes decidem onde comer pelo cardápio online. Sem site, você não vende antes da visita.'},
+          {icon:'📍',title:'Perdido no Maps',text:'Sem site, seu restaurante aparece incompleto no Google — e clientes desistem.'},
+          {icon:'📞',title:'Pedidos Perdidos',text:'Sem canal digital, você perde pedidos de delivery e reservas.'}
+        ],
+        impact:'R$ 4.500'
+      };
+      if(/(ferragem|construção|construcao|material|madeireira|serralheria|marcenaria)/.test(bt)) return{
+        hook:'Profissionais e clientes buscam materiais online. Quem não está na internet, não é lembrado.',
+        problems:[
+          {icon:'🔧',title:'Catálogo Invisível',text:'Clientes pesquisam materiais antes de comprar. Sem catálogo online, você perde vendas.'},
+          {icon:'📏',title:'Sem Orçamento Rápido',text:'Concorrentes com site captam orçamentos automáticos. Você ainda atende por telefone.'},
+          {icon:'🏪',title:'Horário Limitado',text:'Sem site, sua loja fecha quando você fecha. Com site, vende 24h.'}
+        ],
+        impact:'R$ 5.800'
+      };
+      if(/(moda|roupa|vestuário|vestuario|calçado|calcado|sapato|acessorio|joia)/.test(bt)) return{
+        hook:'Em moda, a primeira impressão é digital. Seu lookbook precisa estar online.',
+        problems:[
+          {icon:'👗',title:'Vitrine Fechada',text:'Clientes querem ver as novidades online. Sem site, sua vitrine só funciona no horário comercial.'},
+          {icon:'📷',title:'Sem Mostruário',text:'Cada look publicado é uma venda potencial. Sem site, suas fotos não vendem.'},
+          {icon:'🛒',title:'Fora do Radar',text:'83% dos consumidores pesquisam online antes de comprar moda. Você está onde eles procuram?'}
+        ],
+        impact:'R$ 3.900'
+      };
+      if(/(hotel|pousada|hospedagem|hostel|inn)/.test(bt)) return{
+        hook:'Viajantes pesquisam online antes de escolher onde ficar. Sua pousada aparece?',
+        problems:[
+          {icon:'🏨',title:'Sem Reserva Online',text:'Hóspedes querem ver fotos e reservar online. Sem site, você perde diárias toda semana.'},
+          {icon:'📸',title:'Fotos Escondidas',text:'Seu maior trunfo são as fotos do espaço. Sem site, ninguém vê.'},
+          {icon:'⭐',title:'Avaliações Soltas',text:'Sem site, você não centraliza depoimentos e avaliações que fecham vendas.'}
+        ],
+        impact:'R$ 6.500'
+      };
+      if(/(pet|animal|veterinário|veterinario|tosa|banho)/.test(bt)) return{
+        hook:'Donos de pets pesquisam tanto quanto para si mesmos. Seu pet shop precisa ser encontrado.',
+        problems:[
+          {icon:'🐾',title:'Clientes Perdidos',text:'Donos de pets buscam "pet shop perto de mim" no Google. Sem site, você não aparece.'},
+          {icon:'🛁',title:'Agendamento Offline',text:'Sem agendamento online, você perde clientes que desistem de ligar.'},
+          {icon:'📦',title:'Estoque Invisível',text:'Clientes querem ver produtos e serviços antes de ir. Sem site, é chute.'}
+        ],
+        impact:'R$ 2.800'
+      };
+      return{
+        hook:'Seu negócio precisa ser encontrado online. Clientes pesquisam antes de escolher — e você precisa estar lá.',
+        problems:[
+          {icon:'🔍',title:'Desapareceu do Google',text:'Clientes buscam serviços como o seu todo dia. Sem site, você é invisível.'},
+          {icon:'📱',title:'Sem Presença Digital',text:'Sem site, você perde credibilidade. 70% dos clientes desconfiam de negócios sem site.'},
+          {icon:'📈',title:'Perdendo para Concorrentes',text:'Seu concorrente tem site e aparece no Google. Você está perdendo clientes agora.'}
+        ],
+        impact:'R$ 4.200'
+      };
+    }
+    function getSegmentDecor(biz){
+      const bt=biz.toLowerCase();
+      if(/(beleza|cosmeticos|cosméticos|salão|salao|estetic|spa|cabelo|barbearia)/.test(bt)) return 'scale(0.8) translateY(20px)';
+      if(/(restaurante|alimentação|alimentacao|comida|pizza|bar|lanche)/.test(bt)) return 'scale(0.9) translateX(-10px)';
+      if(/(ferragem|construção|construcao|material|madeireira|serralheria)/.test(bt)) return 'scale(0.85) rotate(2deg)';
+      if(/(moda|roupa|vestuário|vestuario)/.test(bt)) return 'scale(0.9) translateY(10px)';
+      if(/(hotel|pousada|hospedagem)/.test(bt)) return 'scale(0.95) translateX(5px)';
+      if(/(pet|animal|veterin)/.test(bt)) return 'scale(0.85) rotate(-1deg)';
+      return 'scale(0.9)';
+    }
+
     function generatePropostaVisual(lead){
       const n=lead.name||'Sua Empresa', b=lead.biz||'negócio', l=lead.loc||'sua região', p=lead.phone||'', e=lead.email||'';
-      const wa=p.replace(/[^\d]/g,''), waLink=wa.startsWith('55')?wa:wa.length>=10?'55'+wa:wa||'5521999999999';
-      const mailto=e?'mailto:'+e:'#';
+      const companyWA='5573981898081', waLink=companyWA;
       const city=l.split(',')[0]||l;
       const seg=segTheme(b);
       const pal=hashColor(n, seg.segHue);
-      const pers=namePersonality(n, city);
+      const seed=getPropostaSeed(n,b);
+      const fnt=getFontSet(b,seed.fontChoice);
+      const decor=getSegmentDecor(b);
+      const orders=[[0,1,2,3,4],[1,2,0,4,3],[2,3,1,4,0],[3,0,4,1,2]];
+      const sOrder=orders[seed.sectionOrder];
+      const layout=seed.heroLayout;
+      const cs=seed.cardStyle;
+      const cardCss=[
+        `background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08)`,
+        `background:transparent;border:2px solid var(--accent)`,
+        `background:var(--card);border:1px solid rgba(255,255,255,0.05);box-shadow:0 4px 20px rgba(0,0,0,0.2)`
+      ][cs];
+      const cardHover=[
+        `transform:translateY(-4px);box-shadow:0 8px 32px rgba(255,255,255,0.05)`,
+        `transform:translateY(-4px);box-shadow:0 0 20px rgba(var(--accent),0.15)`,
+        `transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.35)`
+      ][cs];
+      function heroHTML(hh){
+        const tag=`<div class="tag" style="animation-delay:.15s">📍 ${city}</div>`;
+        const title=`<h1 class="hero-title" style="animation-delay:.3s">${n.split(' ')[0]}<br><span class="gradient">${seg.tagline}</span></h1>`;
+        const desc=`<p class="hero-sub" style="animation-delay:.45s;max-width:500px">${seg.about1.substring(0,120)}...</p>`;
+        const btns=`<div class="hero-btns" style="animation-delay:.6s"><a href="https://wa.me/${waLink}" target="_blank" rel="noopener" class="btn btn-primary pulsate">📱 Fale Conosco</a><a href="#produtos" class="btn btn-outline">⬇ Nossos Produtos</a></div>`;
+        if(hh===0) return `<section class="hero hero-fullscreen" id="hero" style="background-image:url(${seg.heroImg});background-size:cover;background-position:center">
+<div class="hero-overlay"></div>
+<div class="hero-content hero-content-center" style="position:relative;z-index:2;text-align:center;padding:0 24px">
+${tag}<br>${title.replace('<br>','<br><br>')}<div style="max-width:600px;margin:0 auto">${desc}</div>${btns}
+</div>
+<div class="hero-accent-bar"></div>
+</section>`;
+        if(hh===1) return `<section class="hero hero-split" id="hero">
+<div class="hero-bg-shapes"><div class="shape shape-1" style="transform:${decor}"></div><div class="shape shape-2"></div></div>
+<div class="container"><div class="hero-grid">
+<div>${tag}${title}${desc}${btns}</div>
+<div class="hero-img-wrapper"><div class="hero-img"><img src="${seg.heroImg2}" alt="${n}" loading="lazy"><div class="hero-img-badge">📍 ${city}</div></div></div>
+</div></div>
+<div class="hero-accent-bar"></div>
+</section>`;
+        if(hh===2) return `<section class="hero hero-centered" id="hero" style="background:linear-gradient(135deg,var(--bg),var(--bg2))">
+<div class="hero-content hero-content-center" style="position:relative;z-index:1;text-align:center;padding:0 24px">
+${tag}<br>${title.replace('<br>','<br><br>')}<div style="max-width:600px;margin:0 auto">${desc}</div>${btns}
+</div>
+<div class="hero-accent-bar"></div>
+</section>`;
+        return `<section class="hero hero-diagonal" id="hero">
+<div class="diagonal-bg"></div><svg class="diagonal-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="0,0 100,0 100,100 30,100" fill="${pal.bg2}" opacity="0.6"/></svg>
+<div class="container"><div class="hero-grid-reverse">
+<div class="hero-img-wrapper"><div class="hero-img"><img src="${seg.heroImg2}" alt="${n}" loading="lazy"><div class="hero-img-badge">📍 ${city}</div></div></div>
+<div>${tag}${title}${desc}${btns}</div>
+</div></div>
+<div class="hero-accent-bar"></div>
+</section>`;
+      }
+      function productsHTML(){
+        const cats=[{img:seg.cat1Img,name:seg.cat1},{img:seg.cat2Img,name:seg.cat2},{img:seg.cat3Img,name:seg.cat3},{img:seg.cat4Img,name:seg.cat4}];
+        return `<section class="section" id="produtos">
+<div class="container">
+<div class="tag">🛍️ ${seg.section1Title}</div>
+<h2 class="section-title">${seg.section1Title}<br><span class="gradient">${seg.section1Sub}</span></h2>
+<div class="products-grid">${cats.map((c,i)=>`<div class="product-card" style="${cardCss};border-radius:var(--radiusCard);overflow:hidden;transition:all .4s ease" onmouseover="this.style.cssText+=';${cardHover}'" onmouseout="this.style.cssText='${cardCss};border-radius:var(--radiusCard);overflow:hidden;transition:all .4s ease'"><div class="product-img"><img src="${c.img}" alt="${c.name}" loading="lazy"></div><div class="product-info"><h4>${c.name}</h4><span class="product-link">Saiba mais →</span></div></div>`).join('')}</div>
+</div>
+</section>`;
+      }
+      function galleryHTML(){
+        return `<section class="section" id="galeria">
+<div class="container">
+<div class="tag">📸 Galeria</div>
+<h2 class="section-title">Veja nossos <span class="gradient">trabalhos</span></h2>
+<p style="color:var(--dim);margin-bottom:32px;max-width:500px">Alguns dos nossos melhores trabalhos e momentos especiais.</p>
+<div class="gallery-grid">${seg.galleryImages.map((url,i)=>`<div class="gallery-item" style="${cardCss};border-radius:var(--radiusCard);overflow:hidden;transition:all .4s ease;cursor:pointer" onmouseover="this.style.cssText+=';${cardHover}'" onmouseout="this.style.cssText='${cardCss};border-radius:var(--radiusCard);overflow:hidden;transition:all .4s ease;cursor:pointer'"><img src="${url}" alt="Galeria ${i+1}" loading="lazy"><div class="gallery-overlay"><span>🔍 Ampliar</span></div></div>`).join('')}</div>
+</div>
+</section>`;
+      }
+      function testimonialsHTML(){
+        return `<section class="section" id="depoimentos">
+<div class="container">
+<div class="tag">💬 Depoimentos</div>
+<h2 class="section-title">O que nossos <span class="gradient">clientes dizem</span></h2>
+<p style="color:var(--dim);margin-bottom:32px;max-width:500px">A satisfação dos nossos clientes é o nosso maior reconhecimento.</p>
+<div class="testimonials-grid">${seg.testimonials.map((t,i)=>`<div class="testimonial-card" style="${cardCss};border-radius:var(--radiusCard);padding:28px;transition:all .4s ease" onmouseover="this.style.cssText+=';${cardHover}'" onmouseout="this.style.cssText='${cardCss};border-radius:var(--radiusCard);padding:28px;transition:all .4s ease'"><div class="stars">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</div><p style="color:var(--dim);font-size:.85rem;line-height:1.7;margin:10px 0">"${t.text}"</p><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#000">${t.name.charAt(0)}</div><div><div style="font-weight:700;font-size:.85rem">${t.name}</div></div></div></div>`).join('')}</div>
+</div>
+</section>`;
+      }
+      function aboutSectionHTML(){
+        return `<section class="section" id="sobre">
+<div class="container">
+<div class="tag">📖 Sobre Nós</div>
+<h2 class="section-title">Conheça nossa <span class="gradient">história</span></h2>
+<div style="display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;margin-top:24px">
+<div><div class="about-card" style="${cardCss};border-radius:var(--radiusCard);padding:32px"><p style="color:var(--dim);font-size:.9rem;line-height:1.8;margin-bottom:16px">${seg.about1}</p><p style="color:var(--dim);font-size:.9rem;line-height:1.8">${seg.about2}</p></div></div>
+<div class="stats-grid">
+<div class="stat-card" style="${cardCss};border-radius:var(--radiusCard);padding:24px;text-align:center"><div class="stat-number" data-target="10" style="font-size:2.2rem;font-weight:900;color:var(--accent);font-family:'${fnt.display}',serif">0</div><div style="color:var(--dim);font-size:.75rem">Anos de Experiência</div></div>
+<div class="stat-card" style="${cardCss};border-radius:var(--radiusCard);padding:24px;text-align:center"><div class="stat-number" data-target="500" style="font-size:2.2rem;font-weight:900;color:var(--accent);font-family:'${fnt.display}',serif">0</div><div style="color:var(--dim);font-size:.75rem">Clientes Atendidos</div></div>
+<div class="stat-card" style="${cardCss};border-radius:var(--radiusCard);padding:24px;text-align:center"><div class="stat-number" data-target="98" style="font-size:2.2rem;font-weight:900;color:var(--accent);font-family:'${fnt.display}',serif">0</div><div style="color:var(--dim);font-size:.75rem">% Satisfação</div></div>
+</div>
+</div>
+</div>
+</section>`;
+      }
+      function contactHTML(){
+        const waMsg=encodeURIComponent(`Olá! Vi a prévia do site que vocês prepararam para o ${n} e quero saber mais. Podemos conversar?`);
+        return `<section class="section" id="contato">
+<div class="container">
+<div class="tag">📞 Contato</div>
+<h2 class="section-title">Fale <span class="gradient">conosco</span></h2>
+<p style="color:var(--dim);margin-bottom:28px;max-width:500px">Estamos prontos para atender você. Entre em contato pelo WhatsApp ou visite nossa loja.</p>
+<div class="contact-grid">
+<div class="contact-card" style="${cardCss};border-radius:var(--radiusCard);padding:32px;text-align:center">
+<div style="font-size:2.5rem;margin-bottom:12px">📱</div>
+<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">WhatsApp</h3>
+<p style="color:var(--dim);font-size:.85rem;margin-bottom:16px">Clique e fale conosco agora mesmo</p>
+<a href="https://wa.me/${waLink}?text=${waMsg}" target="_blank" rel="noopener" class="btn btn-primary pulsate">Falar no WhatsApp →</a>
+</div>
+<div class="contact-card" style="${cardCss};border-radius:var(--radiusCard);padding:32px;text-align:center">
+<div style="font-size:2.5rem;margin-bottom:12px">📍</div>
+<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Horários</h3>
+<p style="color:var(--dim);font-size:.85rem;margin-bottom:16px">${seg.contactInfo.hours}</p>
+${seg.contactInfo.addressExtra ? `<p style="color:var(--dim);font-size:.8rem">${seg.contactInfo.addressExtra}</p>` : ''}
+</div>
+${e ? `<div class="contact-card" style="${cardCss};border-radius:var(--radiusCard);padding:32px;text-align:center">
+<div style="font-size:2.5rem;margin-bottom:12px">📧</div>
+<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">E-mail</h3>
+<p style="color:var(--dim);font-size:.85rem;margin-bottom:16px">Envie uma mensagem por e-mail</p>
+<a href="mailto:${e}" style="color:var(--accent);text-decoration:none;font-weight:600">${e}</a>
+</div>` : ''}
+</div>
+</div>
+</section>`;
+      }
+      const sectionMap={0:productsHTML,1:galleryHTML,2:testimonialsHTML,3:aboutSectionHTML,4:contactHTML};
+      let middleHTML='';
+      for(const idx of sOrder) middleHTML+=sectionMap[idx]();
       return `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>${n} — ${seg.tagline}</title>
+<title>${n} — Site Profissional</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="${seg.fontUrl}" rel="stylesheet">
+<link href="${fnt.url}" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--accent:${pal.primary};--accent2:${pal.secondary};--compliment:${pal.compliment};--bg:${pal.bg};--bg2:${pal.bg2};--card:${pal.card};--text:${pal.text};--dim:${pal.dim};--radius:${seg.radius};--radiusCard:${seg.radiusCard}}
 html{scroll-behavior:smooth}
-body{font-family:'${seg.bodyFont}',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body{font-family:'${fnt.body}',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
 .container{max-width:1180px;margin:0 auto;padding:0 24px}
 .section{padding:100px 0}
-.tag{display:inline-flex;background:${seg.tagBg};border:${seg.tagBorder};padding:5px 14px;border-radius:999px;font-size:.7rem;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:1.5px;font-family:'${seg.font}',serif}
-.section-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:12px;letter-spacing:-.01em;font-family:'${seg.font}',serif}
+.tag{display:inline-flex;background:${seg.tagBg};border:${seg.tagBorder};padding:5px 14px;border-radius:999px;font-size:.7rem;font-weight:600;color:var(--accent);margin-bottom:14px;text-transform:uppercase;letter-spacing:1.5px;font-family:'${fnt.display}',serif}
+.section-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:12px;letter-spacing:-.01em;font-family:'${fnt.display}',serif}
 .gradient{background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.05);padding:14px 0}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:0 24px}
-.nav-logo{font-weight:900;font-size:1.2rem;font-family:'${seg.font}',serif;background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:20px;align-items:center}
-.nav-links a{color:var(--dim);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
-.nav-links a:hover{color:var(--text)}
-.hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 70% 50%,rgba(0,0,0,.4),transparent),radial-gradient(ellipse 400px 400px at 30% 30%,rgba(0,0,0,.2),transparent),${seg.heroOverlay};pointer-events:none}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;position:relative;z-index:1}
-.hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:16px;letter-spacing:-.02em;font-family:'${seg.font}',serif}
-.hero p{color:var(--dim);font-size:1.1rem;max-width:500px;margin-bottom:28px;line-height:1.7}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:${seg.radius};font-weight:700;font-size:.9rem;border:none;cursor:pointer;transition:all .3s ease;text-decoration:none}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.05)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:14px 24px}
+.nav-logo{font-weight:900;font-size:1.2rem;font-family:'${fnt.display}',serif;background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-toggle{background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;padding:4px 8px;line-height:1}
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s ease}
+.nav-overlay.active{opacity:1;visibility:visible}
+.nav-close{position:absolute;top:20px;right:24px;background:none;border:none;color:var(--text);font-size:1.8rem;cursor:pointer;line-height:1}
+.nav-overlay-links{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center}
+.nav-overlay-links a{color:var(--dim);text-decoration:none;font-size:1.3rem;font-weight:600;transition:color .2s}
+.nav-overlay-links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--radius);font-weight:700;font-size:.9rem;border:none;cursor:pointer;transition:all .3s ease;text-decoration:none}
 .btn-primary{background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 20px rgba(0,0,0,.3)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
 .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text)}
-.btn-outline:hover{border-color:var(--accent)}
-.hero-img{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:${seg.shadow}}
+.btn-outline:hover{border-color:var(--accent);background:rgba(255,255,255,.03)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 ${pal.primary}66}70%{box-shadow:0 0 0 15px ${pal.primary}00}100%{box-shadow:0 0 0 0 ${pal.primary}00}}
+.pulsate{animation:pulse 2s infinite}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px}
+.hero-accent-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2));z-index:2}
+.hero-fullscreen{position:relative;justify-content:center}.hero-fullscreen .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.8),rgba(0,0,0,.4));z-index:1}
+.hero-content-center{max-width:800px;margin:0 auto}.hero-content-center h1{font-size:clamp(2.4rem,6vw,4.5rem);font-weight:900;line-height:1.05;margin-bottom:16px;letter-spacing:-.02em;font-family:'${fnt.display}',serif}
+.hero-content-center p{font-size:clamp(1rem,2vw,1.15rem);color:var(--dim);margin-bottom:20px;line-height:1.7;max-width:600px;margin-left:auto;margin-right:auto}
+.hero-split{position:relative}.hero-split .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;position:relative;z-index:1}
+.hero-split h1,.hero-centered h1,.hero-diagonal h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:16px;letter-spacing:-.02em;font-family:'${fnt.display}',serif}
+.hero-split p,.hero-centered p,.hero-diagonal p{color:var(--dim);font-size:1.1rem;max-width:500px;margin-bottom:20px;line-height:1.7}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-img-wrapper{position:relative}.hero-img{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:${seg.shadow}}
 .hero-img img{width:100%;height:500px;object-fit:cover;display:block}
 .hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent 50%)}
-.hero-img-badge{position:absolute;bottom:20px;left:20px;z-index:2;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 16px;border-radius:${seg.radius};font-size:.8rem;display:flex;align-items:center;gap:8px}
-.hero-accent-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2))}
-.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.product-card{background:var(--bg2);border:${seg.cardBorder};border-radius:var(--radiusCard);overflow:hidden;transition:all .4s ease;cursor:pointer}
-.product-card:hover{transform:translateY(-6px);box-shadow:${seg.cardHover}}
-.product-card img{width:100%;height:200px;object-fit:cover;display:block}
-.product-body{padding:18px}
-.product-body h4{font-size:1rem;font-weight:700;margin-bottom:4px}
-.product-body p{color:var(--dim);font-size:.8rem}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
-.about-grid img{width:100%;border-radius:var(--radius);height:400px;object-fit:cover}
-.about-text p{color:var(--dim);font-size:.95rem;line-height:1.8;margin-bottom:16px}
-.contact{background:var(--bg2);text-align:center;padding:80px 0;position:relative}
-.contact::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(${seg.gradDir},var(--accent),var(--accent2))}
-.contact h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:8px;font-family:'${seg.font}',serif}
-.contact p{color:var(--dim);margin-bottom:24px}
-.contact-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:16px 32px;border-radius:${seg.radius};font-weight:700;font-size:1rem;text-decoration:none;transition:all .3s}
-.contact-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.3)}
-.contact-info{margin-top:20px;color:var(--dim);font-size:.9rem}
-footer{text-align:center;padding:24px 0;color:var(--dim);font-size:.8rem;border-top:1px solid rgba(255,255,255,.04)}
-.whatsapp-float{position:fixed;bottom:24px;right:24px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.3);transition:transform .3s;text-decoration:none}
-.whatsapp-float:hover{transform:scale(1.1)}
-.whatsapp-float svg{width:28px;height:28px;fill:#fff}
+.hero-img-badge{position:absolute;bottom:20px;left:20px;z-index:2;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 16px;border-radius:var(--radius);font-size:.8rem;display:flex;align-items:center;gap:8px}
+.hero-centered{justify-content:center;text-align:center}
+.hero-diagonal{position:relative}.diagonal-bg{position:absolute;inset:0;background:${pal.bg};z-index:0}.diagonal-svg{position:absolute;top:0;right:0;height:100%;width:50%;z-index:1;pointer-events:none}.hero-diagonal .hero-grid-reverse{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;position:relative;z-index:2}
+.hero-bg-shapes{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}.shape{position:absolute;border-radius:50%;background:${pal.primary};opacity:.03}.shape-1{width:500px;height:500px;top:-100px;right:-100px}.shape-2{width:300px;height:300px;bottom:-50px;left:-50px;background:${pal.secondary}}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}
+.product-img{position:relative;overflow:hidden;aspect-ratio:1}
+.product-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block}
+.product-card:hover .product-img img{transform:scale(1.08)}
+.product-info{padding:16px;text-align:center}
+.product-info h4{font-size:.95rem;font-weight:700;margin-bottom:4px}
+.product-link{font-size:.75rem;color:var(--accent);font-weight:600}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.gallery-item{position:relative;aspect-ratio:1;overflow:hidden}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block}
+.gallery-item:hover img{transform:scale(1.08)}
+.gallery-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{color:#fff;font-size:.85rem;font-weight:600}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.stars{color:#fbbf24;font-size:1rem;letter-spacing:2px}
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:24px;max-width:700px;margin-left:auto;margin-right:auto}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.about-card{text-align:left}
 @media(max-width:860px){
-.hero-grid{grid-template-columns:1fr;gap:30px}
+.hero-split .hero-grid,.hero-diagonal .hero-grid-reverse{grid-template-columns:1fr!important;gap:24px}
 .hero-img img{height:300px}
-.about-grid{grid-template-columns:1fr}
 .products-grid{grid-template-columns:repeat(2,1fr)}
-.nav-links a:not(.btn){display:none}
+.gallery-grid{grid-template-columns:repeat(2,1fr)}
+.testimonials-grid,.contact-grid{grid-template-columns:1fr}
+.stats-grid{grid-template-columns:repeat(3,1fr)!important}
+.diagonal-svg{display:none}
 }
+@media(max-width:540px){
+.products-grid,.gallery-grid{grid-template-columns:1fr}
+.hero-btns{flex-direction:column;align-items:center}
+}
+</style>
+<style>
+#ds-banner{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:10px 24px;text-align:center;position:relative;z-index:9999;border-bottom:1px solid rgba(255,255,255,.08)}
+#ds-banner span{font-size:.8rem;color:#fff}
+#ds-banner a{color:var(--accent);font-weight:700}
+#ds-banner button{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;position:absolute;right:16px;top:50%;transform:translateY(-50%);line-height:1}
 </style>
 </head>
 <body>
+<div id="ds-banner">
+<span>✨ Prévia exclusiva criada para vocês — chame no WhatsApp para ativar: <a href="https://wa.me/${waLink}" target="_blank" rel="noopener">${waLink}</a></span>
+<button onclick="document.getElementById('ds-banner').style.display='none';sessionStorage.setItem('ds_hide_banner','1')">✕</button>
+</div>
 <nav class="nav">
 <div class="nav-inner"><div class="nav-logo">${n}</div>
-<div class="nav-links">
-<a href="#produtos">Produtos</a><a href="#sobre">Sobre</a>
-<a href="#contato" class="btn btn-primary" style="padding:10px 20px;font-size:.8rem">${pers.cta}</a>
+<button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">☰</button>
+</div>
+<div class="nav-overlay" id="navOverlay">
+<button class="nav-close" onclick="toggleNav()">✕</button>
+<div class="nav-overlay-links">
+${seg.navItems.map(item => `<a href="#${item.id}" onclick="toggleNav()">${item.label}</a>`).join('')}
+<a href="https://wa.me/${waLink}" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:16px;padding:14px 32px">📱 Fale Conosco</a>
 </div></div>
 </nav>
-<section class="hero">
-<div class="container">
-<div class="hero-grid">
-<div>
-<div class="tag">${seg.icon} ${b}</div>
-<h1>${n}<br><span class="gradient">${seg.tagline}</span></h1>
-<p>${pers.heroP}</p>
-<div class="hero-btns">
-<a href="#produtos" class="btn btn-primary">Ver Produtos</a>
-<a href="https://wa.me/${waLink}" target="_blank" rel="noopener" class="btn btn-outline">${pers.cta}</a>
-</div>
-</div>
-<div class="hero-img">
-<img src="${seg.heroImg}" alt="${n}" loading="lazy">
-<div class="hero-img-badge">📍 ${city}</div>
-</div>
-</div>
-</div>
-<div class="hero-accent-bar"></div>
-</section>
-<section class="section" id="produtos">
-<div class="container">
-<div class="tag">✨ ${seg.section1Title}</div>
-<h2 class="section-title">Conheça nossas <span class="gradient">categorias</span></h2>
-<p style="color:var(--dim);margin-bottom:28px;max-width:500px">${seg.section1Sub}. Temos opções para todos os gostos e necessidades.</p>
-<div class="products-grid">
-<div class="product-card"><img src="${seg.cat1Img}" alt="${seg.cat1}" loading="lazy"><div class="product-body"><h4>${seg.cat1}</h4><p>Variedade e qualidade em ${seg.cat1.toLowerCase()}. Confira nossas opções.</p></div></div>
-<div class="product-card"><img src="${seg.cat2Img}" alt="${seg.cat2}" loading="lazy"><div class="product-body"><h4>${seg.cat2}</h4><p>O melhor em ${seg.cat2.toLowerCase()} para você e sua família.</p></div></div>
-<div class="product-card"><img src="${seg.cat3Img}" alt="${seg.cat3}" loading="lazy"><div class="product-body"><h4>${seg.cat3}</h4><p>Seleção especial de ${seg.cat3.toLowerCase()} com preços imperdíveis.</p></div></div>
-<div class="product-card"><img src="${seg.cat4Img}" alt="${seg.cat4}" loading="lazy"><div class="product-body"><h4>${seg.cat4}</h4><p>Complete sua experiência com nossos ${seg.cat4.toLowerCase()}.</p></div></div>
-</div>
-</div>
-</section>
-<section class="section" id="sobre">
-<div class="container">
-<div class="tag">📖 Quem Somos</div>
-<h2 class="section-title">Conheça a <span class="gradient">${n}</span></h2>
-<div class="about-grid">
-<div><div class="about-text"><p>${seg.about1}</p><p>${seg.about2}</p><p>${pers.aboutExtra}</p><p style="margin-top:12px">📍 <strong>${city}</strong></p></div></div>
-<div><img src="${seg.heroImg2}" alt="Sobre ${n}" loading="lazy"></div>
-</div>
-</div>
-</section>
-<section class="contact" id="contato">
-<div class="container">
-<div class="tag">💬 Entre em Contato</div>
-<h2>Vamos conversar?</h2>
-<p>Tire dúvidas, peça orçamentos ou agende seu horário.</p>
-            <a class="contact-btn" href="https://wa.me/${waLink}" target="_blank" rel="noopener">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.882.51 3.64 1.395 5.137L2 22l4.925-1.316C8.354 21.503 10.12 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/><\/svg>
-              ${pers.cta}
-            </a>
-            ${e ? `<a class="contact-btn" href="mailto:${e}" style="background:#3B82F6" target="_blank" rel="noopener">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/><\/svg>
-              Enviar por Email
-            </a>` : ''}
-            <div class="contact-info">${n} · ${b} · ${city} · WhatsApp: ${p}${e ? ` · Email: ${e}` : ''}</div>
-</div>
-</section>
-<footer><div class="container"><p>© 2026 ${n} — Todos os direitos reservados</p></div></footer>
-<a class="whatsapp-float" href="https://wa.me/${waLink}" target="_blank" rel="noopener" aria-label="WhatsApp">
-<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.882.51 3.64 1.395 5.137L2 22l4.925-1.316C8.354 21.503 10.12 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/><\/svg>
+${heroHTML(layout)}
+${middleHTML}
+<footer style="text-align:center;padding:24px 0;color:var(--dim);font-size:.8rem;border-top:1px solid rgba(255,255,255,.04)"><div class="container"><p>© 2026 ${n} — Todos os direitos reservados</p></div></footer>
+<a class="whatsapp-float" href="https://wa.me/${waLink}" target="_blank" rel="noopener" aria-label="WhatsApp" style="position:fixed;bottom:24px;right:24px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.3);transition:transform .3s;text-decoration:none" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+<svg viewBox="0 0 24 24" width="28" height="28" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.882.51 3.64 1.395 5.137L2 22l4.925-1.316C8.354 21.503 10.12 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/><\/svg>
 </a>
 <script>
+if(sessionStorage.getItem('ds_hide_banner')) document.getElementById('ds-banner').style.display='none';
+function toggleNav(){document.getElementById('navOverlay').classList.toggle('active')}
 gsap.registerPlugin(ScrollTrigger);
-gsap.from('.hero h1',{duration:1,y:40,opacity:0,ease:'power3.out'});
-gsap.from('.hero p',{duration:1,y:30,opacity:0,ease:'power3.out',delay:.2});
-gsap.from('.hero-btns > *',{duration:.8,y:20,opacity:0,ease:'power3.out',delay:.4,stagger:.15});
-gsap.from('.hero-img',{duration:1.2,x:60,opacity:0,ease:'power3.out',delay:.2});
-gsap.from('.tag',{duration:.6,y:20,opacity:0,ease:'power2.out',scrollTrigger:{trigger:'.tag',start:'top 90%'}});
-document.querySelectorAll('.product-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.6,y:40,opacity:0,ease:'power2.out',delay:i*.1})});
-gsap.from('.about-text',{duration:.8,x:-40,opacity:0,ease:'power2.out',scrollTrigger:{trigger:'.about-text',start:'top 80%'}});
-gsap.from('.about-grid img',{duration:.8,x:40,opacity:0,ease:'power2.out',scrollTrigger:{trigger:'.about-grid img',start:'top 80%'}});
-gsap.from('.contact',{duration:1,y:40,opacity:0,ease:'power3.out',scrollTrigger:{trigger:'.contact',start:'top 85%'}});
+gsap.from('.hero-title',{duration:.8,scale:.92,y:30,opacity:0,ease:'power3.out'});
+gsap.from('.tag',{duration:.6,y:-10,opacity:0,ease:'back.out(1.7)',delay:.2});
+gsap.from('.hero-sub',{duration:.6,y:15,opacity:0,ease:'power2.out',delay:.45});
+gsap.from('.hero-cta',{duration:.5,scale:0,opacity:0,ease:'back.out(2)',delay:.65});
+gsap.from('.hero-btns .btn-outline',{duration:.5,scale:0,opacity:0,ease:'back.out(2)',delay:.75});
+document.querySelectorAll('.product-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:60,opacity:0,ease:'power3.out',delay:i*.15})});
+document.querySelectorAll('.gallery-item').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:40,opacity:0,ease:'power2.out',delay:i*.1})});
+document.querySelectorAll('.testimonial-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:40,opacity:0,ease:'power2.out',delay:i*.12})});
+document.querySelectorAll('.stat-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'power2.out',delay:i*.1})});
+document.querySelectorAll('.contact-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'power2.out',delay:i*.1})});
+gsap.utils.toArray('.stat-number').forEach(el=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 90%'},duration:1.5,innerText:0,snap:{innerText:1},ease:'power2.out'})});
 <\/script>
 </body>
 </html>`;

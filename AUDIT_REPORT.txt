@@ -1,0 +1,560 @@
+================================================================================
+AUDIT_REPORT - SaleStackv2
+Data: 2026-07-01
+Auditor: Auditor Técnico Sênior (SaaS B2B)
+================================================================================
+
+## 1. VISAO GERAL DO REPO
+
+### Estrutura de Pastas (3 niveis)
+
+SaleStackv2/
+├── .git/
+├── .github/
+│   └── workflows/            (VAZIO - sem CI/CD)
+├── .gitignore
+├── .pytest_cache/
+├── README.md
+├── SECURITY.md
+├── scripts/
+│   └── smoke_test.py
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   └── test_security_middleware.py
+└── DealStack/                (codigo principal)
+    ├── .claude/skills/       (4 skills: ecommerce, freelance, meta-ads, shopify)
+    ├── .env                  (ATENCAO: .env commitado!)
+    ├── .env.example
+    ├── .gitignore
+    ├── .openclaude/settings.json
+    ├── README.md
+    ├── requirements.txt
+    ├── content-factory/
+    │   ├── generate_content.py
+    │   └── templates/ (analise_loja.md, linkedin_post.md, proposta_workana.md)
+    ├── data/                 (raw, processed, propostas - leads reais em CSV/JSON)
+    ├── docs/                 (REPOSITORIO_BUILD.md, relatorio_seguranca.md, security.txt)
+    ├── landing-dealstack/
+    │   └── index.html
+    ├── meta-ops/
+    │   ├── meta_campaign_manager.py
+    │   └── meta_ops.py
+    ├── n8n-workflows/
+    │   ├── py.typed
+    │   └── setup.py
+    ├── pet-price-comparator/ (projeto separado, completo com backend FastAPI + frontend Next)
+    ├── pipeline_output/      (17 execucoes do pipeline com leads reais - RASTREADOS NO GIT)
+    ├── sales/
+    │   ├── add_prospect.py
+    │   └── prospects.csv
+    ├── sales-prospecting/    (NUCLEO DO SaaS - DUPLICADO em nivel superior)
+    │   ├── .claude/skills/   (mesmas 4 skills)
+    │   ├── .env              (ATENCAO: .env commitado!)
+    │   ├── .gitignore
+    │   ├── .openclaude/
+    │   ├── README.md
+    │   ├── dashboard.html    (2694 linhas - frontend Kanban)
+    │   ├── landing.html      (NAO EXISTE - usa fallback inline)
+    │   ├── login.html        (108 linhas)
+    │   ├── sales.html        (1001 linhas - template proposta visual)
+    │   ├── neon_db.py        (503 linhas - camada PostgreSQL)
+    │   ├── requirements.txt
+    │   ├── server.py         (1863 linhas - CORE DO SERVIDOR HTTP)
+    │   ├── content-factory/  (duplicado)
+    │   ├── data/             (duplicado)
+    │   ├── docs/             (relatorio_seguranca.md, security.txt)
+    │   ├── meta-ops/         (duplicado)
+    │   ├── n8n-workflows/    (duplicado)
+    │   ├── pet-price-comparator/ (duplicado)
+    │   ├── references/
+    │   │   └── categories.json
+    │   ├── sales-video/      (frontend Vite/React)
+    │   ├── scripts/
+    │   │   ├── deploy/       (.env.example, deploy.sh)
+    │   │   ├── prospecting/  (extract.py, pipeline.py, pipeline_unified.py, generate_proposals_direct.py, neon_db.py, neon_schema.sql, run.py)
+    │   │   └── security/     (fixes_seguranca_part1.py a part8.py + part7.html)
+    │   └── shopify-ops/      (shopify_ops.py - duplicado)
+    ├── sales-video/          (Vite/React - duplicado em sales-prospecting/)
+    ├── scripts/              (DUPLICADO de sales-prospecting/scripts/)
+    ├── shopify-ops/          (shopify_ops.py - duplicado)
+    ├── deta.yaml
+    ├── package-lock.json
+    └── render.yaml
+
+### Stack Tecnologico Real
+
+- Backend: Python 3.11+, http.server (stdlib), sem framework web
+- Frontend: HTML + CSS + Vanilla JS (sem React/Vue/Angular no dashboard)
+- Autenticacao: JWT (PyJWT, HS256, 24h expiry) + API Keys (SHA-256)
+- Senhas: bcrypt (custo 12) com fallback SHA-256
+- Banco: JSON file-based (~/.hermes/shared_data/) com fallback opcional para Neon PostgreSQL
+- Pagamentos: Stripe (checkout, subscriptions, webhooks, portal) - opcional
+- Pipeline: OpenStreetMap Overpass API para extracao de leads
+- Propostas: Claude AI via CLI "hermes" OU template hardcoded no generate_proposals_direct.py
+- Automacao: n8n (workflows nao versionados/exportados no repo)
+- Deploy: Render, Deta Space (configs conflitantes)
+
+### Arquivos e Linhas
+
+- ~216 arquivos de codigo fonte (excluindo node_modules, .git, data, cache, binarios)
+- ~27.890 linhas de codigo totais
+- Tamanho do repo: ~15MB (incluindo dados de lead, pipeline_output, node_modules)
+
+### Ponto de Entrada
+
+server.py em DealStack/sales-prospecting/server.py (main() na linha 1843)
+Porta: 8765 (configuravel via PORT env var)
+Comando: python3 server.py
+
+================================================================================
+
+## 2. FUNCIONALIDADES IMPLEMENTADAS
+
+### [FUNCIONANDO] Extracao de leads via OpenStreetMap/Overpass
+- Codigo: sales-prospecting/scripts/prospecting/extract.py
+- Cobre 67 tipos de negocio em 9 categorias (hospitality, retail, food, health, beauty, automotive, services, education, entertainment)
+- Geocodifica via Nominatim, busca via Overpass API
+- Filtros: only_with_phone, only_with_website, only_whatsapp_dd21, limit, radius
+- Testes: nenhum
+- Conectado ao pipeline: sim, via pipeline.py e pipeline_unified.py
+
+### [FUNCIONANDO] Dashboard Kanban
+- Codigo: sales-prospecting/dashboard.html (~2694 linhas)
+- Filtros por status (novo, contatado, negociacao, fechado, perdido), produto, pontuacao
+- Exportacao CSV, paginacao (25/pagina)
+- Multi-tenant: filtra por tenant_id
+- Testes: nenhum
+
+### [FUNCIONANDO] Login/Registro com JWT
+- Codigo: server.py (handle_login linha 1298, handle_register linha 1356)
+- Rate limiting: 5 tentativas em 5 min
+- Validacao de senha: 8+ chars, 1 digito, 1 maiuscula, 1 minuscula
+- JWT com 24h expiry
+- Testes: smoke_test.py (basico)
+
+### [FUNCIONANDO] Multi-tenant com workspaces isolados
+- Codigo: server.py funcoes get_tenant_id(), get_tenant_users(), check_plan_limit()
+- Isolamento por tenant_id em leads
+- Usuarios convidados via invite_code
+- Testes: nenhum
+
+### [FUNCIONANDO] Planos com limites (Starter R$97, Pro R$197, Agency R$497, Founder R$997, Founder Vitalicio R$2.497)
+- Codigo: server.py PLANS dict (linha 84), check_plan_limit()
+- Limites por leads, regioes, usuarios
+- Testes: nenhum
+
+### [FUNCIONANDO] Integracao Stripe (checkout, subscription, webhook, portal)
+- Codigo: server.py sync_stripe_products() (linha 155), create_stripe_checkout() (linha 183), create_stripe_portal() (linha 203), handle_stripe_webhook() (linha 1735)
+- Stripe prices sync automatico na inicializacao
+- Webhook valida assinatura via stripe.Webhook.construct_event()
+- Trata eventos: checkout.session.completed, invoice.payment_failed, invoice.payment_succeeded
+- Testes: smoke_test.py testa webhook basico
+
+### [FUNCIONANDO] Painel Admin
+- Codigo: server.py serve_admin_page() (linha 733), serve_admin() (linha 1193), handle_admin() (linha 1219)
+- Estatisticas: total usuarios, ativos, suspensos, MRR
+- Acoes: bloquear/ativar/excluir usuario, sincronizar Stripe, migrar Neon
+- Testes: nenhum
+
+### [FUNCIONANDO] Programa de Afiliados
+- Codigo: server.py serve_affiliate_stats() (linha 1270), serve_affiliates() (linha 1282)
+- Comissao 30% recorrente (apenas exibicao - sem calculo/processamento automatico)
+- Testes: nenhum
+
+### [FUNCIONANDO] Geracao de Propostas (modo offline - sem IA)
+- Codigo: scripts/prospecting/generate_proposals_direct.py
+- Templates hardcoded para 3 produtos: LOBBY (R$197-697), CRM/PDV (R$300-800), SITE (R$1.500-3.000)
+- Testes: nenhum
+
+### [FUNCIONANDO] Landing page com precos
+- Codigo: server.py _default_landing_page() (linha 853)
+- Fallback inline se landing.html nao existir
+- Testes: nenhum
+
+### [FUNCIONANDO] Security Middleware (implementado)
+- Codigo: server.py class SecurityMiddleware (linha 365)
+- CORS, Rate limiting, API key validation, Security headers
+- Testes: test_security_middleware.py (9 testes)
+
+================================================================================
+
+## 3. FUNCIONALIDADES INCOMPLETAS/QUEBRADAS
+
+### [MORTIVO] Geracao de propostas via Claude/Hermes CLI
+- run.py depende do comando "hermes" CLI nao instalado/documentado nas dependencias
+- requirements.txt NAO lista hermes, PyJWT, stripe, bcrypt como dependencias
+- generate_proposals_direct.py foi criado para CONTORNAR essa dependencia quebrada
+- Evidencia: run.py linha 63: cmd = ["hermes", "chat", "-q", prompt, "-Q"]
+
+### [MORTIVO] Pet-price-comparator
+- Projeto completo (backend FastAPI + frontend Next.js + scrapers) mas:
+  - Scrapers sao scaffolds vazios (cobasi.py, zooplus.py, petz.py - comentarios "scaffold")
+  - petlove.py: unico com implementacao
+  - compare.py linha 84: "# TODO: conectar scraper/banco. Por enquanto, retorna mock estavel."
+  - cover_requests.py linha 54: "# TODO: Notificar parceiro via WhatsApp/webhook"
+  - Nao integrado ao pipeline principal nem ao dashboard
+
+### [MORTIVO] Meta Ads e Shopify Ops
+- Scripts existem mas NAO tem integracao com o dashboard ou pipeline
+- Dependem de tokens (.env) que provavelmente nao estao configurados
+- Nao ha testes
+
+### [MORTIVO] Conteudo duplicado
+- DealStack/scripts/ e DealStack/sales-prospecting/scripts/ sao copias
+- DealStack/shopify-ops/ e DealStack/sales-prospecting/shopify-ops/ sao copias
+- DealStack/sales-video/ e DealStack/sales-prospecting/sales-video/ sao copias
+- 3 copias de neon_db.py
+- Isso gera inconsistencia e manutencao impossivel
+
+### [MORTIVO] Security fixes NAO aplicados
+- DealerStack/scripts/security/fixes_seguranca_part*.py contem codigo corrigido
+- Mas server.py atual AINDA USA a implementacao antiga
+- Os "fixes" sao apenas referencia/documentacao, nao o codigo rodando
+
+### [PENDENTE] landing.html e admin.html
+- Referenciados em server.py mas NAO existem como arquivos
+- Usam fallback inline (_default_landing_page(), _default_admin_page())
+
+### [PENDENTE] Testes
+- Apenas 9 testes de security middleware
+- ZERO testes para pipeline, extracao, propostas, neon_db, multi-tenant, billing
+
+### [QUEBRADO] login.html password minlength="6"
+- HTML aceita 6 chars (linha 36: minlength="6")
+- Server exige 8 chars (PASSWORD_MIN_LENGTH = 8)
+- Usuario pode criar senha de 6 chars no frontend, backend rejeita
+
+### [MORTIVO] Workflows n8n
+- Diretorio n8n-workflows existe mas contem apenas setup.py e py.typed
+- NENHUM workflow JSON exportado/versionado
+
+================================================================================
+
+## 4. BUGS E RISCOS TECNICOS
+
+### BUGS OBVIOS
+
+[B01] neon_db.py - upsert_leads() NAO inclui tenant_id na SELECT (linha 146)
+  - A query SELECT em get_leads() nao retorna tenant_id
+  - Isso quebra o filtro multi-tenant no dashboard
+
+[B02] server.py linha 1320 - verify_password() com fallback SHA-256
+  - Se bcrypt nao estiver instalado, usa SHA-256 (SEM SALT)
+  - SECURITY.md diz que isso foi corrigido, mas o codigo atual ainda tem o fallback
+
+[B03] Pipeline subprocess timeout excessivo (5 min)
+  - server.py linha 1693: timeout=300
+  - pipeline.py linha 163: timeout=180 * n_leads
+  - Facil DoS: 10 requisicoes travam o servidor
+
+[B04] login.html e server_PASSWORD_MIN_LENGTH inconsistentes
+  - Frontend: 6 chars, Backend: 8 chars
+
+[B05] CORS na rota do_OPTIONS nao verifica ALLOWED_ORIGINS vazia
+  - Se ALLOWED_ORIGINS = "", check_origin() retorna False, mas get_cors_headers() retorna {}
+
+### FALHAS DE SEGURANCA
+
+[S01] .env files COMMITADOS no repositorio
+  - DealStack/.env e DealStack/sales-prospecting/.env
+  - Contem chaves e configuracoes sensiveis (mesmo que placeholders)
+
+[S02] Dependencias de seguranca NAO listadas no requirements.txt
+  - PyJWT (jwt), stripe, bcrypt estao em try/except ImportError
+  - Servidor RODA SEM autenticacao JWT, sem Stripe, sem bcrypt sem aviso claro
+  - Requirements.txt lista pydantic, jinja2 mas NAO sao usados no server.py
+
+[S03] Stripe webhook retorna 200 para QUALQUER excecao (linha 1791)
+  - excpet generico: "except Exception: self.send_json(200, {"received": True})"
+  - Esconde erros de processamento
+
+[S04] Log sanitization incompleto
+  - log_message() tenta sanitizar mas usa skip_next que pode falhar
+  - Se header for "Authorization: Bearer token1 token2", so oculta token2
+
+[S05] API Keys armazenadas em formato JSON no .env
+  - Formato: API_KEYS=[{"name":"local","key":"<KEY>","scopes":["read","write"]}]
+  - Armazenadas em texto plano (hash SHA-256 apenas em memoria)
+
+[S06] Rate limit de login usa memoria (defaultdict)
+  - Se servidor reiniciar, rate limit zera
+  - Nao persiste bloqueios
+
+[S07] JWT_SECRET gerado automaticamente se vazio (linha 48)
+  - hashlib.sha256(secrets.token_hex(32)).hexdigest()
+  - Toda reinicializacao gera nova secret - invalida todos os tokens existentes
+
+[S08] CORS com * permitido se configurado no ALLOWED_ORIGINS
+  - check_origin() linha 421: if allowed == "*": return True
+
+[S09] __import__() usado para imports dinamicos
+  - file_lock = __import__('threading').RLock() (linha 216)
+  - self._block_lock = __import__('threading').Lock() (linha 372)
+  - handle_extract() usa __import__('subprocess').run() (linha 1693)
+  - Pratica insegura e desnecessaria
+
+[S10] Pipeline EXECUTA subprocess como logged user
+  - Nao ha isolamento, podendo acessar qualquer recurso do sistema
+  - Command injection via --location e --category (embora subprocess.run sem shell=True mitigue)
+
+[S11] lead["raw_tags"] armazena TAGS OSM COMPLETAS (extract.py linha 201)
+  - raw_tags pode conter dados sensiveis do OSM nao filtrados
+  - Armazenados sem sanitizacao no JSON/BD
+
+### FALTA DE LOGS/MONITORAMENTO
+
+- Pipeline de extracao: sem logging estruturado
+- Webhooks Stripe: sem log de erros (excecao silenciosa)
+- Login: logs apenas via log_message() que sanitiza demais
+- Lead scoring/qualificacao: sem audit trail
+- Nao ha metricas de uso (leads/dia, erros, performance)
+
+================================================================================
+
+## 5. ARQUITETURA MULTI-TENANT E BILLING
+
+### Isolamento entre Tenants
+
+IMPLEMENTACAO BASICA:
+- Campo tenant_id em leads (string)
+- server.py: get_tenant_id() retorna user["tenant_id"] ou user["id"]
+- Filtro em serve_shared_leads(): "l.get('tenant_id') == tenant_id"
+- Neon: SELECT em get_leads_for_tenant() usa WHERE tenant_id = %s
+
+FRAGILIDADES:
+- tenant_id nao eh validado contra lista de tenants validos
+- Usuario pode forjar tenant_id se conseguir acesso interno
+- Dados de tenants diferentes ficam no MESMO arquivo JSON (leads.json)
+- Sem criptografia em repouso (arquivos JSON em texto plano)
+- Neon DB: tabela unica leads, sem schema por tenant
+
+### Integracao Stripe
+
+STATUS: IMPLEMENTADA PARCIALMENTE
+- sync_stripe_products(): cria produtos e precos no Stripe automaticamente
+- create_stripe_checkout(): gera sessao de checkout
+- create_stripe_portal(): portal de assinatura
+- handle_stripe_webhook(): processa eventos (payment_failed, completed)
+- Planos: Starter (R$97), Pro (R$197), Agency (R$497), Founder (R$997), Founder Vitalicio (R$2.497)
+
+PROBLEMAS:
+- Stripe e OPCIONAL - servidor funciona sem
+- stripe_price_id nos planos sao placeholders ("price_starter", "price_pro", etc.)
+- Stripe NAO esta configurado no .env.example padrao
+- Sem teste de integracao Stripe
+- Webhook nao persiste falhas (log apenas console)
+- Nao ha tratamento de subscription.cancel, customer.subscription.deleted
+
+### Programa de Afiliados
+
+STATUS: ESBOCO
+- Apenas rota GET /api/affiliate/stats le estatisticas
+- Nao ha criacao real de comissoes, pagamentos, tracking de links
+- Comissao 30% e exibida mas nao calculada/processada
+- Sem integracao com Stripe Connect para pagar afiliados
+
+================================================================================
+
+## 6. PIPELINE DE PROSPECCAO (CORE DO PRODUTO)
+
+### Fluxo Completo
+
+1. EXTRACAO: extract.py -> Overpass API (OpenStreetMap)
+   - Input: location, category, radius, limit
+   - Output: JSON com leads (nome, telefone, endereco, tipo, coordenadas)
+   - Funciona, testado com leads reais (Jacarepagua, Botafogo, Porto Seguro)
+
+2. SINCRONIZACAO: pipeline.py post_to_dashboard() -> API /api/leads
+   - Envia leads para o dashboard (JSON file ou Neon)
+   - Depende de DASHBOARD_API_KEY configurada
+
+3. GERACAO DE PROPOSTAS: run.py -> hermes CLI (Claude AI)
+   - Q U E B R A D O - hermes CLI nao esta disponivel/instalado
+   - Workaround: generate_proposals_direct.py (templates hardcoded)
+   - Propostas sao textos de vendas para WhatsApp
+
+4. OUTREACH: MANUAL
+   - Pipeline gera propostas em .txt
+   - Instrucao: "Copie os textos para WhatsApp" (pipeline.py linha 215)
+   - SEM automacao de envio (Z-API, WPPConnect nao implementados)
+
+5. FOLLOW-UP: MANUAL
+   - Dashboard permite marcar status (contatado, negociacao, fechado)
+   - Sem automacao de follow-up
+
+### Onde o Fluxo Quebra
+
+1. EXTRACAO -> SINCRONIZACAO: DASHBOARD_API_KEY precisa estar configurada
+2. SINCRONIZACAO -> PROPOSTAS: hermes CLI nao existe -> fallback para template hardcoded
+3. PROPOSTAS -> OUTREACH: 100% manual (copiar e colar no WhatsApp)
+4. OUTREACH -> FOLLOW-UP: sem automacao
+
+### Workflows n8n
+
+NENHUM workflow versionado. Diretorio n8n-workflows/ contem apenas setup.py e py.typed.
+
+================================================================================
+
+## 7. TESTES
+
+### Suite Existente
+
+Arquivos: tests/test_security_middleware.py, tests/conftest.py, scripts/smoke_test.py
+Framework: pytest
+
+Testes de seguranca (9 testes):
+- test_security_headers_present
+- test_cors_rejects_unknown_origin
+- test_cors_allows_configured_origin
+- test_cors_allows_wildcard_with_credentials
+- test_login_rate_limit_and_reset
+- test_rate_limit_blocks_after_max_login_attempts
+- test_successful_login_resets_rate_limit
+- test_password_strength_valid/invalid (4 tests)
+- test_hash_password_with_bcrypt
+
+Smoke test (scripts/smoke_test.py): 8 testes funcionais basicos
+
+### Cobertura Aproximada
+
+< 1% do codigo total
+
+### O que NAO tem teste nenhum
+
+CRITICO:
+- Pipeline de extracao (extract.py) - 342 linhas sem teste
+- Pipeline unificado (pipeline_unified.py) - 337 linhas sem teste
+- Geracao de propostas (generate_proposals_direct.py) - 120 linhas sem teste
+- neon_db.py - 503/364 linhas sem teste
+- server.py (core) - ~1500 linhas sem teste (apenas 9 de security middleware)
+
+ALTO:
+- Autenticacao/Registro (handle_register, handle_login)
+- Multi-tenant (filtros, limites, convites)
+- Stripe (checkout, webhook, portal)
+- Admin (bloqueio, ativacao, metricas)
+- Afiliados
+- Frontend (dashboard.html, login.html)
+
+MEDIO:
+- Meta ops
+- Shopify ops
+- Content factory
+
+================================================================================
+
+## 8. VARIAVEIS DE AMBIENTE E CONFIGS
+
+### Env Vars Esperadas (.env.example)
+
+Via DealStack/.env.example:
+1. API_KEYS - JSON com chaves de API
+2. DASHBOARD_API_KEY - chave para pipeline sincronizar
+3. ALLOWED_ORIGINS - origens CORS
+4. RATE_LIMIT_PER_MIN - rate limit geral (default: 60)
+5. MAX_CONTENT_LENGTH - max payload (default: 1048576)
+6. SHARED_DATA_DIR - diretorio de dados (default: ~/.hermes/shared_data)
+7. JWT_SECRET - secret JWT (hex 32)
+8. ADMIN_USERNAME - admin username (default: admin)
+9. ADMIN_PASSWORD - admin password (gerada se vazia)
+10. META_ACCESS_TOKEN - token Meta Ads
+11. META_API_VERSION - versao API Meta (v20.0)
+12. SHOPIFY_API_TOKEN - token Shopify
+13. OPENAI_API_KEY - key OpenAI (opcional)
+14. DATABASE_URL - URL Neon PostgreSQL
+15. STRIPE_SECRET_KEY - chave secreta Stripe
+16. STRIPE_PUBLISHABLE_KEY - chave publicavel Stripe
+17. STRIPE_WEBHOOK_SECRET - signing secret webhook
+
+Vars "magicas" (usadas sem documentacao):
+- PORT (server.py linha 1844, nao documentada)
+- NEON_DATABASE_URL (neon_db.py linha 30, nao documentada no .env.example)
+- SHOPIFY_STORE_DOMAIN (shopify_ops.py linha 77, nao documentada)
+- DASHBOARD_URL (pipeline.py linha 25, nao documentada)
+
+### Vars Obrigatorio vs Opcional
+
+NENHUMA var e realmente obrigatoria. O servidor FUNCIONA SEM STRIPE, SEM JWT, SEM BANCO. Isso e um risco: usuario pode rodar em producao sem autenticacao.
+
+================================================================================
+
+## 9. DEPLOY E INFRA
+
+### Como e Rodado Hoje (Dev)
+
+python3 server.py na porta 8765
+Usa arquivos JSON em ~/.hermes/shared_data/
+.env com configuracoes locais
+
+### Como e Rodado (Prod - intencao)
+
+Render (render.yaml) ou Deta Space (deta.yaml)
+Servico systemd com nginx reverse proxy (deploy.sh)
+Neon PostgreSQL como banco de dados
+
+### O que Falta para Producao
+
+1. CI/CD: .github/workflows/ VAZIO - sem testes automaticos, sem lint, sem deploy automatizado
+2. Docker: pet-price-comparator tem Dockerfile, mas o servidor principal NAO
+3. HTTPS: deploy.sh configura nginx mas SSL e manual (certbot)
+4. Health checks: render.yaml tem /dashboard, Deta tem /api/stats
+5. Backup: nenhum script de backup de dados
+6. Monitoramento: sem logs estruturados, sem metricas, sem alertas
+7. Secrets management: .env file-based, sem vault/secret manager
+8. Multi-ambiente: sem separacao dev/staging/prod
+9. Database migration: neon_schema.sql existe mas sem mecanismo de migracao (Alembic nao configurado no server.py, apenas no pet-price-comparator)
+10. Rollback: nenhum mecanismo
+
+================================================================================
+
+## 10. CHECKLIST "PRONTO PRA VENDER"
+
+### Seguranca: 3/10
+Justificativa: .env commitado, fallback SHA-256 sem salt, Stripe/JWT/bcrypt opcionais, security fixes nao aplicados, webhook retorna 200 ate pra erro, sem logs de auditoria, sem HTTPS nativo, CORS pode ser configurado como *.
+
+### Estabilidade/Confiabilidade do Pipeline: 2/10
+Justificativa: Pipeline quebra se hermes CLI nao estiver instalado. Depende de API keys nao validadas. Timeout excessivo (5min). Sem testes. Dados em JSON file sem lock de escrita adequado. Duplicacao de codigo causa inconsistencias.
+
+### Onboarding de Novo Cliente (Self-Service?): 4/10
+Justificativa: Landing page com precos existe. Registro com selecao de plano funciona. Mas: nao ha tutorial, onboarding tutorial, importacao CSV de leads, integracao WhatsApp. Cliente precisa copiar texto de proposta manualmente.
+
+### Cobranca Automatica (Stripe ponta a ponta?): 5/10
+Justificativa: Stripe integrado (checkout, webhook, subscription, portal) mas e OPCIONAL. Precos fixos no codigo (sem dashboard de precos). Sem trials. Webhook tem tratamento generico de erros. Sem teste de integracao Stripe.
+
+### Escalabilidade (quantos leads/dia aguenta hoje?): 2/10
+Justificativa: JSON file-based = gargalo serio (>1000 leads o arquivo fica lento). Sem fila de processamento. Pipeline sincrono (trava o servidor durante extracao). Rate limit de 60 req/min global. Nao suporta concorrencia.
+
+### Documentacao: 5/10
+Justificativa: README completo com stack, setup, env vars. SECURITY.md detalhado. Mas: nao ha docs de API, arquitetura, deployment em producao. Workflows n8n nao documentados. Pipeline nao documentado.
+
+### UX do que existe hoje (dashboard): 6/10
+Justificativa: Dashboard visualmente bonito (tema escuro, animacoes). Kanban funcional. Mas: sem feedback de carregamento, sem notificacoes, sem mobile-first. login.html tem validacao inconsistente. Proposta visual (sales.html) e estatica.
+
+================================================================================
+
+## 11. TOP 10 PRIORIDADES
+
+[PRIORIDADE 1] - Aplicar os security fixes (fixes_seguranca_part*.py) no server.py - Por que: senhas com fallback SHA-256, .env commitado, CORS fragil, JWT opcional. Risco de exposicao total de dados. - Esforco: MEDIO (aplicar codigo ja escrito e testar)
+
+[PRIORIDADE 2] - Tornar dependencias OBRIGATORIAS (bcrypt, PyJWT, stripe, psycopg) e remover try/except - Por que: servidor roda sem autenticacao, sem criptografia de senha, sem pagamento. Produto vendavel requer que tudo funcione sempre. - Esforco: BAIXO (editar requirements.txt e server.py)
+
+[PRIORIDADE 3] - Eliminar duplicacao de codigo (manter apenas DealStack/sales-prospecting/, remover copias) - Por que: 3 copias de neon_db.py, pipeline, extract -> inconsistencias, bugs, manutencao impossivel. - Esforco: ALTO (revisar ~15 arquivos, consolidar)
+
+[PRIORIDADE 4] - Substituir JSON file storage por Neon PostgreSQL como unico banco - Por que: JSON file não escala, sem concorrencia, sem backup, dados expostos. Neon ja implementado mas opcional. - Esforco: MEDIO (tornar obrigatorio, migrar dados, testar)
+
+[PRIORIDADE 5] - Implementar fila de processamento async para pipeline (Celery/Redis ou similar) - Por que: pipeline sincrono trava servidor por 5+ min. Precisa rodar em background com status. - Esforco: ALTO (arquitetura nova)
+
+[PRIORIDADE 6] - Implementar automacao de outreach (Z-API ou WPPConnect) - Por que: pipeline termina com "copie para o WhatsApp". Sem automacao, o produto nao entrega o valor prometido. - Esforco: ALTO (integracao nova)
+
+[PRIORIDADE 7] - Criar suíte de testes (minimo: pipeline, autenticacao, multi-tenant, Stripe) - Por que: 0% de cobertura no core do produto. Qualquer mudanca quebra sem testes. - Esforco: ALTO (testes de integracao + unitarios)
+
+[PRIORIDADE 8] - Configurar CI/CD (.github/workflows com lint + testes + deploy) - Por que: sem CI/CD, cada deploy e manual e arriscado. Impede iteracao rapida. - Esforco: MEDIO (configurar GitHub Actions)
+
+[PRIORIDADE 9] - Stripe: tornar obrigatorio, adicionar testes de integracao, tratar webhooks faltantes - Por que: cobranca e core do modelo de negocios. Atualmente opcional e sem testes. - Esforco: MEDIO
+
+[PRIORIDADE 10] - Implementar logging estruturado e monitoramento basico - Por que: sem logs, nao da pra debuggar producao, detectar ataques, ou medir uso. - Esforco: BAIXO (adicionar logging JSON + Sentry/Logfire)
+
+================================================================================
+FIM DO RELATORIO
+================================================================================
