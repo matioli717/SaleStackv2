@@ -17,20 +17,27 @@ import stripe
 dotenv_path = Path(__file__).parent.parent / ".env"
 load_dotenv(dotenv_path=dotenv_path)
 
+STORAGE_MODE = os.environ.get("STORAGE_MODE", "neon").lower()
+
 try:
     from neon_db import is_neon_available, init_db as neon_init_db, get_leads as neon_get_leads, get_lead as neon_get_lead, get_leads_for_tenant as neon_get_leads_for_tenant, upsert_leads as neon_save_leads, get_proposals as neon_get_proposals, get_proposal as neon_get_proposal, upsert_proposals as neon_save_proposals, get_stats as neon_get_stats, get_metrics as neon_get_metrics, update_lead_status as neon_update_status, migrate_from_json as neon_migrate
     NEON_AVAILABLE = is_neon_available()
-    if NEON_AVAILABLE:
-        neon_init_db()
-        print("[NEON] PostgreSQL conectado")
-    else:
-        print("[NEON] PostgreSQL nao disponivel (defina DATABASE_URL para ativar)")
 except ImportError:
     NEON_AVAILABLE = False
-    print("[NEON] neon_db.py nao encontrado, usando JSON")
 except Exception as e:
     NEON_AVAILABLE = False
     print(f"[NEON] Erro ao conectar: {e}")
+
+if STORAGE_MODE == "neon":
+    if not NEON_AVAILABLE:
+        sys.exit("[ERRO] STORAGE_MODE=neon mas PostgreSQL (Neon) nao esta disponivel. Configure DATABASE_URL no .env ou use STORAGE_MODE=json para dev local.")
+    neon_init_db()
+    print("[NEON] PostgreSQL conectado (modo producao)")
+else:
+    if NEON_AVAILABLE:
+        print("[AVISO] STORAGE_MODE=json -- usando JSON files. Neon PostgreSQL disponivel mas ignorado. Nao use em producao!")
+    else:
+        print("[AVISO] STORAGE_MODE=json -- usando JSON files (Neon PostgreSQL nao disponivel). Apenas para dev local!")
 
 PASSWORD_MIN_LENGTH = 8
 PASSWORD_MIN_DIGITS = 1

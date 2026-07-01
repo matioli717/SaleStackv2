@@ -1,3 +1,6 @@
+import os
+os.environ["STORAGE_MODE"] = "json"
+
 import sys
 import pathlib
 
