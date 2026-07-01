@@ -155,15 +155,18 @@ def sync_stripe_products():
     if not STRIPE_AVAILABLE:
         return
     try:
-        existing = {p.name: p for p in stripe.Product.list(active=True)}
+        existing_products = {p.name: p for p in stripe.Product.list(active=True, limit=100)}
         for key, plan in PLANS.items():
-            if key == "free" or not plan["price"]:
+            if key == "free" or not plan.get("price"):
                 continue
-            if plan["name"] not in existing:
+            if plan["name"] in existing_products:
+                product = existing_products[plan["name"]]
+            else:
                 product = stripe.Product.create(
                     name=plan["name"],
                     description=f"{plan['leads_limit']} leads, {plan['users_limit']} usuarios"
                 )
+            if not plan.get("stripe_price_id") or not plan["stripe_price_id"].startswith("price_"):
                 price_data = {
                     "product": product.id,
                     "unit_amount": plan["price"] * 100,
@@ -175,7 +178,23 @@ def sync_stripe_products():
                     price_data["recurring"] = {"interval": "month"}
                 price = stripe.Price.create(**price_data)
                 plan["stripe_price_id"] = price.id
-                print(f"[STRIPE] Created {plan['name']} -> {price.id}")
+                print(f"[STRIPE] Created price {plan['name']} -> {price.id}")
+            else:
+                try:
+                    stripe.Price.retrieve(plan["stripe_price_id"])
+                except stripe.error.InvalidRequestError:
+                    price_data = {
+                        "product": product.id,
+                        "unit_amount": plan["price"] * 100,
+                        "currency": "brl",
+                    }
+                    if plan.get("is_lifetime"):
+                        price_data["type"] = "one_time"
+                    else:
+                        price_data["recurring"] = {"interval": "month"}
+                    price = stripe.Price.create(**price_data)
+                    plan["stripe_price_id"] = price.id
+                    print(f"[STRIPE] Recreated price for {plan['name']} -> {price.id}")
     except Exception as e:
         print(f"[STRIPE] Sync error: {e}")
 
