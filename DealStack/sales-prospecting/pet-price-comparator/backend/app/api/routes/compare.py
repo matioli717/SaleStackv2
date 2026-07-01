@@ -1,9 +1,8 @@
+from datetime import datetime
+
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy import select, func
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
-from uuid import UUID
-from decimal import Decimal
 
 from app.db.base import get_db
 from app.models.product import Product, Price, Retailer
@@ -81,51 +80,78 @@ async def search_and_compare(
     q: str = Query(..., min_length=2, description="Busca por nome/gtin"),
     category: str | None = Query(None),
     limit: int = Query(10, le=50),
-    db: AsyncSession = Depends(get_db),
 ):
-    # Busca produtos
-    stmt = select(Product).where(Product.is_active == True)
-    if category:
-        stmt = stmt.where(Product.category == category)
-    stmt = stmt.where(Product.name.ilike(f"%{q}%")).limit(limit)
-    result = await db.execute(stmt)
-    products = result.scalars().all()
+    # TODO: conectar scraper/banco. Por enquanto, retorna mock estável.
+    return _mock(q, category)
 
-    comparisons = []
-    for product in products:
-        # Busca preços
-        price_stmt = (
-            select(Price)
-            .where(Price.product_id == product.id, Price.in_stock == True)
-            .distinct(Price.retailer)
-            .order_by(Price.retailer, Price.captured_at.desc())
-        )
-        price_result = await db.execute(price_stmt)
-        prices = price_result.scalars().all()
 
-        if not prices:
-            continue
+def _mock(q, category):
+    prices = [
+        {
+            "id": "22222222-2222-2222-2222-222222222221",
+            "product_id": "11111111-1111-1111-1111-111111111111",
+            "retailer": "petlove",
+            "price_cents": 32990,
+            "in_stock": True,
+            "captured_at": datetime.utcnow().isoformat(),
+        },
+        {
+            "id": "22222222-2222-2222-2222-222222222222",
+            "product_id": "11111111-1111-1111-1111-111111111111",
+            "retailer": "cobasi",
+            "price_cents": 30990,
+            "in_stock": True,
+            "captured_at": datetime.utcnow().isoformat(),
+        },
+        {
+            "id": "22222222-2222-2222-2222-222222222223",
+            "product_id": "11111111-1111-1111-1111-111111111111",
+            "retailer": "petz",
+            "price_cents": 28990,
+            "in_stock": True,
+            "captured_at": datetime.utcnow().isoformat(),
+        },
+        {
+            "id": "22222222-2222-2222-2222-222222222224",
+            "product_id": "11111111-1111-1111-1111-111111111111",
+            "retailer": "zooplus",
+            "price_cents": 31990,
+            "in_stock": True,
+            "captured_at": datetime.utcnow().isoformat(),
+        },
+        {"retailer": "parceiro_local", "price_cents": 27540, "in_stock": True, "captured_at": datetime.utcnow().isoformat()},
+    ]
 
-        online_prices = [p for p in prices if p.retailer != Retailer.PARCEIRO_LOCAL]
-        if not online_prices:
-            continue
+    best = min(prices, key=lambda p: p["price_cents"])
+    target_price_cents = int(best["price_cents"] * (1 - PARTNER_COMMISSION_PCT))
+    savings_cents = best["price_cents"] - target_price_cents
+    savings_pct = round((savings_cents / best["price_cents"]) * 100, 1)
 
-        best_online = min(online_prices, key=lambda p: p.price_cents)
-        target_price_cents = int(best_online.price_cents * (1 - PARTNER_COMMISSION_PCT))
-        savings_cents = best_online.price_cents - target_price_cents
-        savings_pct = (savings_cents / best_online.price_cents) * 100
+    product_mock = {
+        "id": "11111111-1111-1111-1111-111111111111",
+        "name": f"Resultado para: {q}",
+        "brand": "Marca",
+        "category": category or "geral",
+        "image_url": "",
+        "url": "",
+        "description": "",
+        "retailer": "petlove",
+        "external_id": "mock-1",
+        "gtin": "0000000000000",
+        "is_active": True,
+        "created_at": datetime.utcnow().isoformat(),
+        "updated_at": datetime.utcnow().isoformat(),
+    }
 
-        partner_price = next((p for p in prices if p.retailer == Retailer.PARCEIRO_LOCAL), None)
-
-        comparisons.append(PriceComparison(
-            product=ProductRead.model_validate(product),
-            best_online_price=PriceRead.model_validate(best_online),
-            all_prices=[PriceRead.model_validate(p) for p in prices],
+    return [
+        PriceComparison(
+            product=ProductRead(**product_mock),
+            best_online_price=PriceRead(**best),
+            all_prices=[PriceRead(**p) for p in prices],
             target_price_cents=target_price_cents,
             savings_cents=savings_cents,
-            savings_pct=round(savings_pct, 1),
-            partner_price_cents=partner_price.price_cents if partner_price else None,
+            savings_pct=savings_pct,
+            partner_price_cents=27540,
             can_cover=True,
-        ))
-
-    return comparisons
+        )
+    ]

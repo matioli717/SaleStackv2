@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Loader2, Tag, Sparkles, Shield, Truck, MapPin } from "lucide-react";
+import { Loader2, Tag, Sparkles, Shield, Truck, MapPin, Search } from "lucide-react";
 import { SearchBar } from "@/components/SearchBar";
 import { ProductCard } from "@/components/ProductCard";
 import { searchProducts, PriceComparison } from "@/lib/api";
+import { Button } from "@/components/ui";
 import { Card, CardContent, Badge, cn } from "@/components/ui";
 
 export default function HomePage() {
