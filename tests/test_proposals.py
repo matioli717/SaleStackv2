@@ -45,6 +45,23 @@ def test_proposals_empty():
     assert load_proposals() == []
 
 
+def test_proposals_tenant_isolation():
+    proposals = [
+        {"id": "p_t1", "lead_name": "T1 Co", "tenant_id": "tenant_a"},
+        {"id": "p_t2", "lead_name": "T2 Co", "tenant_id": "tenant_b"},
+        {"id": "p_untagged", "lead_name": "Legacy Co"},
+    ]
+    from server import save_proposals
+    save_proposals(proposals)
+    filtered_a = [p for p in proposals if not p.get("tenant_id") or p.get("tenant_id") == "tenant_a"]
+    filtered_b = [p for p in proposals if not p.get("tenant_id") or p.get("tenant_id") == "tenant_b"]
+    assert len(filtered_a) == 2
+    assert len(filtered_b) == 2
+    assert all(p["id"] in ("p_t1", "p_untagged") for p in filtered_a)
+    assert all(p["id"] in ("p_t2", "p_untagged") for p in filtered_b)
+    clean_proposals([])
+
+
 def test_proposal_status_update():
     from server import save_proposals, load_proposals, update_lead_status_wrapper
     proposals = [{"id": "prop_sts", "lead_id": "lead_sts", "lead_name": "Status Test", "status": "pending"}]

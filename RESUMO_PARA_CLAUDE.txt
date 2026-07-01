@@ -1,0 +1,162 @@
+=== RESUMO DAS ALTERACOES NO SaleStackv2 ===
+Branch: agent/fix-loop
+Data: 2026-07-01
+
+--------------------------------------------------------------
+COMO TESTAR (do diretorio raiz /workspaces/SaleStackv2):
+--------------------------------------------------------------
+  export STORAGE_MODE=json
+  pip install -r DealStack/sales-prospecting/requirements.txt
+  python3 -m pytest tests/ -v --tb=short
+
+--------------------------------------------------------------
+ESTRUTURA ATUAL:
+--------------------------------------------------------------
+  DealStack/
+    sales-prospecting/          <--- unica fonte de verdade
+      server.py                   ~1900 linhas, HTTP server
+      neon_db.py                  PostgreSQL layer
+      login.html                  frontend login
+      requirements.txt
+      scripts/prospecting/        pipeline scripts
+        pipeline_unified.py
+        extract.py
+        neon_db.py              (copia syncada)
+        neon_schema.sql         (atualizado c/ tenant_id)
+        inject_to_dashboard.py
+      pet-price-comparator/       movido da raiz
+      shopify-ops/shopify_ops.py
+      references/categories.json
+    tests/                        51 testes
+      test_security_middleware.py
+      test_auth.py
+      test_multi_tenant.py
+      test_stripe.py
+      test_proposals.py
+      test_pipeline.py
+    .github/workflows/ci.yml
+    PROGRESS.txt
+    COVERAGE.txt
+
+Pastas REMOVIDAS da raiz DealStack/:
+  scripts/, shopify-ops/, content-factory/, meta-ops/,
+  n8n-workflows/, data/, sales-video/
+
+--------------------------------------------------------------
+FASE 1: ELIMINAR DUPLICACAO
+--------------------------------------------------------------
+- Todas as pastas duplicadas foram deletadas da raiz
+- sales-prospecting/ eh a unica fonte de verdade
+- pet-price-comparator movido da raiz para sales-prospecting/
+- inject_to_dashboard.py copiado (so existia na raiz)
+- pipeline_unified.py consolidado em scripts/prospecting/
+- neon_db.py syncado entre raiz e scripts/prospecting/
+
+--------------------------------------------------------------
+FASE 2: SEGURANCA CRITICA (arquivo: server.py)
+--------------------------------------------------------------
+a) Dependencias obrigatorias:
+   - try/except ImportError removido para bcrypt, PyJWT, stripe
+   - Se faltarem, o servidor NAO inicia (hard fail)
+   - neon_db manteve except opcional (modo dev)
+
+b) JWT_SECRET obrigatorio (linhas 47-52):
+   - server.py checa na inicializacao
+   - Se vazio: exibe instrucao de geracao e da sys.exit(1)
+
+c) SHA-256 fallback removido:
+   - hash_password() usa ONLY bcrypt.hashpw() c/ gensalt(12)
+   - verify_password() usa ONLY bcrypt.checkpw()
+   - hashlib ainda importado mas usado APENAS para API keys
+
+d) __import__() eliminado — todos os imports sao estaticos
+
+e) CORS (linhas 427-447):
+   - check_origin() nao aceita wildcard "*"
+   - get_cors_headers() retorna {} se origin nao permitida
+   - Testado e aprovado: wildcard rejeitado, origem especifica OK
+
+f) Webhook Stripe (linhas 1747-1828):
+   - Assinatura invalida -> 400 {"error": "Invalid signature"}
+   - JSON invalido -> 400 {"error": "Invalid JSON"}
+   - Erro interno -> 500 {"error": "Internal error"}
+   - Logs em todos os erros
+   - Eventos tratados: checkout.session.completed,
+     invoice.payment_failed, invoice.payment_succeeded,
+     customer.subscription.deleted, customer.subscription.updated
+
+g) Subprocess timeout: 300s -> 60s (linha 1706)
+
+h) login.html: minlength="8" (era 6, agora consistente c/ backend)
+
+--------------------------------------------------------------
+FASE 3: NEON POSTGRESQL COMO STORAGE UNICO
+--------------------------------------------------------------
+a) STORAGE_MODE env var (linhas 20-40):
+   - Default: "neon" (producao)
+   - Se STORAGE_MODE=neon e DB indisponivel: sys.exit() com erro claro
+   - Se STORAGE_MODE=json: warning explicito "Nao use em producao!"
+
+b) neon_schema.sql atualizado:
+   - Adicionado: tenant_id VARCHAR(100) na tabela leads
+   - Adicionado: idx_leads_tenant_id, idx_leads_created_at,
+     idx_proposals_created_at indices
+
+c) neon_db.py:
+   - SELECTs incluem tenant_id (linhas 150, 169)
+   - INSERT/UPDATE incluem tenant_id (linhas 197, 212, 223, 233, 245)
+   - CREATE TABLE inclui tenant_id (linha 106)
+   - Indice tenant_id (linha 129)
+
+--------------------------------------------------------------
+FASE 4: TESTES (51 testes, 100% passando)
+--------------------------------------------------------------
+  test_security_middleware.py  (13) - herdados, CORS+rate-limit+bcrypt
+  test_auth.py                (15) - JWT, rate-limit, planos, password
+  test_multi_tenant.py         (6) - isolamento tenant_id
+  test_stripe.py               (7) - webhooks, planos, price_ids
+  test_proposals.py            (5) - CRUD propostas
+  test_pipeline.py             (5) - scripts, schema, imports
+
+  Coverage: server.py 18%, neon_db.py 20%, pipeline 8% (total 17%)
+  (baixa porque nao disparam handlers HTTP nem conectam Neon real)
+
+--------------------------------------------------------------
+FASE 5: STRIPE PONTA A PONTA
+--------------------------------------------------------------
+a) sync_stripe_products() (linhas 160-198):
+   - Valida se price_id ja existe no Stripe (stripe.Price.retrieve)
+   - Se price_id placeholder (ex: "price_starter"), cria price real
+   - Se price_id existe mas foi deletado no Stripe, recria
+   - Atualiza plan["stripe_price_id"] com o ID real
+
+b) PLANS: todos os planos pagos tem stripe_price_id
+   (placeholders que serao substituidos pelo sync em runtime)
+
+c) Eventos Stripe: todos os 5 eventos importantes mapeados
+
+--------------------------------------------------------------
+FASE 6: CI/CD
+--------------------------------------------------------------
+  .github/workflows/ci.yml:
+    - trigger: push em main/agent/fix-loop + PR para main
+    - jobs: lint (flake8) + test (pytest-cov)
+    - Python 3.12, pip cache
+    - STORAGE_MODE=json, JWT_SECRET para CI
+
+--------------------------------------------------------------
+ITENS ADIADOS (nao feitos):
+--------------------------------------------------------------
+  S09: Propostas sem tenant_id — impacto medio, exige migracao
+  Testes de integracao HTTP (server thread) — complexo, postergado
+  Neon DB tests — requer PostgreSQL real
+
+--------------------------------------------------------------
+COMMITS (6 no total):
+--------------------------------------------------------------
+  1749e73 ci: add github actions workflow (lint+test)
+  931b674 fix: stripe sync validates existing price_ids
+  9fb4e75 test: add 38 new tests (51 total)
+  0ac4f3d feat: Neon PostgreSQL storage unico c/ STORAGE_MODE
+  2ed01b2 fix: security hardening (bcrypt, JWT, CORS, webhook)
+  930c43e fix: consolidate duplicated code

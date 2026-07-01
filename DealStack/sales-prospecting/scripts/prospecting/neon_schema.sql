@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS proposals (
     subject VARCHAR(300),
     status VARCHAR(20) DEFAULT 'pending',
     date TIMESTAMP DEFAULT NOW(),
+    tenant_id VARCHAR(100),
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -41,4 +42,5 @@ CREATE INDEX IF NOT EXISTS idx_leads_tenant_id ON leads(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at);
 CREATE INDEX IF NOT EXISTS idx_proposals_lead_id ON proposals(lead_id);
 CREATE INDEX IF NOT EXISTS idx_proposals_status ON proposals(status);
+CREATE INDEX IF NOT EXISTS idx_proposals_tenant_id ON proposals(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_proposals_created_at ON proposals(created_at);

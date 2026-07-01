@@ -1082,8 +1082,10 @@ loadStats();
 
     @require_auth(scopes=["read"])
     def serve_shared_proposals(self):
+        tenant_id = self.auth_user.get("tenant_id") or self.auth_user["sub"]
         proposals = load_shared_data("proposals")
-        self.send_json(200, {"proposals": proposals, "count": len(proposals)})
+        filtered = [p for p in proposals if not p.get("tenant_id") or p.get("tenant_id") == tenant_id]
+        self.send_json(200, {"proposals": filtered, "count": len(filtered)})
 
     @require_auth(scopes=["read"])
     def serve_stats(self):
@@ -1097,7 +1099,7 @@ loadStats();
             except Exception as e:
                 print(f"[NEON] get_metrics error: {e}")
         leads = [l for l in load_leads() if not l.get("tenant_id") or l.get("tenant_id") == tenant_id]
-        proposals = load_proposals()
+        proposals = [p for p in load_proposals() if not p.get("tenant_id") or p.get("tenant_id") == tenant_id]
         categories = {}
         for l in leads:
             cat = l.get("category", "unknown")
@@ -1648,6 +1650,7 @@ loadStats();
             if not batch:
                 self.send_json(400, {"error": "proposals vazio"})
                 return
+            tenant_id = self.auth_user.get("tenant_id") or self.auth_user["sub"]
             existing = load_shared_data("proposals")
             existing_ids = {p.get("id") for p in existing}
             new_saved = 0
@@ -1655,6 +1658,7 @@ loadStats();
                 prop_id = prop.get("id")
                 if not prop_id or prop_id in existing_ids:
                     continue
+                prop["tenant_id"] = tenant_id
                 existing.append(prop)
                 existing_ids.add(prop_id)
                 new_saved += 1

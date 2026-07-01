@@ -119,6 +119,7 @@ def init_db():
                     subject VARCHAR(300),
                     status VARCHAR(20) DEFAULT 'pending',
                     date TIMESTAMP DEFAULT NOW(),
+                    tenant_id VARCHAR(100),
                     created_at TIMESTAMP DEFAULT NOW(),
                     updated_at TIMESTAMP DEFAULT NOW()
                 )
@@ -130,6 +131,7 @@ def init_db():
             cur.execute("CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at)")
             cur.execute("CREATE INDEX IF NOT EXISTS idx_proposals_lead_id ON proposals(lead_id)")
             cur.execute("CREATE INDEX IF NOT EXISTS idx_proposals_status ON proposals(status)")
+            cur.execute("CREATE INDEX IF NOT EXISTS idx_proposals_tenant_id ON proposals(tenant_id)")
             cur.execute("CREATE INDEX IF NOT EXISTS idx_proposals_created_at ON proposals(created_at)")
         conn.commit()
 
@@ -262,11 +264,31 @@ def get_proposals() -> List[Dict]:
             cur.execute("""
                 SELECT
                     id, lead_id, lead_name, product, proposal,
-                    subject, status, date,
+                    subject, status, date, tenant_id,
                     to_char(created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at,
                     to_char(updated_at, 'YYYY-MM-DD HH24:MI:SS') as updated_at
                 FROM proposals ORDER BY created_at DESC
             """)
+            return cur.fetchall()
+
+
+def get_proposals_for_tenant(tenant_id: str) -> List[Dict]:
+    """Get proposals filtered by tenant_id."""
+    pool = get_pool()
+    if pool is None:
+        return []
+    with pool.connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT
+                    id, lead_id, lead_name, product, proposal,
+                    subject, status, date, tenant_id,
+                    to_char(created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at,
+                    to_char(updated_at, 'YYYY-MM-DD HH24:MI:SS') as updated_at
+                FROM proposals
+                WHERE tenant_id = %s OR tenant_id IS NULL
+                ORDER BY created_at DESC
+            """, (tenant_id,))
             return cur.fetchall()
 
 
@@ -280,7 +302,7 @@ def get_proposal(proposal_id: str) -> Optional[Dict]:
             cur.execute("""
                 SELECT
                     id, lead_id, lead_name, product, proposal,
-                    subject, status, date,
+                    subject, status, date, tenant_id,
                     to_char(created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at,
                     to_char(updated_at, 'YYYY-MM-DD HH24:MI:SS') as updated_at
                 FROM proposals WHERE id = %s
@@ -314,25 +336,27 @@ def upsert_proposals(proposals: List[Dict]) -> int:
                         UPDATE proposals SET
                             lead_id = %s, lead_name = %s, product = %s,
                             proposal = %s, subject = %s, status = %s,
-                            date = %s, updated_at = %s
+                            date = %s, tenant_id = %s, updated_at = %s
                         WHERE id = %s
                     """, (
                         prop.get("lead_id"), prop.get("lead_name"),
                         prop.get("product"), prop.get("proposal"),
                         prop.get("subject"), prop.get("status", "pending"),
-                        prop.get("date"), now, prop_id
+                        prop.get("date"), prop.get("tenant_id"), now, prop_id
                     ))
                 else:
                     cur.execute("""
                         INSERT INTO proposals (
                             id, lead_id, lead_name, product, proposal,
-                            subject, status, date, created_at, updated_at
-                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            subject, status, date, tenant_id,
+                            created_at, updated_at
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """, (
                         prop_id, prop.get("lead_id"), prop.get("lead_name"),
                         prop.get("product"), prop.get("proposal"),
                         prop.get("subject"), prop.get("status", "pending"),
-                        prop.get("date") or now, now, now
+                        prop.get("date") or now, prop.get("tenant_id"),
+                        now, now
                     ))
                 saved += 1
         conn.commit()
