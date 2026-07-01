@@ -1,0 +1,56 @@
+╔════════════════════════════════════════════════════════╗
+║              SaleStack — Test Coverage                 ║
+╚════════════════════════════════════════════════════════╝
+
+Total: 51 tests, all passing
+
+─────────────────────────────────────────────────────────
+Test File                  Tests   What It Covers
+─────────────────────────────────────────────────────────
+test_security_middleware    13     CORS, rate-limit (login+general),
+                                   password strength, bcrypt hash/verify,
+                                   security headers (CSP, HSTS, etc.)
+
+test_auth                  15     JWT create/decode/expire/signature,
+                                   empty secret error, plan schema,
+                                   rate-limit enforcement, blocked IP,
+                                   login rate-limit pool, bad token decode,
+                                   password edge cases, bcrypt consistency
+
+test_multi_tenant           6      Tenant isolation filter logic:
+                                   own leads, other tenant hidden,
+                                   untagged leads visible to all,
+                                   empty list, null tenant_id,
+                                   multi-tenant isolation
+
+test_stripe                 7      Stripe import, plan stripe_price_id,
+                                   checkout plan mapping, webhook events:
+                                   checkout completed, payment failed,
+                                   subscription deleted, updated
+
+test_proposals              5      Save/load proposals, duplicate ID,
+                                   empty list, status update,
+                                   missing required fields
+
+test_pipeline               5      Script file existence, imports,
+                                   categories.json schema,
+                                   shopify-ops existence,
+                                   neon_schema tenant_id
+
+─────────────────────────────────────────────────────────
+Coverage by Area
+─────────────────────────────────────────────────────────
+Authentication & JWT       ✓ 15 tests
+Multi-tenant isolation     ✓ 6 tests
+Stripe integration         ✓ 7 tests
+Proposals CRUD             ✓ 5 tests
+Pipeline scripts           ✓ 5 tests
+Security middleware        ✓ 13 tests
+
+─────────────────────────────────────────────────────────
+NOT Covered (planned for future)
+─────────────────────────────────────────────────────────
+- HTTP endpoint integration (server thread tests)
+- Neon DB operations (requires live PostgreSQL)
+- Pipeline subprocess execution
+- Stripe live API calls

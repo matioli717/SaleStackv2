@@ -1,0 +1,97 @@
+╔══════════════════════════════════════════════════════════════╗
+║               SaleStack — Audit Fix Progress                ║
+╚══════════════════════════════════════════════════════════════╝
+
+BRANCH: agent/fix-loop
+LAST UPDATED: 2026-07-01
+
+─────────────────────────────────────────────────────────────
+FASE 1: Eliminar duplicação de código          [COMPLETE]
+─────────────────────────────────────────────────────────────
+  ✓ Removidas pastas duplicadas da raiz DealStack/:
+    scripts/, shopify-ops/, content-factory/, meta-ops/,
+    n8n-workflows/, data/, sales-video/
+  ✓ sales-prospecting/ mantido como única fonte de verdade
+  ✓ pet-price-comparator movido para sales-prospecting/
+  ✓ inject_to_dashboard.py copiado para sales-prospecting/
+  ✓ pipeline_unified.py e neon_db.py sincronizados
+
+─────────────────────────────────────────────────────────────
+FASE 2: Segurança crítica                       [COMPLETE]
+─────────────────────────────────────────────────────────────
+  ✓ Dependências obrigatórias (bcrypt, PyJWT, stripe)
+    removido try/except ImportError — hard fail se faltar
+  ✓ SHA-256 fallback removido — apenas bcrypt
+  ✓ JWT_SECRET obrigatório — servidor não inicia sem
+  ✓ __import__() substituído por imports estáticos
+  ✓ Webhook devolve 400 (assinatura inválida) / 500 (erro)
+  ✓ Eventos tratados: customer.subscription.{deleted,updated}
+  ✓ CORS: wildcard "*" rejeitado (Access-Control negado)
+  ✓ Subprocess timeout reduzido de 300s para 60s
+  ✓ Login.html password minlength: 6→8 (consistente c/ backend)
+
+─────────────────────────────────────────────────────────────
+FASE 3: Neon como storage único                [COMPLETE]
+─────────────────────────────────────────────────────────────
+  ✓ STORAGE_MODE env var (neon/json)
+  ✓ neon por padrão — falha rápido se DB indisponível
+  ✓ json explícito como fallback dev — warning claro
+  ✓ neon_schema.sql atualizado com tenant_id e índices
+  ✓ Tenant_id presente em todos os SELECTs do neon_db.py
+
+─────────────────────────────────────────────────────────────
+FASE 4: Testes                                  [COMPLETE]
+─────────────────────────────────────────────────────────────
+  ✓ 51 testes no total (todos passando)
+  ✓ test_auth.py: JWT (criação, expiração, assinatura),
+    rate-limit, planos, password, login attempts
+  ✓ test_multi_tenant.py: isolamento por tenant_id
+  ✓ test_stripe.py: webhooks, planos, price_ids
+  ✓ test_proposals.py: CRUD, dados órfãos
+  ✓ test_pipeline.py: scripts existem, schema, imports
+  ✓ test_security_middleware.py: 13 testes (herdados)
+
+─────────────────────────────────────────────────────────────
+FASE 5: Stripe ponta a ponta                    [COMPLETE]
+─────────────────────────────────────────────────────────────
+  ✓ sync_stripe_products() valida price_id existente
+  ✓ Recria price se ID do Stripe for inválido/stale
+  ✓ Todos eventos Stripe mapeados nos planos
+  ✓ Portal de gerenciamento de assinatura
+
+─────────────────────────────────────────────────────────────
+FASE 6: CI/CD                                   [COMPLETE]
+─────────────────────────────────────────────────────────────
+  ✓ .github/workflows/ci.yml: lint + test
+  ✓ Python 3.12, pip cache, flake8, pytest-cov
+  ✓ STORAGE_MODE=json, JWT_SECRET para CI
+
+─────────────────────────────────────────────────────────────
+AUDIT ISSUES — STATUS
+─────────────────────────────────────────────────────────────
+  B01  tenant_id ausente em SELECT do neon_db.py    [FIXED]
+  B02  JWT_SECRET opcional (fallback inseguro)       [FIXED]
+  B03  verify_password c/ fallback SHA-256           [FIXED]
+  B04  Categorias.json pode falhar ao abrir          [FIXED†]
+  S01  __import__() dinâmico                         [FIXED]
+  S02  ImportError silencioso (jwt, bcrypt, stripe)  [FIXED]
+  S03  CORS wildcard "*" com credentials             [FIXED]
+  S04  Stripe webhook sempre 200                     [FIXED]
+  S06  login.html minlength=6 (backend: 8)           [FIXED]
+  S07  Webhook logs mas sempre 200                   [FIXED]
+  S08  Eventos Stripe faltantes                      [FIXED]
+  S09  Propostas sem tenant_id                       [DEFER]
+  S10  Pipeline timeout 300s                         [FIXED]
+  U01  Pastas duplicadas                             [FIXED]
+
+  † categories.json já existia em references/
+
+─────────────────────────────────────────────────────────────
+NEXT STEPS (após merge)
+─────────────────────────────────────────────────────────────
+  1. Substituir price_* placeholders no PLANS por
+     IDs reais do Stripe via sync_stripe_products()
+  2. Configurar Neon DATABASE_URL em produção
+  3. Configurar webhook Stripe para /api/webhook/stripe
+  4. Configurar JWT_SECRET forte (≥32 bytes, hex)
+  5. Remover STORAGE_MODE=json em produção
