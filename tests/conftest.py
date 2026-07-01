@@ -1,5 +1,13 @@
-import os
+import os, shutil, pathlib
+
 os.environ["STORAGE_MODE"] = "json"
+os.environ["JWT_SECRET"] = "test-jwt-secret-for-integration-tests-only-32chars"
+os.environ["ADMIN_USERNAME"] = "admin"
+os.environ["ADMIN_PASSWORD"] = "AdminTest123"
+os.environ["SHARED_DATA_DIR"] = "/tmp/opencode/shared_test_data"
+
+_shared = pathlib.Path("/tmp/opencode/shared_test_data")
+_shared.mkdir(parents=True, exist_ok=True)
 
 import sys
 import pathlib

@@ -44,14 +44,17 @@ FASE 3: Neon como storage único                [COMPLETE]
 ─────────────────────────────────────────────────────────────
 FASE 4: Testes                                  [COMPLETE]
 ─────────────────────────────────────────────────────────────
-  ✓ 51 testes no total (todos passando)
-  ✓ test_auth.py: JWT (criação, expiração, assinatura),
-    rate-limit, planos, password, login attempts
-  ✓ test_multi_tenant.py: isolamento por tenant_id
-  ✓ test_stripe.py: webhooks, planos, price_ids
-  ✓ test_proposals.py: CRUD, dados órfãos
-  ✓ test_pipeline.py: scripts existem, schema, imports
+  ✓ 69 testes no total (todos passando)
   ✓ test_security_middleware.py: 13 testes (herdados)
+  ✓ test_auth.py: 15 testes (JWT, rate-limit, planos, password)
+  ✓ test_integration_http.py: 17 testes (server thread real)
+    login→JWT, auth 401, register, leads, proposals tenant isolation,
+    webhooks (checkout, payment, subscription), status, plans, limits, stats
+  ✓ test_multi_tenant.py: 6 testes (isolamento tenant_id)
+  ✓ test_stripe.py: 7 testes (webhooks, planos, price_ids)
+  ✓ test_proposals.py: 6 testes (CRUD + tenant isolation)
+  ✓ test_pipeline.py: 5 testes (scripts, schema, imports)
+  ✓ server.py coverage: 48% (era 18%), total geral: 40% (era 17%)
 
 ─────────────────────────────────────────────────────────────
 FASE 5: Stripe ponta a ponta                    [COMPLETE]
@@ -82,9 +85,11 @@ AUDIT ISSUES — STATUS
   S06  login.html minlength=6 (backend: 8)           [FIXED]
   S07  Webhook logs mas sempre 200                   [FIXED]
   S08  Eventos Stripe faltantes                      [FIXED]
-  S09  Propostas sem tenant_id                       [DEFER]
+  S09  Propostas sem tenant_id                       [FIXED]
   S10  Pipeline timeout 300s                         [FIXED]
   U01  Pastas duplicadas                             [FIXED]
+  U02  check_rate_limit KeyError no primeiro request   [FIXED]
+  U03  conftest sem JWT_SECRET/ADMIN_PASSWORD          [FIXED]
 
   † categories.json já existia em references/
 

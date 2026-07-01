@@ -466,6 +466,8 @@ class SecurityMiddleware:
         now = time.time()
         minute_ago = now - 60
         with self._block_lock:
+            if client_ip not in self.request_counts:
+                self.request_counts[client_ip] = []
             self.request_counts[client_ip] = [ts for ts in self.request_counts[client_ip] if ts > minute_ago]
             if client_ip in self.blocked_ips:
                 return False

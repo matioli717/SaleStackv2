@@ -2,13 +2,12 @@
 ║              SaleStack — Test Coverage                 ║
 ╚════════════════════════════════════════════════════════╝
 
-Total: 51 tests, all passing
+Total: 69 tests, all passing
 Coverage report (pytest --cov-branch):
-  server.py:   18% (1324 stmts)
-  neon_db.py:  20% (209 stmts)
+  server.py:   48% (1330 stmts)  ← UP from 18%
+  neon_db.py:  20% (218 stmts)
   pipeline:     8% (198 stmts)
-  Overall:     17%
-  (baixa porque tests importam modules mas nao disparam handlers HTTP nem conectam Neon real)
+  Overall:     40%              ← UP from 17%
 
 ─────────────────────────────────────────────────────────
 Test File                  Tests   What It Covers
@@ -23,6 +22,14 @@ test_auth                  15     JWT create/decode/expire/signature,
                                    login rate-limit pool, bad token decode,
                                    password edge cases, bcrypt consistency
 
+test_integration_http      17     HTTP server thread real:
+                                   login→JWT, wrong password 401,
+                                   register, protected routes (401/401/200),
+                                   save/list leads, leads w/ tenant_id,
+                                   proposals tenant isolation (API),
+                                   webhook checkout/payment/subscription,
+                                   update lead status, plans, limits, stats
+
 test_multi_tenant           6      Tenant isolation filter logic:
                                    own leads, other tenant hidden,
                                    untagged leads visible to all,
@@ -34,9 +41,9 @@ test_stripe                 7      Stripe import, plan stripe_price_id,
                                    checkout completed, payment failed,
                                    subscription deleted, updated
 
-test_proposals              5      Save/load proposals, duplicate ID,
-                                   empty list, status update,
-                                   missing required fields
+test_proposals              6      Save/load proposals, duplicate ID,
+                                   empty list, tenant isolation (unit),
+                                   status update, missing required fields
 
 test_pipeline               5      Script file existence, imports,
                                    categories.json schema,
@@ -46,17 +53,17 @@ test_pipeline               5      Script file existence, imports,
 ─────────────────────────────────────────────────────────
 Coverage by Area
 ─────────────────────────────────────────────────────────
-Authentication & JWT       ✓ 15 tests
-Multi-tenant isolation     ✓ 6 tests
-Stripe integration         ✓ 7 tests
-Proposals CRUD             ✓ 5 tests
-Pipeline scripts           ✓ 5 tests
-Security middleware        ✓ 13 tests
+Authentication & JWT         ✓ 15 tests
+HTTP integration (real)     ✓ 17 tests
+Multi-tenant isolation       ✓ 6 tests + API test
+Stripe integration           ✓ 7 tests
+Proposals CRUD + tenant      ✓ 6 tests
+Pipeline scripts             ✓ 5 tests
+Security middleware          ✓ 13 tests
 
 ─────────────────────────────────────────────────────────
 NOT Covered (planned for future)
 ─────────────────────────────────────────────────────────
-- HTTP endpoint integration (server thread tests)
 - Neon DB operations (requires live PostgreSQL)
 - Pipeline subprocess execution
-- Stripe live API calls
+- Stripe live API calls (no real key)
